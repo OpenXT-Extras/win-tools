@@ -1,0 +1,160 @@
+STRINGTABLE 
+BEGIN
+    IDS_SERVICENAME         "XenGuestAgent"
+    IDS_XENWIRELESS         "<?xml version=""1.0""?>\n<WLANProfile xmlns=""http://www.microsoft.com/networking/WLAN/profile/v1"">\n\t<name>XenClient Wireless</name>\n\t<SSIDConfig>\n\t\t<SSID>\n\t\t\t<name>XenClient Wireless</name>\n\t\t</SSID>\n\t</SSIDConfig>\n\t<connectionType>ESS</connectionType>\n\t<connectionMode>auto</connectionMode>\n\t<MSM>\n\t\t<security>\n\t\t\t<authEncryption>\n\t\t\t\t<authentication>open</authentication>\n\t\t\t\t<encryption>none</encryption>\n\t\t\t\t<useOneX>false</useOneX>\n\t\t\t</authEncryption>\n\t\t\t</security>\n\t</MSM>\n</WLANProfile>\n"
+    IDS_DISPLAYNAME         "Citrix Xen Guest Services"
+    IDS_SERVICEDESC         "Xen ユーザー ドメインのゲスト サービスを提供します。"
+    IDS_ATLBASE_NO_HANDLER            "ハンドラーがインストールされていません"
+    IDS_ATLBASE_SERVICE_STOPPED       "サービスが停止しました"
+    IDS_ATLBASE_SERVICE_STARTED       "サービスを開始しました"
+    IDS_ATLBASE_BAD_SERVICE           "不正なサービス要求です"
+END
+STRINGTABLE DISCARDABLE
+BEGIN
+   IDS_FAILED_TO_CREATE_OBJECT_LOCK___H_XENGUESTSERVICES_24          "オブジェクト ロックの作成に失敗しました - HRESULT: 0x%x"
+   IDS_FAILED_TO_OPEN_XENSTORE___HRESUL_XENGUESTSERVICES_32          "XenStore を開けませんでした - HRESULT: 0x%x"
+   IDS_FAILED_TO_INITIALIZE_VM_VALUES___XENGUESTSERVICES_53          "VM 値の初期化に失敗しました - HRESULT: 0x%x"
+   IDS_MAXIMUM_INSTANCE_COUNT_REACHED___XENGUESTSERVICES_61          "最大インスタンス数に達しました - HRESULT: 0x%x"
+   IDS_FAILED_TO_CREATE_VMS_EVENT_GUID__XENGUESTSERVICES_474         "VMS イベント GUID の作成に失敗しました - HRESULT: 0x%x"
+   IDS_FAILED_TO_CREATE_VMS_EVENT___HRE_XENGUESTSERVICES_492         "VMS イベントの作成に失敗しました - HRESULT: 0x%x"
+   IDS_FAILED_TO_CREATE_ALERTS_EVENT_GU_XENGUESTSERVICES_532         "アラート イベント GUID の作成に失敗しました - HRESULT: 0x%x"
+   IDS_FAILED_TO_CREATE_ALERTS_EVENT____XENGUESTSERVICES_550         "アラート イベントの作成に失敗しました - HRESULT: 0x%x"
+END
+STRINGTABLE DISCARDABLE
+BEGIN
+   IDS_PRINCIPAL__zS_PERMISSION__zS_OPE_XENSECURITYHELPER_35         "プリンシパル: %s 権限: %s 操作: %s エラー: %d"
+   IDS_DENY_CHECK_FAILURE___PERMISSION__XENSECURITYHELPER_1244       "拒否チェックに失敗しました - 権限: %s 操作: %s エラー: %d"
+   IDS_DENY_REMOTE_CHECK_FOR_zS_DETECTE_XENSECURITYHELPER_1279       "リモート アクセスを検出した %s に対する拒否リモート チェックが許可されました!"
+   IDS_ACCESSPERMISSION_XENSECURITYHELPER_1281                       "AccessPermission"
+   IDS_LAUNCHPERMISSION_LAUNCH_XENSECURITYHELPER_1303                "LaunchPermission-Launch"
+   IDS_LAUNCHPERMISSION_ACTIVATE_XENSECURITYHELPER_1311              "LaunchPermission-Activate"
+   IDS_DENY_CHECK_FOUND_NO_SD_DACL_FOR__XENSECURITYHELPER_1431       "拒否チェックにより %s の SD DACL が見つかりません  - 全ユーザーのアクセスが拒否される可能性があります"
+   IDS_LAUNCHPERMISSION_XENSECURITYHELPER_1478                       "LaunchPermission"
+   IDS_FAILED_TO_ALLOCATE_SECURITY_ATTR_XENSECURITYHELPER_1559       "SECURITY_ATTRIBUTES の割り当てに失敗しました"
+   IDS_FAILED_TO_CREATE_SECURITY_DESCRI_XENSECURITYHELPER_1569       "セキュリティ記述子の作成に失敗しました - エラー: %d"
+   IDS_FAILED_TO_GET_SIZES_FROM_MAKEABS_XENSECURITYHELPER_1614       "MakeAbsoluteSD からサイズを取得できませんでした - エラー: %d"
+   IDS_FAILED_TO_ALLOCATE_SECURITY_DESC_XENSECURITYHELPER_1625       "SECURITY_DESCRIPTOR の割り当てに失敗しました"
+   IDS_FAILED_CREATE_SD_IN_MAKEABSOLUTE_XENSECURITYHELPER_1644       "MakeAbsoluteSD に SD を作成できませんでした - エラー: %d"
+   IDS_FAILED_TO_ALLOCATE_XSH_DESCRIPTO_XENSECURITYHELPER_1689       "XSH_DESCRIPTOR の割り当てに失敗しました"
+   IDS_FAILED_TO_INITIALIZE_COM_SID___E_XENSECURITYHELPER_1699       "COM SID の初期化に失敗しました - エラー: %d"
+   IDS_FAILED_TO_ALLOCATE_PINTERACTIVSI_XENSECURITYHELPER_1709       "pInteractivSID SID の割り当てに失敗しました"
+END
+STRINGTABLE DISCARDABLE
+BEGIN
+   IDS_FAILED_TO_ALLOCATE_ADMINS_SID_XENSECURITYHELPER_1718          "Admins SID の割り当てに失敗しました"
+   IDS_FAILED_CREATEWELLKNOWNSID_PINTER_XENSECURITYHELPER_1727       "失敗した CreateWellKnownSid(pInteractivSID) - エラー: %d"
+   IDS_FAILED_CREATEWELLKNOWNSID_PADMIN_XENSECURITYHELPER_1736       "失敗した CreateWellKnownSid(pAdminsSID) - エラー: %d"
+   IDS_FAILED_SETENTRIESINACL_PINTERACT_XENSECURITYHELPER_1755       "失敗した SetEntriesInAcl(pInteractivSID) - エラー: %d"
+   IDS_FAILED_TO_SET_ADMINS_SID_AS_OWNE_XENSECURITYHELPER_1765       "オーナーとして Admins SID を設定できませんでした - エラー: %d"
+   IDS_FAILED_TO_SET_ADMINS_SID_AS_GROU_XENSECURITYHELPER_1773       "グループとして Admins SID を設定できませんでした - エラー: %d"
+   IDS_FAILED_TO_SET_DACL_FOR_SD___ERRO_XENSECURITYHELPER_1782       "SD の DACL を設定できませんでした - エラー: %d"
+END
+STRINGTABLE DISCARDABLE
+BEGIN
+   IDS_FAILED_TO_CONNECT_TO_BACKEND___E_XENHTTP_213                  "バックエンドに接続できませんでした - エラー: %d"
+   IDS_ATTEMPTING_TO_REUSE_CXENHTTP_WIT_XENHTTP_292                  "リセットなしで CXenHttp を再使用しようとしています - これはバグです!"
+   IDS_FAILED_TO_SEND_zS___ERROR__zD_XENHTTP_327                     "%s を送信できませんでした - エラー: %d"
+   IDS_FAILED_TO_SEND_zS___NOT_ALL_DATA_XENHTTP_334                  "%s を送信できませんでした - 一部のデータが書き込まれていません"
+   IDS_FAILED_TO_SEND_zS_DATA___ERROR___XENHTTP_354                  "%s データを送信できませんでした - エラー: %d"
+   IDS_FAILED_TO_SEND_zS_DATA___NOT_ALL_XENHTTP_361                  "%s データを送信できませんでした - 一部のデータが書き込まれていません"
+   IDS_zS_HEADER_TIMEOUT_AFTER_zD_MS_XENHTTP_385                     "%d ミリ秒後に %s ヘッダー タイムアウト"
+   IDS_FAILURE_DURING_WAITFORMULTIPLEOB_XENHTTP_393                  "%s ヘッダーの WaitForMultipleObjects の実行中にエラーが発生しました - エラー: %d"
+   IDS_FAILED_TO_READ_zS_HEADER___ERROR_XENHTTP_408                  "%s ヘッダーの読み取りに失敗しました - エラー: %d"
+   IDS_FAILED_TO_READ_zS_HEADER___NO_DA_XENHTTP_415                  "%s ヘッダーの読み取りに失敗しました - データ読み取りなし"
+   IDS_FAILED_TO_PROCESS_zS_RESPONSE____XENHTTP_425                  "%s 応答の処理に失敗しました - HTTP エラー: %d"
+   IDS_INVALID_CONTENT_LENGTH_SPECIFIED_XENHTTP_437                  "無効なコンテンツの長さが指定されました"
+   IDS_SAFEARRAYACCESSDATA___FAILED___H_XENHTTP_452                  "SafeArrayAccessData() に失敗しました - HRESULT: 0x%x"
+   IDS_zS_DATA_TIMEOUT_AFTER_zD_MS_XENHTTP_476                       "%d ミリ秒後に %s データ タイムアウト"
+   IDS_FAILURE_DURING_WAITFORMULTIPLEOB_XENHTTP_485                  "%s データの WaitForMultipleObjects の実行中にエラーが発生しました - エラー: %d"
+   IDS_FAILED_TO_READ_zS_DATA___ERROR___XENHTTP_499                  "%s データの読み取りに失敗しました - エラー: %d"
+END
+STRINGTABLE DISCARDABLE
+BEGIN
+   IDS_FAILED_TO_READ_zS_DATA___NO_DATA_XENHTTP_506                  "%s データの読み取りに失敗しました - データ読み取りなし"
+   IDS_CRITICAL_FAILURE___zS_VALUE_READ_XENHTTP_514                  "致命的な失敗 - %s 値読み取りが残りよりも大きくなっています!"
+END
+STRINGTABLE DISCARDABLE
+BEGIN
+   IDS_SETUPPARAMETERKEY_COULD_NOT_CREA_XENGUESTAGENT_106            "SetupParameterKey はパラメーター キーを作成できませんでした"
+   IDS_SETUPPARAMETERKEY_COULD_NOT_SET__XENGUESTAGENT_115            "SetupParameterKey は LogCommunicationErrors を設定できませんでした"
+   IDS_SETUPPARAMETERKEY_COULD_NOT_SET__XENGUESTAGENT_123            "SetupParameterKey は LogOperationErrors を設定できませんでした"
+   IDS_REGISTEREVENTSOURCE_COULD_NOT_OP_XENGUESTAGENT_145            "RegisterEventSource はイベント ログ キーを開くことができませんでした"
+   IDS_REGISTEREVENTSOURCE_COULD_NOT_CR_XENGUESTAGENT_155            "RegisterEventSource は新しいイベント ログ キーを作成できませんでした"
+   IDS_REGISTEREVENTSOURCE_COULD_NOT_SE_XENGUESTAGENT_165            "RegisterEventSource はログ メッセージ ソースを設定できませんでした"
+   IDS_REGISTEREVENTSOURCE_COULD_NOT_SE_XENGUESTAGENT_176            "RegisterEventSource は許可されたイベントの種類を設定できませんでした"
+   IDS_UNREGISTEREVENTSOURCE_COULD_NOT__XENGUESTAGENT_193            "UnregisterEventSource はログ イベント キーを削除できませんでした"
+   IDS_UPDATESERVICEREGISTRY_COULD_NOT__XENGUESTAGENT_233            "UpdateServiceRegistry は SCM を開くことができませんでした - エラー: 0x%x"
+   IDS_UPDATESERVICEREGISTRY_COULD_NOT__XENGUESTAGENT_244            "UpdateServiceRegistry は Service を開くことができませんでした - エラー: 0x%x"
+   IDS_UPDATESERVICEREGISTRY_CHANGE_SER_XENGUESTAGENT_264            "UpdateServiceRegistry change service config - error: 0x%x"
+   IDS_UPDATESERVICEREGISTRY_CHANGE_SER_XENGUESTAGENT_275            "UpdateServiceRegistry change service config 2 - error: 0x%x"
+   IDS_FAILED_TO_LOAD_XS2_LIBRARY___ERR_XENGUESTAGENT_413            "xs2 ライブラリの読み込みに失敗しました - エラー: %d"
+   IDS_FAILED_TO_START__SERVICE_SHOULD__XENGUESTAGENT_439            "開始に失敗しました。サービスは、サービス コントロール マネージャーから開始する必要があり、実行可能プログラムとして直接実行すべきではありません"
+   IDS_FAILED_TO_START_SERVICE_XENGUESTAGENT_459                     "サービスの開始に失敗しました"
+   IDS_GETVERSIONEX_FAILED_____ERROR__z_XENGUESTAGENT_537            "GetVersionEx に失敗しました!! - エラー: %d"
+END
+STRINGTABLE DISCARDABLE
+BEGIN
+   IDS_FAILED_TO_CREATE_SHUTDOWN_EVENT__XENGUESTAGENT_545            "シャットダウン イベントの作成に失敗しました - エラー: %d"
+   IDS_FAILED_TO_CREATE_VMS_EVENT___ERR_XENGUESTAGENT_553            "VMS イベントの作成に失敗しました - エラー: %d"
+   IDS_FAILED_TO_CREATE_VMS_VECTOR_LOCK_XENGUESTAGENT_561            "VMS ベクター ロックの作成に失敗しました - エラー: %d"
+   IDS_FAILED_TO_CREATE_ALERTS_VECTOR_L_XENGUESTAGENT_569            "アラート ベクター ロックの作成に失敗しました - エラー: %d"
+   IDS_XS2OPEN_FAILED_FOR_START__NOT_RU_XENGUESTAGENT_689            "XS2Open は開始に失敗しました (Xen 上で実行されていない可能性あり) - エラー: %d"
+   IDS_XS2READ_FAILED_FOR_VM___ERROR__z_XENGUESTAGENT_697            "XS2Read は vm のために失敗しました - エラー: %d"
+   IDS_FAILED_TO_START_TASK_THREAD___ER_XENGUESTAGENT_730            "Task スレッドの開始に失敗しました - ERRORNO: %d"
+   IDS_FAILED_TO_START_VMS_WATCH_THREAD_XENGUESTAGENT_739            "VMS ウォッチ スレッドの開始に失敗しました - ERRORNO: %d"
+   IDS_FAILED_TO_START_ALERTS_WATCH_THR_XENGUESTAGENT_748            "アラート ウォッチ スレッドの開始に失敗しました - ERRORNO: %d"
+   IDS_XS2OPEN_FAILED_FOR_LOADVMS___ERR_XENGUESTAGENT_1090           "XS2Open は LoadVms のために失敗しました - エラー: %d"
+   IDS_XS2DIRECTORY_NO_VMS_RETURNED____XENGUESTAGENT_1101            "XS2Directory no VMs returned???"
+   IDS_FAILED_TO_RETURN_SYSTEM_DIRECTOR_XENGUESTAGENT_1248           "システム ディレクトリを返せませんでした"
+   IDS_FAILED_TO_LAUNCH_POWERCFG_TOOL___XENGUESTAGENT_1261           "powercfg ツールの起動に失敗しました : エラー: %d"
+   IDS_FAILURE_RETURNED_FROM_POWEROPTS__XENGUESTAGENT_1282           "poweropts がエラーを返しました - エラー: %d"
+   IDS_WLANPROF__WLANAPI_DLL_NOT_FOUND_XENGUESTAGENT_1302            "WLANPROF: WLANAPI.DLL が見つかりませんでした"
+   IDS_WLANPROF__ERROR_LOADING_WIFI_API_XENGUESTAGENT_1306           "WLANPROF: Wifi API プロシージャの読み込み中にエラーが発生しました"
+END
+STRINGTABLE DISCARDABLE
+BEGIN
+   IDS_WLANPROF__ERROR_GETTING_LIST_OF__XENGUESTAGENT_1310           "WLANPROF: デバイス インターフェイスの一覧を取得中にエラーが発生しました: WLAN 状態 = %d"
+   IDS_WLANPROF__ERROR_ADDING_AP__WLAN__XENGUESTAGENT_1314           "WLANPROF: AP を追加中にエラーが発生しました: WLAN 状態 = %d"
+   IDS_WLANPROF__UNKNOWN_FAILURE_ENCOUN_XENGUESTAGENT_1318           "WLANPROF: 不明なエラーが発生しました: %d"
+   IDS_XS2OPEN_FAILED_FOR_WATCHES___ERR_XENGUESTAGENT_1339           "XS2Open はウォッチのために失敗しました - エラー: %d"
+   IDS_FAILED_TO_OPEN_XENSTORE_VMS_WATC_XENGUESTAGENT_1349           "XenStore VMS ウォッチを開くことができませんでした - エラー: %d"
+   IDS_XS_WATCH_THREAD_SHUTTING_DOWN__XENGUESTAGENT_1359             "XS Watch スレッドがシャットダウンしています。"
+   IDS_WAIT_FAILED_DURING_XS_WATCH_WAIT_XENGUESTAGENT_1370           "WAIT_FAILED during XS watch WaitForMultipleObjects?? - ERROR: %d"
+   IDS_UNKNOWN_FAILURE_DURING_XS_WATCH__XENGUESTAGENT_1378           "Unknown failure during XS watch WaitForMultipleObjects?? - ERROR: %d"
+   IDS_RECEIVED_XCDIAG_REQUEST_XENGUESTAGENT_1414                    "xcdiag 要求を受け取りました"
+   IDS_FAILED_TO_LAUNCH_XCDIAG_TOOL___E_XENGUESTAGENT_1430           "xcdiag ツールの起動に失敗しました : エラー: %d"
+   IDS_FAILED_TO_OPEN_XCDIAG_OUTPUT_FIL_XENGUESTAGENT_1465           "xcdiag 出力ファイルを開くことができませんでした"
+   IDS_XCDIAG_OUTPUT_FILE_APPEARS_EMPTY_XENGUESTAGENT_1476           "xcdiag 出力ファイルが空です"
+   IDS_FAILED_TO_ALLOCATE_MEMORY_FOR_XC_XENGUESTAGENT_1486           "xcdiag 出力にメモリを割り当てることができませんでした"
+   IDS_FAILED_TO_ACCESS_XCDIAG_FILE_XENGUESTAGENT_1502               "xcdiag ファイルへのアクセスに失敗しました"
+   IDS_FAILED_TO_VIEW_XCDIAG_OUTPUT_XENGUESTAGENT_1520               "xcdiag 出力の表示に失敗しました"
+   IDS_XCDIAG_ZIP_FILE_SENT__XENGUESTAGENT_1591                      "xcdiag zip ファイルを送信しました。"
+END
+STRINGTABLE DISCARDABLE
+BEGIN
+   IDS_DOPOST___OPERATION_FAILED___ERRO_XENGUESTAGENT_1596           "DoPOST() 操作に失敗しました - エラー: %d  HTTP コード: %d"
+   IDS_DOGET___FAILED_TO_REGISTER_FOR_A_XENGUESTAGENT_1652           "DoGET() はアラート シグナルに対する登録に失敗しました - エラー: %d  HTTP コード: %d。インターフェイス: %s"
+   IDS_FAILED_TO_OPEN_V4V_CHANNEL_ON_FI_XENGUESTAGENT_1721           "最初の試行では V4V チャネルを開くことができませんでしたが、再試行されます - HRESULT: 0x%x"
+   IDS_FAILED_TO_PARSE_JSON_SIGNAL___ER_XENGUESTAGENT_1759           "JSON シグナルの解析に失敗しました - エラー: %s"
+   IDS_SAFEARRAYACCESSDATA___FAILED___H_XENGUESTAGENT_1800           "SafeArrayAccessData() に失敗しました - HRESULT: 0x%x"
+   IDS_ALERTS_THREAD_SHUTTING_DOWN__XENGUESTAGENT_1825               "アラート スレッドがシャットダウンしています。"
+   IDS_DOGET___FAILED_TO_RECEIVE_SIGNAL_XENGUESTAGENT_1831           "DoGET() はシグナルを受信できませんでした - エラー: %d  HTTP コード: %d"
+   IDS_FAILED_TO_RESET_SIGNAL_REGISTRAT_XENGUESTAGENT_1838           "シグナル登録のリセットに失敗しました"
+   IDS_SAFEARRAYCOPY___FAILED___HRESULT_XENGUESTAGENT_1875           "SafeArrayCopy() に失敗しました - HRESULT: 0x%x"
+   IDS_E_OUTOFMEMORY___HRESULT__0XzX_XENGUESTAGENT_1881              "E_OUTOFMEMORY - HRESULT: 0x%x"
+END
+STRINGTABLE DISCARDABLE
+BEGIN
+   IDS_SAFEARRAYACCESSDATA___FAILED___H_XENGUESTSERVICES_230         "SafeArrayAccessData() に失敗しました - HRESULT: 0x%x"
+   IDS_SAFEARRAYACCESSDATA___RETRIEVED__XENGUESTSERVICES_237         "SafeArrayAccessData() が NULL データを取得しました"
+   IDS_XS_WATCH_THREAD_SHUTTING_DOWN__XENGUESTSERVICES_301           "XS Watch スレッドがシャットダウンしています。"
+   IDS_DOGET___FAILED___ERROR__zD_HTTP__XENGUESTSERVICES_308         "DoGET() に失敗しました - エラー: %d  HTTP コード: %d"
+   IDS_COCREATEINSTANCE_CLSID_XENVMINFO_XENGUESTSERVICES_378         "CoCreateInstance(CLSID_XenVmInfo) に失敗しました - HRESULT: 0x%x"
+   IDS_QUERYINTERFACE_IXENVMINITIALIZE__XENGUESTSERVICES_385         "QueryInterface(IXenVmInitialize) に失敗しました - HRESULT: 0x%x"
+   IDS_QUERYINTERFACE_IXENVMINITIALIZE__XENGUESTSERVICES_391         "QueryInterface(IXenVmInitialize) はインターフェイス ポインターを返しませんでした - HRESULT: 0x%x"
+   IDS_LOADIMAGEUID_FAILED__IMAGE__zS___XENGUESTSERVICES_406         "LoadImageUid に失敗しました、イメージ: %s - HRESULT: 0x%x"
+   IDS_DELETING_XCIPLUGIN_RUN_VALUE_FAI_XENGUESTSERVICES_640         "XciPlugin Run 値の削除に失敗しました - エラー: %d"
+   IDS_CREATING_XCIPLUGIN_RUN_VALUE_FAI_XENGUESTSERVICES_652         "XciPlugin Run 値の作成に失敗しました - エラー: %d"
+   IDS_FAILED_TO_OPEN_XENINP_FILE_HANDL_XENGUESTSERVICES_674         "XenInp ファイル ハンドルを開けませんでした - エラー: %d"
+   IDS_FAILED_TO_SEND_XENINP_IOCTL_ACCE_XENGUESTSERVICES_683         "XENINP_IOCTL_ACCELERATION を送信できませんでした - エラー: %d"
+END

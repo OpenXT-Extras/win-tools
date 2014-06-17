@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <v4vioDllSettingsPropsDefined>1</v4vioDllSettingsPropsDefined>
+  </PropertyGroup>
+
+  <Import Condition=" '$(UdbusDefined)' == '' " Project="udbus.props" />
+
+  <PropertyGroup>
+    <V4VioLibNameSuffix />
+    <V4VioLibNameSuffix Condition=" '$(V4VioLibNameSuffix)' == '' And '$(Configuration)'=='DebugStaticLib' ">_d</V4VioLibNameSuffix>
+    <V4VioLibNameSuffix Condition=" '$(V4VioLibNameSuffix)' == '' And '$(Configuration)'=='DebugDLL' ">_d</V4VioLibNameSuffix>
+    <V4VioLibNameSuffix Condition=" '$(V4VioLibNameSuffix)' == '' And '$(Configuration)'=='Debug' ">_d</V4VioLibNameSuffix>
+    <V4VioLibNameSuffix Condition=" '$(V4VioLibNameSuffix)' == '' And '$(Configuration)'=='' ">_d</V4VioLibNameSuffix>
+    <V4VioDllLibName>v4vio$(V4VioLibNameSuffix)</V4VioDllLibName>
+    <V4VioDllLibFile>$(V4VioDllLibName).lib</V4VioDllLibFile>
+    <V4VioLibName>$(V4VioDllLibName)</V4VioLibName>
+    <V4VioLibFile>$(V4VioDllLibFile)</V4VioLibFile>
+  </PropertyGroup>
+  <PropertyGroup />
+  <ItemDefinitionGroup />
+  <ItemGroup>
+    <BuildMacro Include="V4VioLibName">
+      <Value>$(V4VioLibName)</Value>
+    </BuildMacro>
+    <BuildMacro Include="V4VioLibFile">
+      <Value>$(V4VioLibFile)</Value>
+    </BuildMacro>
+  </ItemGroup>
+</Project>

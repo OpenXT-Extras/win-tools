@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <BuildUdbusCommonPropsDefined>1</BuildUdbusCommonPropsDefined>
+  </PropertyGroup>
+
+  <Import Condition=" '$(UdbusCommonPropsDefined)' == '' " Project="udbus.common.props" />
+  <Import Condition=" '$(BuildUdbusImportLocationPropsDefined)' == '' "
+          Project="build.udbus.import.location.props"
+  />
+</Project>

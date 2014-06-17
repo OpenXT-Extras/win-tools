@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+  <Product Id="3DD567C8-7FF3-4BD7-BA32-462D36ADB3B3" Name="Citrix XenClient Guest Client Console Test"
+           Language="1033" Version="$(var.Version)"
+           Manufacturer="Citrix Systems Inc." UpgradeCode="822a3b62-5ded-46f1-a5c5-b0411dc4443f"
+  >
+    <Package InstallerVersion="200" Compressed="yes" InstallScope="perMachine" />
+
+    <MajorUpgrade DowngradeErrorMessage="A newer version of [ProductName] is already installed." />
+    <MediaTemplate EmbedCab="yes"/>
+
+    <Feature Id="ProductFeature"
+             Title="Guest Client Console"
+             TypicalDefault="install"
+             Display="expand"
+             Level="1"
+             ConfigurableDirectory="INSTALLFOLDER" >
+      <Feature Id="Binaries"
+               Title="Binaries"
+               TypicalDefault="install"
+               Description="Client console test executable and accompanying assemblies."
+               Level="1" >
+        <ComponentGroupRef Id="XenClientGuestClientConsoleTestComponents" />
+        <MergeRef Id="UdbusBindingsInterfacesLibrariesInstallerMSM"/>
+        <MergeRef Id="UdbusBindingsClientLibrariesInstallerMSM"/>
+        <MergeRef Id="XenClientGuestServiceSDK"/>
+      </Feature>
+
+      <Feature Id="Source"
+               Title="Source"
+               Description="Client console test source code."
+               Display="expand"
+               Level="1" >
+        <ComponentGroupRef Id="XenClientGuestClientConsoleTestSourceFileComponents" />
+        <ComponentGroupRef Id="XenClientGuestClientConsoleTestSourceFilePropertiesComponents"/>
+        <MergeRef Id="UdbusBindingsInterfacesLibrariesInstallerMSM"/>
+      </Feature>
+    </Feature>
+
+    <UIRef Id="WixUI_FeatureTree"/>
+    <UIRef Id="WixUI_ErrorProgressText"/>
+  </Product>
+
+  <Fragment>
+    <Directory Id="TARGETDIR" Name="SourceDir">
+      <Directory Id="ProgramFilesFolder">
+        <Directory Id="INSTALLFOLDER" Name="Citrix">
+          <Directory Id="XenClientGuestClientConsoleTestInstallerDir" Name="XenClientGuestClientConsole">
+            <Directory Id="XenClientGuestClientConsoleTestInstallerMSMDir" Name="msm" />
+            <!-- Put the source into the same directory so that it can reference the assemblies. -->
+            <Directory Id="XenClientGuestClientConsoleTestInstallerSourceDir">
+              <Directory Id="XenClientGuestClientConsoleTestInstallerSourcePropertiesDir" Name="Properties">
+              </Directory>
+            </Directory>
+            
+            <Merge Id="UdbusBindingsInterfacesLibrariesInstallerMSM"
+                     Language="1033"
+                     SourceFile=".\bin\Udbus.Bindings.Interfaces.Libraries.Installer.msm"
+                     DiskId="1"
+            />
+            <Merge Id="UdbusBindingsClientLibrariesInstallerMSM"
+                     Language="1033"
+                     SourceFile=".\bin\Udbus.Bindings.Client.Libraries.Installer.msm"
+                     DiskId="1"
+            />
+            <Merge Id="XenClientGuestServiceSDK"
+                   Language="1033"
+                   SourceFile=".\bin\XenClientGuestServiceSDK.msm"
+                   DiskId="1" />
+          </Directory>
+        </Directory>
+      </Directory>
+    </Directory>
+  </Fragment>
+
+  <Fragment>
+    <ComponentGroup Id="XenClientGuestClientConsoleTestComponents" Directory="XenClientGuestClientConsoleTestInstallerDir">
+       <Component Id="ProductComponent">
+         <File Id="XenClientGuestClientConsoleFile"
+               Name="XenClientGuestClientConsoleTest.exe"
+               Source="..\XenClientGuestService\Tests\XenClientGuestClientConsoleTest\bin\$(var.Configuration)\XenClientGuestClientConsoleTest.exe"
+               Vital="yes"
+               KeyPath="yes"
+          />
+       </Component> 
+    </ComponentGroup>
+
+    <!-- source files. -->
+    <ComponentGroup Id="XenClientGuestClientConsoleTestSourceFileComponents" Directory="XenClientGuestClientConsoleTestInstallerSourceDir">
+      <Component Id="XenClientGuestClientConsoleTestSourceFileComponent" Guid="D599A7A8-628E-4D98-BFDB-33F778EA00DB">
+        <File Id="XenClientGuestClientConsoleTestFileCS"
+              Name="XenClientGuestClientConsoleTest.cs"
+              Source="..\XenClientGuestService\Tests\XenClientGuestClientConsoleTest\XenClientGuestClientConsoleTest.cs"
+              Vital="yes"
+        />
+        <File Id="XenClientGuestClientConsoleTestFileCSPROJ"
+              Name="XenClientGuestClientConsoleTest.csproj"
+              Source="..\XenClientGuestService\Tests\XenClientGuestClientConsoleTest\XenClientGuestClientConsoleTest.csproj"
+              Vital="yes"
+        />
+      </Component>
+    </ComponentGroup>
+    <!-- source properties files. -->
+    <ComponentGroup Id="XenClientGuestClientConsoleTestSourceFilePropertiesComponents" Directory="XenClientGuestClientConsoleTestInstallerSourcePropertiesDir">
+      <Component Id="XenClientGuestClientConsoleTestSourceFilePropertiesComponent" Guid="7BC52600-8614-4412-A3B6-213DD0C6FEC7">
+        <File Id="XenClientGuestClientConsoleTestAssemblyFileCS"
+              Name="AssemblyInfo.cs"
+              Source="..\XenClientGuestService\Tests\XenClientGuestClientConsoleTest\Properties\AssemblyInfo.cs"
+              Vital="yes"
+        />
+      </Component>
+    </ComponentGroup>
+  </Fragment>
+</Wix>

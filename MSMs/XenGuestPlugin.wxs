@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+	<Module Id="XenGuestPluginMSM" Language="1033" Version="$(var.Version)">
+		<Package Id="003dc367-7ec8-4782-b668-817dfc377766" Manufacturer="Citrix Systems, Inc." InstallerVersion="200" Platform="$(var.Platform)"/>
+
+    <!--Define icon files-->
+    <Icon Id="XCP.exe" SourceFile="..\XenGuestPlugin\XenGuestPlugin\bin\$(var.Configuration)\XenGuestPlugin.exe"/>
+
+    <Directory Id="TARGETDIR" Name="SourceDir">
+      <Directory Id="ProgramMenuFolder" Name="Programs" >
+        <Directory Id="ProgramMenuCitrixDir" Name="Citrix">
+          <Component Id ="ProgramMenuCitrixDir" Guid="{02F55B3E-2461-4e07-8A62-DE0B34452095}">
+            <RemoveFolder Id="ProgramMenuCitrixDir" On="uninstall"/>
+            <RegistryValue Root='HKCU' Key='SOFTWARE\Citrix\XenGuestPlugin'
+                           Type='string' Value='' KeyPath='yes' />
+          </Component>
+        </Directory>
+      </Directory>
+
+      <Directory Id="ProgramFilesFolder">
+        <Directory Id="Citrix" Name="Citrix">
+          <Directory Id="INSTALLDIR" Name="XenGuestPlugin">
+
+            <Component Id='XenGuestPlugin' Guid='{20010F4E-9D1C-4eba-9C9D-DA99FD4BDA3A}'>
+              <File Id='log4netDLL' Name='log4net.dll' DiskId='1' Source='..\XenGuestPlugin\XenGuestPlugin\bin\$(var.Configuration)\log4net.dll' KeyPath='yes'/>
+              <File Id='xenGuestAgentInterop' Name='Interop.XenGuestAgentLib.dll' DiskId='1' Source='..\XenGuestPlugin\XenGuestPlugin\bin\$(var.Configuration)\Interop.XenGuestAgentLib.dll'/>
+              <File Id='xgpEXEconfig' Name='XenGuestPlugin.exe.config' DiskId='1' Source='..\XenGuestPlugin\XenGuestPlugin\bin\$(var.Configuration)\XenGuestPlugin.exe.config'/>
+              <File Id='xgpEXE' Name='XenGuestPlugin.exe' DiskId='1' Source='..\XenGuestPlugin\XenGuestPlugin\bin\$(var.Configuration)\XenGuestPlugin.exe'/>
+              <File Id='xdaEXE' Name='XenClientDisplayResolutionAgent.exe' DiskId='1' Source='..\XenGuestPlugin\XenClientDisplayResolutionAgent\bin\$(var.Configuration)\XenClientDisplayResolutionAgent.exe'/>
+              <File Id='UdbusContainers' Name='Udbus.Containers.dll' DiskId='1' Source='..\XenGuestPlugin\XenGuestPlugin\bin\$(var.Configuration)\Udbus.Containers.dll'/>
+              <File Id='UdbusTypes' Name='Udbus.Types.dll' DiskId='1' Source='..\XenGuestPlugin\XenGuestPlugin\bin\$(var.Configuration)\Udbus.Types.dll'/>
+              <File Id='UdbusWCF' Name='Udbus.WCF.dll' DiskId='1' Source='..\XenGuestPlugin\XenGuestPlugin\bin\$(var.Configuration)\Udbus.WCF.dll'/>
+              <File Id='UdbusWCFDbus' Name='Udbus.WCF.Dbus.dll' DiskId='1' Source='..\XenGuestPlugin\XenGuestPlugin\bin\$(var.Configuration)\Udbus.WCF.Dbus.dll'/>
+              <File Id='BindingsClient' Name='XenClientGuest.Bindings.Client.dll' DiskId='1' Source='..\XenGuestPlugin\XenGuestPlugin\bin\$(var.Configuration)\XenClientGuest.Bindings.Client.dll'/>
+              <File Id='BindingsInterface' Name='XenClientGuest.Bindings.Interface.dll' DiskId='1' Source='..\XenGuestPlugin\XenGuestPlugin\bin\$(var.Configuration)\XenClientGuest.Bindings.Interface.dll'/>
+              <File Id='XenClientGuestServiceClient' Name='XenClientGuestService.Client.dll' DiskId='1' Source='..\XenGuestPlugin\XenGuestPlugin\bin\$(var.Configuration)\XenClientGuestService.Client.dll'/>
+            </Component>
+
+            <Directory Id="de" Name="de">
+              <Component Id="de.res" Guid="{898F9A58-7F73-4F01-BC94-85F728C2C495}">
+                <File Id='de.res' Name='XenGuestPlugin.resources.dll' DiskId='1' Source='..\XenGuestPlugin\XenGuestPlugin\bin\$(var.Configuration)\de\XenGuestPlugin.resources.dll'/>
+              </Component>
+            </Directory>
+            <Directory Id="fr" Name="fr">
+              <Component Id="fr.res" Guid="{9BFF5D1A-72E3-4401-A14A-6E38E1CEFB50}">
+                <File Id='fr.res' Name='XenGuestPlugin.resources.dll' DiskId='1' Source='..\XenGuestPlugin\XenGuestPlugin\bin\$(var.Configuration)\fr\XenGuestPlugin.resources.dll'/>
+              </Component>
+            </Directory>
+            <Directory Id="es" Name="es">
+              <Component Id="es.res" Guid="{29FCC81D-3A57-4EA1-9018-F3E56C0692DE}">
+                <File Id='es.res' Name='XenGuestPlugin.resources.dll' DiskId='1' Source='..\XenGuestPlugin\XenGuestPlugin\bin\$(var.Configuration)\es\XenGuestPlugin.resources.dll'/>
+              </Component>
+            </Directory>
+            <Directory Id="ja" Name="ja">
+              <Component Id="ja.res" Guid="{D188D190-B8E1-40B8-9E80-CA71AED9E9C2}">
+                <File Id='ja.res' Name='XenGuestPlugin.resources.dll' DiskId='1' Source='..\XenGuestPlugin\XenGuestPlugin\bin\$(var.Configuration)\ja\XenGuestPlugin.resources.dll'/>
+              </Component>
+            </Directory>
+            <Directory Id="zhcn" Name="zh-cn">
+              <Component Id="zhcn.res" Guid="{7235E44A-A7DA-4B55-BDE8-B482572A753A}">
+                <File Id='zhcn.res' Name='XenGuestPlugin.resources.dll' DiskId='1' Source='..\XenGuestPlugin\XenGuestPlugin\bin\$(var.Configuration)\zh-cn\XenGuestPlugin.resources.dll'/>
+              </Component>
+            </Directory>
+
+            <Component Id="xcpShortcut" Guid="{76964C79-9352-4816-A15F-52638EC362EC}">
+              <RegistryValue Root='HKLM' Key='SOFTWARE\Citrix\XenClient'
+                           Type='string' Value='' KeyPath='yes' />
+              <Shortcut Id="startMenuToolbar" Directory="ProgramMenuCitrixDir" Name="XenClient plug-in"
+                        WorkingDirectory="INSTALLDIR" Target="[INSTALLDIR]\XenGuestPlugin.exe"
+                        Icon="XCP.exe" IconIndex="0"/>
+            </Component>
+
+            <Component Id="xcpRunKey" Guid="{93ED13A7-5380-49b0-BD20-191C44191D5F}">
+              <RegistryValue Root='HKLM' Key='SOFTWARE\Microsoft\Windows\CurrentVersion\Run'
+                           Type='string' Name='XciPlugin' Value="[INSTALLDIR]XenGuestPlugin.exe" />
+              <RegistryValue Root='HKLM' Key='SOFTWARE\Microsoft\Windows\CurrentVersion\Run'
+                           Type='string' Name='XciResolutionAgent' Value="[INSTALLDIR]XenClientDisplayResolutionAgent.exe" />
+            </Component>
+
+            <Component Id='xcpInstallHKLM' Guid='{8F81D37A-F36B-45b5-A25A-DED7BED0FB7E}'>
+              <RegistryValue Root='HKLM' Key='SOFTWARE\Citrix\XenGuestPlugin' Name='Install_Dir'
+                             Type='string' Value='[INSTALLDIR]' KeyPath='yes' />
+            </Component>
+          </Directory>
+        </Directory>
+      </Directory>
+
+<?if $(var.Platform)="x64"?>
+      <Directory Id="ProgramFiles64Folder">
+            <Component Id='xcpInstallHKLMx64' Guid='{32082472-1B2D-4dde-845A-989110FF09A4}' Win64='yes'>
+              <Condition>VersionNT64</Condition>
+              <RegistryValue Root='HKLM' Key='SOFTWARE\Citrix\XenGuestPlugin' Name='Install_Dir'
+                             Type='string' Value='[INSTALLDIR]' KeyPath='yes' />
+            </Component>
+      </Directory>
+<?endif ?>
+    </Directory>
+	</Module>
+</Wix>

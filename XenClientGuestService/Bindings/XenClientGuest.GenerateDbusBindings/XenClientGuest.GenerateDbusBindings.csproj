@@ -1,0 +1,89 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.30729</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{B129F2C3-6318-41BC-B430-C3B201DC32CC}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>XenClientGuest.GenerateDbusBindings</RootNamespace>
+    <AssemblyName>XenClientGuest.GenerateDbusBindings</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Content Include="..\..\..\..\idl\interfaces\ctxusb_daemon.xml">
+      <Link>dbusidl\ctxusb_daemon.xml</Link>
+    </Content>
+    <Content Include="..\..\..\..\idl\interfaces\input_daemon.xml">
+      <Link>dbusidl\input_daemon.xml</Link>
+    </Content>
+    <Content Include="..\..\..\..\idl\interfaces\updatemgr.xml">
+      <Link>dbusidl\updatemgr.xml</Link>
+    </Content>
+    <Content Include="..\..\..\..\idl\interfaces\xenmgr.xml">
+      <Link>dbusidl\xenmgr.xml</Link>
+    </Content>
+    <Content Include="..\..\..\..\idl\interfaces\xenmgr_host.xml">
+      <Link>dbusidl\xenmgr_host.xml</Link>
+    </Content>
+    <Content Include="..\..\..\..\idl\interfaces\xenmgr_vm.xml">
+      <Link>dbusidl\xenmgr_vm.xml</Link>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="System.Core">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Properties\" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(MSBuildProjectDirectory)\..\XenClientGuestService.props" />
+  <PropertyGroup>
+    <!-- MSBuild pre 4.0 has no concept of "This" file properties, so we hard code here. Let's hope it's correct eh. -->
+    <DbusCodeGenerator Condition=" $(MSBuildToolsVersion) &lt; 4.0 ">$(MSBuildProjectDirectory)\..\..\..\dbus\dbusidltocode\bin\$(Configuration)\dbusidltocode.exe</DbusCodeGenerator>
+  </PropertyGroup>
+  <Import Project="$(MSBuildProjectDirectory)\..\..\..\dbus\dbusidltocode\targets\GenerateDbusBindingsFromIDL.targets" />
+  <Target Name="CoreCompile" />
+  <Target Name="CopyFilesToOutputDirectory" />
+  <PropertyGroup>
+    <CompileDependsOn>
+      GenerateDbus;
+      $(CompileDependsOn)
+    </CompileDependsOn>
+  </PropertyGroup>
+  <PropertyGroup>
+    <CleanDependsOn>
+      $(CleanDependsOn);
+      CleanDbusFiles
+    </CleanDependsOn>
+  </PropertyGroup>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

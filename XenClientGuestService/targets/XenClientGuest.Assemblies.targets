@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- XenClientGuest.Assemblies.targets -->
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" >
+  <PropertyGroup>
+    <XenClientGuestAssembliesTargetsDefined>1</XenClientGuestAssembliesTargetsDefined>
+  </PropertyGroup>
+
+  <Import Condition=" '$(XenClientGuestAssembliesPropsDefined)' == '' " Project="..\props\XenClientGuest.Assemblies.props" />
+<!--   <Import Condition=" '$(BuildUdbusInstallersTargetsDefined)' == '' " Project="$(UdbusDefaultRootDirectory)\installers\targets\build.udbus.installers.targets" /> -->
+<!--   <Import Condition=" '$(UdbusInstallersTargetsDefined)' == '' " Project="$(UdbusDefaultRootDirectory)\installers\projects\targets\UdbusLibrariesInstallers.targets" /> -->
+  <Import Condition=" '$(UdbusAssembliesPathmakerTargetsDefined)' == '' " Project="..\..\dbus\targets\udbus.assemblies.pathmaker.targets" />
+
+  <Target Name="ShowBuildXenClientGuestAssemblies"
+  >
+    <Message Text="OutDir: '$(OutDir)'" />
+  </Target>
+
+  <PropertyGroup>
+    <BuildDependsOn>
+      MakeAssemblyPaths;
+      ShowUdbusAssemblyPaths;
+      ShowBuildXenClientGuestAssemblies;
+      $(BuildDependsOn)
+    </BuildDependsOn>
+<!--     <CompileDependsOn> -->
+<!--       DefineUdbusConstants; -->
+<!--       BuildUdbusAssemblyInstaller; -->
+<!--       $(CompileDependsOn) -->
+<!--     </CompileDependsOn> -->
+  </PropertyGroup>
+  <PropertyGroup>
+    <CleanDependsOn>
+<!--       BuildUdbusAssemblyInstaller; -->
+      MakeAssemblyPaths;
+      ShowUdbusAssemblyPaths;
+      ShowBuildXenClientGuestAssemblies;
+      $(CleanDependsOn)
+    </CleanDependsOn>
+  </PropertyGroup>
+</Project>

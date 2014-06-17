@@ -1,0 +1,265 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <UdbusAssemblyLocationsDefined>1</UdbusAssemblyLocationsDefined>
+  </PropertyGroup>
+
+  <Import Condition=" '$(UdbusAssembliesLocationsCommonPropsDefined)' == '' " Project="udbus.assemblies.locations.common.props" />
+
+  <PropertyGroup>
+    <UdbusCoreAssembly>Udbus.Core</UdbusCoreAssembly>
+    <UdbusContainersAssembly>Udbus.Containers</UdbusContainersAssembly>
+    <UdbusParsingAssembly>Udbus.Parsing</UdbusParsingAssembly>
+    <UdbusSerializationAssembly>Udbus.Serialization</UdbusSerializationAssembly>
+    <UdbusTypesAssembly>Udbus.Types</UdbusTypesAssembly>
+    <UdbusUtilsAssembly>Udbus.Utils</UdbusUtilsAssembly>
+    <Udbusv4vAssembly>Udbus.v4v</Udbusv4vAssembly>
+    <UdbusWCFAssembly>Udbus.WCF</UdbusWCFAssembly>
+    <UdbusWCFDbusAssembly>Udbus.WCF.Dbus</UdbusWCFDbusAssembly>
+    <UdbusWCFDbusCommonAssembly>Udbus.WCF.Dbus.Common</UdbusWCFDbusCommonAssembly>
+    <UdbusWCFDbusDetailsAssembly>Udbus.WCF.Dbus.Details</UdbusWCFDbusDetailsAssembly>
+    <UdbusWCFServiceAssembly>Udbus.WCF.Service</UdbusWCFServiceAssembly>
+
+  </PropertyGroup>
+
+  <!-- Create items for assembly properties. -->
+  <ItemGroup>
+        <UdbusAssembly Include="$(UdbusCoreAssembly)" />
+        <UdbusAssembly Include="$(UdbusContainersAssembly)" />
+        <UdbusAssembly Include="$(UdbusParsingAssembly)" />
+        <UdbusAssembly Include="$(UdbusSerializationAssembly)" />
+        <UdbusAssembly Include="$(UdbusTypesAssembly)" />
+        <UdbusAssembly Include="$(UdbusUtilsAssembly)" />
+        <UdbusAssembly Include="$(Udbusv4vAssembly)" />
+        <UdbusAssembly Include="$(UdbusWCFAssembly)" />
+        <UdbusAssembly Include="$(UdbusWCFDbusAssembly)" />
+        <UdbusAssembly Include="$(UdbusWCFDbusCommonAssembly)" />
+        <UdbusAssembly Include="$(UdbusWCFDbusDetailsAssembly)" />
+        <UdbusAssembly Include="$(UdbusWCFServiceAssembly)" />
+
+  </ItemGroup>
+
+  <!-- ==FileName== -->
+  <PropertyGroup>
+    <UdbusCoreFileName>$(UdbusCoreAssembly).dll</UdbusCoreFileName>
+    <UdbusContainersFileName>$(UdbusContainersAssembly).dll</UdbusContainersFileName>
+    <UdbusParsingFileName>$(UdbusParsingAssembly).dll</UdbusParsingFileName>
+    <UdbusSerializationFileName>$(UdbusSerializationAssembly).dll</UdbusSerializationFileName>
+    <UdbusTypesFileName>$(UdbusTypesAssembly).dll</UdbusTypesFileName>
+    <UdbusUtilsFileName>$(UdbusUtilsAssembly).dll</UdbusUtilsFileName>
+    <Udbusv4vFileName>$(Udbusv4vAssembly).dll</Udbusv4vFileName>
+    <UdbusWCFFileName>$(UdbusWCFAssembly).dll</UdbusWCFFileName>
+    <UdbusWCFDbusFileName>$(UdbusWCFDbusAssembly).dll</UdbusWCFDbusFileName>
+    <UdbusWCFDbusCommonFileName>$(UdbusWCFDbusCommonAssembly).dll</UdbusWCFDbusCommonFileName>
+    <UdbusWCFDbusDetailsFileName>$(UdbusWCFDbusDetailsAssembly).dll</UdbusWCFDbusDetailsFileName>
+    <UdbusWCFServiceFileName>$(UdbusWCFServiceAssembly).dll</UdbusWCFServiceFileName>
+  </PropertyGroup>
+
+
+  <!-- ===Default=== -->
+  <!-- Building in external directory based on solution/configuration.
+       Standard Visual Studio behaviour. 
+  -->
+
+  <PropertyGroup Condition=" '$(UdbusBuildLocation)' == '$(UdbusBuildDefault)' ">
+    <_UdbusAssemblyParentDir Condition=" 
+                                    '$(MSBuildProjectName)' == '$(UdbusCoreAssembly)' Or
+                                    '$(MSBuildProjectName)' == '$(UdbusContainersAssembly)' Or
+                                    '$(MSBuildProjectName)' == '$(UdbusParsingAssembly)' Or
+                                    '$(MSBuildProjectName)' == '$(UdbusSerializationAssembly)' Or
+                                    '$(MSBuildProjectName)' == '$(UdbusTypesAssembly)' Or
+                                    '$(MSBuildProjectName)' == '$(UdbusUtilsAssembly)' Or
+                                    '$(MSBuildProjectName)' == '$(Udbusv4vAssembly)' Or
+                                    '$(MSBuildProjectName)' == '$(UdbusWCFAssembly)' Or
+                                    '$(MSBuildProjectName)' == '$(UdbusWCFDbusAssembly)' Or
+                                    '$(MSBuildProjectName)' == '$(UdbusWCFDbusCommonAssembly)' Or
+                                    '$(MSBuildProjectName)' == '$(UdbusWCFDbusDetailsAssembly)' Or
+                                    '$(MSBuildProjectName)' == '$(UdbusWCFServiceAssembly)'
+   ">..\</_UdbusAssemblyParentDir>
+    <_UdbusCoreAssemblyDir Condition=" '$(MSBuildProjectName)' != '$(UdbusCoreAssembly)' ">$(_UdbusAssemblyParentDir)$(UdbusCoreAssembly)\</_UdbusCoreAssemblyDir>
+    <_UdbusContainersAssemblyDir Condition=" '$(MSBuildProjectName)' != '$(UdbusContainersAssembly)' ">$(_UdbusAssemblyParentDir)$(UdbusContainersAssembly)\</_UdbusContainersAssemblyDir>
+    <_UdbusParsingAssemblyDir Condition=" '$(MSBuildProjectName)' != '$(UdbusParsingAssembly)' ">$(_UdbusAssemblyParentDir)$(UdbusParsingAssembly)\</_UdbusParsingAssemblyDir>
+    <_UdbusSerializationAssemblyDir Condition=" '$(MSBuildProjectName)' != '$(UdbusSerializationAssembly)' ">$(_UdbusAssemblyParentDir)$(UdbusSerializationAssembly)\</_UdbusSerializationAssemblyDir>
+    <_UdbusTypesAssemblyDir Condition=" '$(MSBuildProjectName)' != '$(UdbusTypesAssembly)' ">$(_UdbusAssemblyParentDir)$(UdbusTypesAssembly)\</_UdbusTypesAssemblyDir>
+    <_UdbusUtilsAssemblyDir Condition=" '$(MSBuildProjectName)' != '$(UdbusUtilsAssembly)' ">$(_UdbusAssemblyParentDir)$(UdbusUtilsAssembly)\</_UdbusUtilsAssemblyDir>
+    <_Udbusv4vAssemblyDir Condition=" '$(MSBuildProjectName)' != '$(Udbusv4vAssembly)' ">$(_UdbusAssemblyParentDir)$(Udbusv4vAssembly)\</_Udbusv4vAssemblyDir>
+    <_UdbusWCFAssemblyDir Condition=" '$(MSBuildProjectName)' != '$(UdbusWCFAssembly)' ">$(_UdbusAssemblyParentDir)$(UdbusWCFAssembly)\</_UdbusWCFAssemblyDir>
+    <_UdbusWCFDbusAssemblyDir Condition=" '$(MSBuildProjectName)' != '$(UdbusWCFDbusAssembly)' ">$(_UdbusAssemblyParentDir)$(UdbusWCFDbusAssembly)\</_UdbusWCFDbusAssemblyDir>
+    <_UdbusWCFDbusCommonAssemblyDir Condition=" '$(MSBuildProjectName)' != '$(UdbusWCFDbusCommonAssembly)' ">$(_UdbusAssemblyParentDir)$(UdbusWCFDbusCommonAssembly)\</_UdbusWCFDbusCommonAssemblyDir>
+    <_UdbusWCFDbusDetailsAssemblyDir Condition=" '$(MSBuildProjectName)' != '$(UdbusWCFDbusDetailsAssembly)' ">$(_UdbusAssemblyParentDir)$(UdbusWCFDbusDetailsAssembly)\</_UdbusWCFDbusDetailsAssemblyDir>
+    <_UdbusWCFServiceAssemblyDir Condition=" '$(MSBuildProjectName)' != '$(UdbusWCFServiceAssembly)' ">$(_UdbusAssemblyParentDir)$(UdbusWCFServiceAssembly)\</_UdbusWCFServiceAssemblyDir>
+  </PropertyGroup>
+
+  <PropertyGroup Condition=" '$(UdbusBuildLocation)' == '$(UdbusBuildDefault)' ">
+    <UdbusCoreDir>$(_UdbusAssemblyRootDirectory)$(_UdbusCoreAssemblyDir)bin\$(DbusAssemblyConfiguration)\</UdbusCoreDir>
+    <UdbusContainersDir>$(_UdbusAssemblyRootDirectory)$(_UdbusContainersAssemblyDir)bin\$(DbusAssemblyConfiguration)\</UdbusContainersDir>
+    <UdbusParsingDir>$(_UdbusAssemblyRootDirectory)$(_UdbusParsingAssemblyDir)bin\$(DbusAssemblyConfiguration)\</UdbusParsingDir>
+    <UdbusSerializationDir>$(_UdbusAssemblyRootDirectory)$(_UdbusSerializationAssemblyDir)bin\$(DbusAssemblyConfiguration)\</UdbusSerializationDir>
+    <UdbusTypesDir>$(_UdbusAssemblyRootDirectory)$(_UdbusTypesAssemblyDir)bin\$(DbusAssemblyConfiguration)\</UdbusTypesDir>
+    <UdbusUtilsDir>$(_UdbusAssemblyRootDirectory)$(_UdbusUtilsAssemblyDir)bin\$(DbusAssemblyConfiguration)\</UdbusUtilsDir>
+    <Udbusv4vDir>$(_UdbusAssemblyRootDirectory)$(_Udbusv4vAssemblyDir)bin\$(DbusAssemblyConfiguration)\</Udbusv4vDir>
+    <UdbusWCFDir>$(_UdbusAssemblyRootDirectory)$(_UdbusWCFAssemblyDir)bin\$(DbusAssemblyConfiguration)\</UdbusWCFDir>
+    <UdbusWCFDbusDir>$(_UdbusAssemblyRootDirectory)$(_UdbusWCFDbusAssemblyDir)bin\$(DbusAssemblyConfiguration)\</UdbusWCFDbusDir>
+    <UdbusWCFDbusCommonDir>$(_UdbusAssemblyRootDirectory)$(_UdbusWCFDbusCommonAssemblyDir)bin\$(DbusAssemblyConfiguration)\</UdbusWCFDbusCommonDir>
+    <UdbusWCFDbusDetailsDir>$(_UdbusAssemblyRootDirectory)$(_UdbusWCFDbusDetailsAssemblyDir)bin\$(DbusAssemblyConfiguration)\</UdbusWCFDbusDetailsDir>
+    <UdbusWCFServiceDir>$(_UdbusAssemblyRootDirectory)$(_UdbusWCFServiceAssemblyDir)bin\$(DbusAssemblyConfiguration)\</UdbusWCFServiceDir>
+  </PropertyGroup>
+
+  <PropertyGroup Condition=" '$(UdbusBuildLocation)' == '$(UdbusBuildDefault)' ">
+    <UdbusCoreIntermediateDir>$(_UdbusAssemblyRootDirectory)$(_UdbusCoreAssemblyDir)obj\$(DbusAssemblyConfiguration)\</UdbusCoreIntermediateDir>
+    <UdbusContainersIntermediateDir>$(_UdbusAssemblyRootDirectory)$(_UdbusContainersAssemblyDir)obj\$(DbusAssemblyConfiguration)\</UdbusContainersIntermediateDir>
+    <UdbusParsingIntermediateDir>$(_UdbusAssemblyRootDirectory)$(_UdbusParsingAssemblyDir)obj\$(DbusAssemblyConfiguration)\</UdbusParsingIntermediateDir>
+    <UdbusSerializationIntermediateDir>$(_UdbusAssemblyRootDirectory)$(_UdbusSerializationAssemblyDir)obj\$(DbusAssemblyConfiguration)\</UdbusSerializationIntermediateDir>
+    <UdbusTypesIntermediateDir>$(_UdbusAssemblyRootDirectory)$(_UdbusTypesAssemblyDir)obj\$(DbusAssemblyConfiguration)\</UdbusTypesIntermediateDir>
+    <UdbusUtilsIntermediateDir>$(_UdbusAssemblyRootDirectory)$(_UdbusUtilsAssemblyDir)obj\$(DbusAssemblyConfiguration)\</UdbusUtilsIntermediateDir>
+    <Udbusv4vIntermediateDir>$(_UdbusAssemblyRootDirectory)$(_Udbusv4vAssemblyDir)obj\$(DbusAssemblyConfiguration)\</Udbusv4vIntermediateDir>
+    <UdbusWCFIntermediateDir>$(_UdbusAssemblyRootDirectory)$(_UdbusWCFAssemblyDir)obj\$(DbusAssemblyConfiguration)\</UdbusWCFIntermediateDir>
+    <UdbusWCFDbusIntermediateDir>$(_UdbusAssemblyRootDirectory)$(_UdbusWCFDbusAssemblyDir)obj\$(DbusAssemblyConfiguration)\</UdbusWCFDbusIntermediateDir>
+    <UdbusWCFDbusCommonIntermediateDir>$(_UdbusAssemblyRootDirectory)$(_UdbusWCFDbusCommonAssemblyDir)obj\$(DbusAssemblyConfiguration)\</UdbusWCFDbusCommonIntermediateDir>
+    <UdbusWCFDbusDetailsIntermediateDir>$(_UdbusAssemblyRootDirectory)$(_UdbusWCFDbusDetailsAssemblyDir)obj\$(DbusAssemblyConfiguration)\</UdbusWCFDbusDetailsIntermediateDir>
+    <UdbusWCFServiceIntermediateDir>$(_UdbusAssemblyRootDirectory)$(_UdbusWCFServiceAssemblyDir)obj\$(DbusAssemblyConfiguration)\</UdbusWCFServiceIntermediateDir>
+  </PropertyGroup>
+
+  <!-- ===OutsideDir=== -->
+  <!-- Building in external directory based on assembly-name/configuration.
+       If using $(LocalOutputDir) uses Udbus directory for everything.
+  -->
+  <PropertyGroup Condition=" '$(UdbusBuildLocation)' == '$(UdbusBuildOutside)' ">
+    <UdbusCoreDir>$(_UdbusAssemblyRootDirectory)$(UdbusCoreAssembly)\$(DbusAssemblyConfiguration)\</UdbusCoreDir>
+    <UdbusContainersDir>$(_UdbusAssemblyRootDirectory)$(UdbusContainersAssembly)\$(DbusAssemblyConfiguration)\</UdbusContainersDir>
+    <UdbusParsingDir>$(_UdbusAssemblyRootDirectory)$(UdbusParsingAssembly)\$(DbusAssemblyConfiguration)\</UdbusParsingDir>
+    <UdbusSerializationDir>$(_UdbusAssemblyRootDirectory)$(UdbusSerializationAssembly)\$(DbusAssemblyConfiguration)\</UdbusSerializationDir>
+    <UdbusTypesDir>$(_UdbusAssemblyRootDirectory)$(UdbusTypesAssembly)\$(DbusAssemblyConfiguration)\</UdbusTypesDir>
+    <UdbusUtilsDir>$(_UdbusAssemblyRootDirectory)$(UdbusUtilsAssembly)\$(DbusAssemblyConfiguration)\</UdbusUtilsDir>
+    <Udbusv4vDir>$(_UdbusAssemblyRootDirectory)$(Udbusv4vAssembly)\$(DbusAssemblyConfiguration)\</Udbusv4vDir>
+    <UdbusWCFDir>$(_UdbusAssemblyRootDirectory)$(UdbusWCFAssembly)\$(DbusAssemblyConfiguration)\</UdbusWCFDir>
+    <UdbusWCFDbusDir>$(_UdbusAssemblyRootDirectory)$(UdbusWCFDbusAssembly)\$(DbusAssemblyConfiguration)\</UdbusWCFDbusDir>
+    <UdbusWCFDbusCommonDir>$(_UdbusAssemblyRootDirectory)$(UdbusWCFDbusCommonAssembly)\$(DbusAssemblyConfiguration)\</UdbusWCFDbusCommonDir>
+    <UdbusWCFDbusDetailsDir>$(_UdbusAssemblyRootDirectory)$(UdbusWCFDbusDetailsAssembly)\$(DbusAssemblyConfiguration)\</UdbusWCFDbusDetailsDir>
+    <UdbusWCFServiceDir>$(_UdbusAssemblyRootDirectory)$(UdbusWCFServiceAssembly)\$(DbusAssemblyConfiguration)\</UdbusWCFServiceDir>
+  </PropertyGroup>
+
+  <PropertyGroup Condition=" '$(UdbusBuildLocation)' == '$(UdbusBuildOutside)' ">
+    <UdbusCoreIntermediateDir>$(_UdbusIntermediateDirectory)$(UdbusCoreAssembly)\$(DbusAssemblyConfiguration)\</UdbusCoreIntermediateDir>
+    <UdbusContainersIntermediateDir>$(_UdbusIntermediateDirectory)$(UdbusContainersAssembly)\$(DbusAssemblyConfiguration)\</UdbusContainersIntermediateDir>
+    <UdbusParsingIntermediateDir>$(_UdbusIntermediateDirectory)$(UdbusParsingAssembly)\$(DbusAssemblyConfiguration)\</UdbusParsingIntermediateDir>
+    <UdbusSerializationIntermediateDir>$(_UdbusIntermediateDirectory)$(UdbusSerializationAssembly)\$(DbusAssemblyConfiguration)\</UdbusSerializationIntermediateDir>
+    <UdbusTypesIntermediateDir>$(_UdbusIntermediateDirectory)$(UdbusTypesAssembly)\$(DbusAssemblyConfiguration)\</UdbusTypesIntermediateDir>
+    <UdbusUtilsIntermediateDir>$(_UdbusIntermediateDirectory)$(UdbusUtilsAssembly)\$(DbusAssemblyConfiguration)\</UdbusUtilsIntermediateDir>
+    <Udbusv4vIntermediateDir>$(_UdbusIntermediateDirectory)$(Udbusv4vAssembly)\$(DbusAssemblyConfiguration)\</Udbusv4vIntermediateDir>
+    <UdbusWCFIntermediateDir>$(_UdbusIntermediateDirectory)$(UdbusWCFAssembly)\$(DbusAssemblyConfiguration)\</UdbusWCFIntermediateDir>
+    <UdbusWCFDbusIntermediateDir>$(_UdbusIntermediateDirectory)$(UdbusWCFDbusAssembly)\$(DbusAssemblyConfiguration)\</UdbusWCFDbusIntermediateDir>
+    <UdbusWCFDbusCommonIntermediateDir>$(_UdbusIntermediateDirectory)$(UdbusWCFDbusCommonAssembly)\$(DbusAssemblyConfiguration)\</UdbusWCFDbusCommonIntermediateDir>
+    <UdbusWCFDbusDetailsIntermediateDir>$(_UdbusIntermediateDirectory)$(UdbusWCFDbusDetailsAssembly)\$(DbusAssemblyConfiguration)\</UdbusWCFDbusDetailsIntermediateDir>
+    <UdbusWCFServiceIntermediateDir>$(_UdbusIntermediateDirectory)$(UdbusWCFServiceAssembly)\$(DbusAssemblyConfiguration)\</UdbusWCFServiceIntermediateDir>
+  </PropertyGroup>
+
+  <!-- ===OneDir=== -->
+  <PropertyGroup Condition=" '$(UdbusBuildLocation)' == '$(UdbusBuildOneDir)' ">
+    <UdbusCoreDir>$(_UdbusAssemblyRootDirectory)</UdbusCoreDir>
+    <UdbusContainersDir>$(_UdbusAssemblyRootDirectory)</UdbusContainersDir>
+    <UdbusParsingDir>$(_UdbusAssemblyRootDirectory)</UdbusParsingDir>
+    <UdbusSerializationDir>$(_UdbusAssemblyRootDirectory)</UdbusSerializationDir>
+    <UdbusTypesDir>$(_UdbusAssemblyRootDirectory)</UdbusTypesDir>
+    <UdbusUtilsDir>$(_UdbusAssemblyRootDirectory)</UdbusUtilsDir>
+    <Udbusv4vDir>$(_UdbusAssemblyRootDirectory)</Udbusv4vDir>
+    <UdbusWCFDir>$(_UdbusAssemblyRootDirectory)</UdbusWCFDir>
+    <UdbusWCFDbusDir>$(_UdbusAssemblyRootDirectory)</UdbusWCFDbusDir>
+    <UdbusWCFDbusCommonDir>$(_UdbusAssemblyRootDirectory)</UdbusWCFDbusCommonDir>
+    <UdbusWCFDbusDetailsDir>$(_UdbusAssemblyRootDirectory)</UdbusWCFDbusDetailsDir>
+    <UdbusWCFServiceDir>$(_UdbusAssemblyRootDirectory)</UdbusWCFServiceDir>
+  </PropertyGroup>
+
+  <PropertyGroup Condition=" '$(UdbusBuildLocation)' == '$(UdbusBuildOneDir)' ">
+    <UdbusCoreIntermediateDir>$(_UdbusIntermediateDirectory)$(UdbusCoreAssembly)\$(DbusAssemblyConfiguration)\</UdbusCoreIntermediateDir>
+    <UdbusContainersIntermediateDir>$(_UdbusIntermediateDirectory)$(UdbusContainersAssembly)\$(DbusAssemblyConfiguration)\</UdbusContainersIntermediateDir>
+    <UdbusParsingIntermediateDir>$(_UdbusIntermediateDirectory)$(UdbusParsingAssembly)\$(DbusAssemblyConfiguration)\</UdbusParsingIntermediateDir>
+    <UdbusSerializationIntermediateDir>$(_UdbusIntermediateDirectory)$(UdbusSerializationAssembly)\$(DbusAssemblyConfiguration)\</UdbusSerializationIntermediateDir>
+    <UdbusTypesIntermediateDir>$(_UdbusIntermediateDirectory)$(UdbusTypesAssembly)\$(DbusAssemblyConfiguration)\</UdbusTypesIntermediateDir>
+    <UdbusUtilsIntermediateDir>$(_UdbusIntermediateDirectory)$(UdbusUtilsAssembly)\$(DbusAssemblyConfiguration)\</UdbusUtilsIntermediateDir>
+    <Udbusv4vIntermediateDir>$(_UdbusIntermediateDirectory)$(Udbusv4vAssembly)\$(DbusAssemblyConfiguration)\</Udbusv4vIntermediateDir>
+    <UdbusWCFIntermediateDir>$(_UdbusIntermediateDirectory)$(UdbusWCFAssembly)\$(DbusAssemblyConfiguration)\</UdbusWCFIntermediateDir>
+    <UdbusWCFDbusIntermediateDir>$(_UdbusIntermediateDirectory)$(UdbusWCFDbusAssembly)\$(DbusAssemblyConfiguration)\</UdbusWCFDbusIntermediateDir>
+    <UdbusWCFDbusCommonIntermediateDir>$(_UdbusIntermediateDirectory)$(UdbusWCFDbusCommonAssembly)\$(DbusAssemblyConfiguration)\</UdbusWCFDbusCommonIntermediateDir>
+    <UdbusWCFDbusDetailsIntermediateDir>$(_UdbusIntermediateDirectory)$(UdbusWCFDbusDetailsAssembly)\$(DbusAssemblyConfiguration)\</UdbusWCFDbusDetailsIntermediateDir>
+    <UdbusWCFServiceIntermediateDir>$(_UdbusIntermediateDirectory)$(UdbusWCFServiceAssembly)\$(DbusAssemblyConfiguration)\</UdbusWCFServiceIntermediateDir>
+  </PropertyGroup>
+
+  <!-- OneDir FileName. -->
+  <PropertyGroup Condition=" '$(UdbusBuildLocation)' == '$(UdbusBuildOneDir)' ">
+    <UdbusCoreFileName>$(UdbusCoreAssembly)$(AssemblyTargetSuffix).dll</UdbusCoreFileName>
+    <UdbusContainersFileName>$(UdbusContainersAssembly)$(AssemblyTargetSuffix).dll</UdbusContainersFileName>
+    <UdbusParsingFileName>$(UdbusParsingAssembly)$(AssemblyTargetSuffix).dll</UdbusParsingFileName>
+    <UdbusSerializationFileName>$(UdbusSerializationAssembly)$(AssemblyTargetSuffix).dll</UdbusSerializationFileName>
+    <UdbusTypesFileName>$(UdbusTypesAssembly)$(AssemblyTargetSuffix).dll</UdbusTypesFileName>
+    <UdbusUtilsFileName>$(UdbusUtilsAssembly)$(AssemblyTargetSuffix).dll</UdbusUtilsFileName>
+    <Udbusv4vFileName>$(Udbusv4vAssembly)$(AssemblyTargetSuffix).dll</Udbusv4vFileName>
+    <UdbusWCFFileName>$(UdbusWCFAssembly)$(AssemblyTargetSuffix).dll</UdbusWCFFileName>
+    <UdbusWCFDbusFileName>$(UdbusWCFDbusAssembly)$(AssemblyTargetSuffix).dll</UdbusWCFDbusFileName>
+    <UdbusWCFDbusCommonFileName>$(UdbusWCFDbusCommonAssembly)$(AssemblyTargetSuffix).dll</UdbusWCFDbusCommonFileName>
+    <UdbusWCFDbusDetailsFileName>$(UdbusWCFDbusDetailsAssembly)$(AssemblyTargetSuffix).dll</UdbusWCFDbusDetailsFileName>
+    <UdbusWCFServiceFileName>$(UdbusWCFServiceAssembly)$(AssemblyTargetSuffix).dll</UdbusWCFServiceFileName>
+  </PropertyGroup>
+
+  <!-- ==Path== -->
+  <PropertyGroup>
+    <UdbusCorePath>$(UdbusCoreDir)$(UdbusCoreFileName)</UdbusCorePath>
+    <UdbusContainersPath>$(UdbusContainersDir)$(UdbusContainersFileName)</UdbusContainersPath>
+    <UdbusParsingPath>$(UdbusParsingDir)$(UdbusParsingFileName)</UdbusParsingPath>
+    <UdbusSerializationPath>$(UdbusSerializationDir)$(UdbusSerializationFileName)</UdbusSerializationPath>
+    <UdbusTypesPath>$(UdbusTypesDir)$(UdbusTypesFileName)</UdbusTypesPath>
+    <UdbusUtilsPath>$(UdbusUtilsDir)$(UdbusUtilsFileName)</UdbusUtilsPath>
+    <Udbusv4vPath>$(Udbusv4vDir)$(Udbusv4vFileName)</Udbusv4vPath>
+    <UdbusWCFPath>$(UdbusWCFDir)$(UdbusWCFFileName)</UdbusWCFPath>
+    <UdbusWCFDbusPath>$(UdbusWCFDbusDir)$(UdbusWCFDbusFileName)</UdbusWCFDbusPath>
+    <UdbusWCFDbusCommonPath>$(UdbusWCFDbusCommonDir)$(UdbusWCFDbusCommonFileName)</UdbusWCFDbusCommonPath>
+    <UdbusWCFDbusDetailsPath>$(UdbusWCFDbusDetailsDir)$(UdbusWCFDbusDetailsFileName)</UdbusWCFDbusDetailsPath>
+    <UdbusWCFServicePath>$(UdbusWCFServiceDir)$(UdbusWCFServiceFileName)</UdbusWCFServicePath>
+  </PropertyGroup>
+
+
+  <Target Name="PrintAssemblyPaths">
+    <Message Text="UdbusBuildLocation: $(UdbusBuildLocation)" />
+    <Message Text="UdbusRootDirectory: $(UdbusRootDirectory)" />
+    <Message Text="UdbusDefaultRootDirectory: $(UdbusDefaultRootDirectory)" />
+    <Message Text="_UdbusAssemblyRootDirectory: $(_UdbusAssemblyRootDirectory)" />
+    <Message Text="VSVERSION: $(VSVERSION)" />
+    <Message Text="UdbusCorePath: $(UdbusCorePath)" />
+    <Message Text="UdbusContainersPath: $(UdbusContainersPath)" />
+    <Message Text="UdbusParsingPath: $(UdbusParsingPath)" />
+    <Message Text="UdbusSerializationPath: $(UdbusSerializationPath)" />
+    <Message Text="UdbusTypesPath: $(UdbusTypesPath)" />
+    <Message Text="UdbusUtilsPath: $(UdbusUtilsPath)" />
+    <Message Text="Udbusv4vPath: $(Udbusv4vPath)" />
+    <Message Text="UdbusWCFPath: $(UdbusWCFPath)" />
+    <Message Text="UdbusWCFDbusPath: $(UdbusWCFDbusPath)" />
+    <Message Text="UdbusWCFDbusCommonPath: $(UdbusWCFDbusCommonPath)" />
+    <Message Text="UdbusWCFDbusDetailsPath: $(UdbusWCFDbusDetailsPath)" />
+    <Message Text="UdbusWCFServicePath: $(UdbusWCFServicePath)" />
+
+  </Target>
+
+  <Target Name="PrintIntermediatePaths">
+    <Message Text="UdbusIntermediateLocation: $(UdbusIntermediateLocation)" />
+    <Message Text="UdbusIntermediateDirectory: $(UdbusIntermediateDirectory)" />
+    <Message Text="_UdbusIntermediateDirectory: $(_UdbusIntermediateDirectory)" />
+    <Message Text="VSVERSION: $(VSVERSION)" />
+    <Message Text="UdbusCoreIntermediateDir: $(UdbusCoreIntermediateDir)" />
+    <Message Text="UdbusContainersIntermediateDir: $(UdbusContainersIntermediateDir)" />
+    <Message Text="UdbusParsingIntermediateDir: $(UdbusParsingIntermediateDir)" />
+    <Message Text="UdbusSerializationIntermediateDir: $(UdbusSerializationIntermediateDir)" />
+    <Message Text="UdbusTypesIntermediateDir: $(UdbusTypesIntermediateDir)" />
+    <Message Text="UdbusUtilsIntermediateDir: $(UdbusUtilsIntermediateDir)" />
+    <Message Text="Udbusv4vIntermediateDir: $(Udbusv4vIntermediateDir)" />
+    <Message Text="UdbusWCFIntermediateDir: $(UdbusWCFIntermediateDir)" />
+    <Message Text="UdbusWCFDbusIntermediateDir: $(UdbusWCFDbusIntermediateDir)" />
+    <Message Text="UdbusWCFDbusCommonIntermediateDir: $(UdbusWCFDbusCommonIntermediateDir)" />
+    <Message Text="UdbusWCFDbusDetailsIntermediateDir: $(UdbusWCFDbusDetailsIntermediateDir)" />
+    <Message Text="UdbusWCFServiceIntermediateDir: $(UdbusWCFServiceIntermediateDir)" />
+
+  </Target>
+
+  <Target Name="Test"
+          DependsOnTargets="PrintAssemblyPaths;PrintIntermediatePaths"
+  />
+</Project>

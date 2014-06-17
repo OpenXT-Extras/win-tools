@@ -1,0 +1,124 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Condition=" '$(TestsXenClientGuestAssembliesPropsDefined)' == ''&#xD;&#xA;                  And Exists('..\props\Tests.XenClientGuest.Assemblies.props')&#xD;&#xA;                    " Project="..\props\Tests.XenClientGuest.Assemblies.props" />
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{138CF669-0816-427C-8648-225837F35963}</ProjectGuid>
+    <OutputType>Exe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>XenClientGuestClientConsoleTest</RootNamespace>
+    <AssemblyName>XenClientGuestClientConsoleTest</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="..\..\..\props\CommonAssemblyInfo.cs">
+      <Link>CommonAssemblyInfo.cs</Link>
+    </Compile>
+    <Compile Include="XenClientGuestClientConsoleTest.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <PropertyGroup>
+    <UseUdbusProjectReferences>false</UseUdbusProjectReferences>
+    <UseUdbusProjectReferences Condition=" Exists('..\..\..\dbus\Udbus.Containers\Udbus.Containers.csproj')">true</UseUdbusProjectReferences>
+  </PropertyGroup>
+  <ItemGroup Condition=" '$(UseUdbusProjectReferences)' == 'true' ">
+    <ProjectReference Include="..\..\..\dbus\Udbus.Containers\Udbus.Containers.csproj">
+      <Project>{6ca51cba-ce08-4438-8b78-b968bca3a02f}</Project>
+      <Name>Udbus.Containers</Name>
+      <Private>True</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\dbus\Udbus.Types\Udbus.Types.csproj">
+      <Project>{2811c188-d05f-429a-aedf-066fe3cf86ac}</Project>
+      <Name>Udbus.Types</Name>
+      <Private>True</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\dbus\Udbus.WCF\Udbus.WCF.csproj">
+      <Project>{d8543b20-0b24-465f-8306-f4eea91fce1a}</Project>
+      <Name>Udbus.WCF</Name>
+      <Private>True</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\dbus\Udbus.WCF.Dbus\Udbus.WCF.Dbus.csproj">
+      <Project>{45a02323-4764-4f4b-a9ea-b5395fe79559}</Project>
+      <Name>Udbus.WCF.Dbus</Name>
+      <Private>True</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Bindings\XenClientGuest.Bindings.Client\XenClientGuest.Bindings.Client.csproj">
+      <Project>{1946dc31-1d00-4316-8672-8148ba3fb33f}</Project>
+      <Name>XenClientGuest.Bindings.Client</Name>
+      <Private>True</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Bindings\XenClientGuest.Bindings.Interface\XenClientGuest.Bindings.Interface.csproj">
+      <Project>{72526766-e80f-451f-b51f-e8662606fb9b}</Project>
+      <Name>XenClientGuest.Bindings.Interface</Name>
+      <Private>True</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\..\XenClientGuestService.Client\XenClientGuestService.Client.csproj">
+      <Project>{e5186568-ef99-40e1-bf89-215d58e4e0a6}</Project>
+      <Name>XenClientGuestService.Client</Name>
+      <Private>True</Private>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup Condition=" '$(UseUdbusProjectReferences)' == 'false' ">
+    <Reference Include="Udbus.Containers">
+      <HintPath>Udbus.Containers.dll</HintPath>
+    </Reference>
+    <Reference Include="Udbus.Types">
+      <HintPath>Udbus.Types.dll</HintPath>
+    </Reference>
+    <Reference Include="Udbus.WCF">
+      <HintPath>Udbus.WCF.dll</HintPath>
+    </Reference>
+    <Reference Include="Udbus.WCF.Dbus">
+      <HintPath>Udbus.WCF.Dbus.dll</HintPath>
+    </Reference>
+    <Reference Include="XenClientGuest.Bindings.Interface">
+      <HintPath>XenClientGuest.Bindings.Interface.dll</HintPath>
+    </Reference>
+    <Reference Include="XenClientGuest.Bindings.Client">
+      <HintPath>XenClientGuest.Bindings.Client.dll</HintPath>
+    </Reference>
+    <Reference Include="XenClientGuestService.Client">
+      <HintPath>XenClientGuestService.Client.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <Import Condition=" '$(BuildTestsXenClientGuestAssembliesPropsDefined)' == ''&#xD;&#xA;                  And Exists('..\props\Build.Tests.XenClientGuest.Assemblies.props')&#xD;&#xA;                    " Project="..\props\Build.Tests.XenClientGuest.Assemblies.props" />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

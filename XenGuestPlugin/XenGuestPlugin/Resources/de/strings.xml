@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ArrayOfAlert xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Alert ID="1">
+    <Interface>com.citrix.xenclient.xenmgr.host</Interface>
+    <Member>storage_space_low</Member>
+    <TipTitle>Wenig Speicherplatz</TipTitle>
+    <TipText>Auf Ihrem Gerät steht nicht mehr viel Speicherplatz zur Verfügung. Im Moment sind {0}% verfügbar.</TipText>
+    <TipIcon>Warning</TipIcon>
+  </Alert>
+  <Alert ID="2">
+    <Interface></Interface>
+    <Member></Member>
+    <TipTitle>Leaseablaufdatum</TipTitle>
+    <TipText>Die Leasedauer Ihrer verwalteten virtuellen Maschine läuft bald ab. Wenden Sie sich an Ihren Administrator.</TipText>
+    <TipIcon>Warning</TipIcon>
+  </Alert>
+  <Alert ID="3">
+		<!-- This one doesn't exist -->
+    <Interface></Interface>
+    <Member></Member>
+    <TipTitle>Download abgeschlossen</TipTitle>
+    <TipText>Eine virtuelle Maschine hat einen Download vom Synchronizer abgeschlossen. Klicken Sie hier, um zu Citrix Receiver für XenClient zu wechseln.</TipText>
+    <TipIcon>Info</TipIcon>
+  </Alert>
+  <Alert ID="4">
+		<!-- This one may exist -->
+    <Interface></Interface>
+    <Member></Member>
+    <TipTitle>Nicht unterstütztes USB-Gerät</TipTitle>
+    <TipText>Sie haben ein nicht unterstütztes USB-Gerät angeschlossen.</TipText>
+    <TipIcon>Error</TipIcon>
+  </Alert>
+  <Alert ID="5">
+    <Interface>com.citrix.xenclient.usbdaemon</Interface>
+    <Member>device_rejected</Member>
+    <TipTitle>Gesperrtes USB-Gerät</TipTitle>
+    <TipText>Sie haben ein USB-Gerät angeschlossen, das durch eine Administratorrichtlinie blockiert wird. Gerät: &quot;{0}&quot;. Grund: &quot;{1}&quot;.</TipText>
+    <TipIcon>Warning</TipIcon>
+  </Alert>
+  <Alert ID="6">
+    <Interface></Interface>
+    <Member></Member>
+    <TipTitle>Starten Sie Ihren Computer neu, um die Installation wichtiger Updates abzuschließen.</TipTitle>
+    <TipText>Dieser virtuelle Desktop muss neu gestartet werden, damit Synchronizer-Updates angewendet werden. Speichern Sie Ihre Dateien vor dem Neustart.</TipText>
+    <TipIcon>Info</TipIcon>
+  </Alert>
+  <Alert ID="7">
+    <Interface></Interface>
+    <Member></Member>
+    <TipTitle>Starten Sie Ihren Computer neu, um die Installation wichtiger Updates abzuschließen.</TipTitle>
+    <TipText>Dieser virtuelle Desktop muss unbedingt neu gestartet werden. Speichern Sie Ihre Dateien vor dem Neustart.</TipText>
+    <TipIcon>Info</TipIcon>
+  </Alert>
+</ArrayOfAlert>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Build.XenClientGuest.Assemblies.targets -->
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" >
+  <PropertyGroup>
+    <BuildXenClientGuestAssembliesTargetsDefined>1</BuildXenClientGuestAssembliesTargetsDefined>
+  </PropertyGroup>
+
+  <Import Condition=" '$(BuildXenClientGuestAssembliesPropsDefined)' == '' " Project="..\props\Build.XenClientGuest.Assemblies.props" />
+  <Import Condition=" '$(XenClientGuestAssembliesTargetsDefined)' == '' " Project="XenClientGuest.Assemblies.targets" />
+
+</Project>

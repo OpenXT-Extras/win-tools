@@ -1,0 +1,61 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 10.00
+# Visual Studio 2008
+Project("{930C7802-8A8C-48F9-8165-68863BCCD9DD}") = "Udbus.Libraries.Installer", "installers\projects\Udbus.Libraries.Installer\Udbus.Libraries.Installer.wixproj", "{1A3553DE-B598-42B3-9CBC-63E562B770A7}"
+	ProjectSection(ProjectDependencies) = postProject
+		{35476E2E-1DBB-40B9-BC65-A850327C0469} = {35476E2E-1DBB-40B9-BC65-A850327C0469}
+		{861C0F5E-4770-46D6-84DC-9E119E4EAB20} = {861C0F5E-4770-46D6-84DC-9E119E4EAB20}
+		{943FA9F1-03BE-4C5C-AB28-715289E04684} = {943FA9F1-03BE-4C5C-AB28-715289E04684}
+	EndProjectSection
+EndProject
+Project("{930C7802-8A8C-48F9-8165-68863BCCD9DD}") = "Udbus.Bindings.Client.Libraries.InstallerMSM", "installers\projects\Udbus.Bindings.Client.Libraries.InstallerMSM\Udbus.Bindings.Client.Libraries.InstallerMSM.wixproj", "{35476E2E-1DBB-40B9-BC65-A850327C0469}"
+EndProject
+Project("{930C7802-8A8C-48F9-8165-68863BCCD9DD}") = "Udbus.Bindings.Interfaces.Libraries.InstallerMSM", "installers\projects\Udbus.Bindings.Interfaces.Libraries.InstallerMSM\Udbus.Bindings.Interfaces.Libraries.InstallerMSM.wixproj", "{943FA9F1-03BE-4C5C-AB28-715289E04684}"
+EndProject
+Project("{930C7802-8A8C-48F9-8165-68863BCCD9DD}") = "Udbus.Bindings.Service.Libraries.InstallerMSM", "installers\projects\Udbus.Bindings.Service.Libraries.InstallerMSM\Udbus.Bindings.Service.Libraries.InstallerMSM.wixproj", "{861C0F5E-4770-46D6-84DC-9E119E4EAB20}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x86 = Debug|x86
+		DebugDLL|x86 = DebugDLL|x86
+		DebugStaticLib|x86 = DebugStaticLib|x86
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{1A3553DE-B598-42B3-9CBC-63E562B770A7}.Debug|x86.ActiveCfg = Debug|x86
+		{1A3553DE-B598-42B3-9CBC-63E562B770A7}.Debug|x86.Build.0 = Debug|x86
+		{1A3553DE-B598-42B3-9CBC-63E562B770A7}.DebugDLL|x86.ActiveCfg = DebugDLL|x86
+		{1A3553DE-B598-42B3-9CBC-63E562B770A7}.DebugDLL|x86.Build.0 = DebugDLL|x86
+		{1A3553DE-B598-42B3-9CBC-63E562B770A7}.DebugStaticLib|x86.ActiveCfg = DebugStaticLib|x86
+		{1A3553DE-B598-42B3-9CBC-63E562B770A7}.DebugStaticLib|x86.Build.0 = DebugStaticLib|x86
+		{1A3553DE-B598-42B3-9CBC-63E562B770A7}.Release|x86.ActiveCfg = Release|x86
+		{1A3553DE-B598-42B3-9CBC-63E562B770A7}.Release|x86.Build.0 = Release|x86
+		{35476E2E-1DBB-40B9-BC65-A850327C0469}.Debug|x86.ActiveCfg = Debug|x86
+		{35476E2E-1DBB-40B9-BC65-A850327C0469}.Debug|x86.Build.0 = Debug|x86
+		{35476E2E-1DBB-40B9-BC65-A850327C0469}.DebugDLL|x86.ActiveCfg = DebugDLL|x86
+		{35476E2E-1DBB-40B9-BC65-A850327C0469}.DebugDLL|x86.Build.0 = DebugDLL|x86
+		{35476E2E-1DBB-40B9-BC65-A850327C0469}.DebugStaticLib|x86.ActiveCfg = DebugStaticLib|x86
+		{35476E2E-1DBB-40B9-BC65-A850327C0469}.DebugStaticLib|x86.Build.0 = DebugStaticLib|x86
+		{35476E2E-1DBB-40B9-BC65-A850327C0469}.Release|x86.ActiveCfg = Release|x86
+		{35476E2E-1DBB-40B9-BC65-A850327C0469}.Release|x86.Build.0 = Release|x86
+		{943FA9F1-03BE-4C5C-AB28-715289E04684}.Debug|x86.ActiveCfg = Debug|x86
+		{943FA9F1-03BE-4C5C-AB28-715289E04684}.Debug|x86.Build.0 = Debug|x86
+		{943FA9F1-03BE-4C5C-AB28-715289E04684}.DebugDLL|x86.ActiveCfg = DebugDLL|x86
+		{943FA9F1-03BE-4C5C-AB28-715289E04684}.DebugDLL|x86.Build.0 = DebugDLL|x86
+		{943FA9F1-03BE-4C5C-AB28-715289E04684}.DebugStaticLib|x86.ActiveCfg = DebugStaticLib|x86
+		{943FA9F1-03BE-4C5C-AB28-715289E04684}.DebugStaticLib|x86.Build.0 = DebugStaticLib|x86
+		{943FA9F1-03BE-4C5C-AB28-715289E04684}.Release|x86.ActiveCfg = Release|x86
+		{943FA9F1-03BE-4C5C-AB28-715289E04684}.Release|x86.Build.0 = Release|x86
+		{861C0F5E-4770-46D6-84DC-9E119E4EAB20}.Debug|x86.ActiveCfg = Debug|x86
+		{861C0F5E-4770-46D6-84DC-9E119E4EAB20}.Debug|x86.Build.0 = Debug|x86
+		{861C0F5E-4770-46D6-84DC-9E119E4EAB20}.DebugDLL|x86.ActiveCfg = DebugDLL|x86
+		{861C0F5E-4770-46D6-84DC-9E119E4EAB20}.DebugDLL|x86.Build.0 = DebugDLL|x86
+		{861C0F5E-4770-46D6-84DC-9E119E4EAB20}.DebugStaticLib|x86.ActiveCfg = DebugStaticLib|x86
+		{861C0F5E-4770-46D6-84DC-9E119E4EAB20}.DebugStaticLib|x86.Build.0 = DebugStaticLib|x86
+		{861C0F5E-4770-46D6-84DC-9E119E4EAB20}.Release|x86.ActiveCfg = Release|x86
+		{861C0F5E-4770-46D6-84DC-9E119E4EAB20}.Release|x86.Build.0 = Release|x86
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

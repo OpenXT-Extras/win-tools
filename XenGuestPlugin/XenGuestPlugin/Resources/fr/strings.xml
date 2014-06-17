@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ArrayOfAlert xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Alert ID="1">
+    <Interface>com.citrix.xenclient.xenmgr.host</Interface>
+    <Member>storage_space_low</Member>
+    <TipTitle>Espace disque faible</TipTitle>
+    <TipText>L&apos;espace disque sur votre périphérique est insuffisant. Il reste {0}% d&apos;espace disponible.</TipText>
+    <TipIcon>Warning</TipIcon>
+  </Alert>
+  <Alert ID="2">
+    <Interface></Interface>
+    <Member></Member>
+    <TipTitle>Expiration du bail</TipTitle>
+    <TipText>La date d&apos;expiration du bail de votre machine virtuelle approche. Contactez votre administrateur pour de plus amples informations.</TipText>
+    <TipIcon>Warning</TipIcon>
+  </Alert>
+  <Alert ID="3">
+		<!-- This one doesn't exist -->
+    <Interface></Interface>
+    <Member></Member>
+    <TipTitle>Téléchargement terminé</TipTitle>
+    <TipText>Une machine virtuelle a terminé le téléchargement depuis le Synchronizer. Cliquez ici pour basculer vers Citrix Receiver pour XenClient.</TipText>
+    <TipIcon>Info</TipIcon>
+  </Alert>
+  <Alert ID="4">
+		<!-- This one may exist -->
+    <Interface></Interface>
+    <Member></Member>
+    <TipTitle>Périphérique USB non pris en charge</TipTitle>
+    <TipText>Vous avez inséré un périphérique USB qui n&apos;est pas pris en charge.</TipText>
+    <TipIcon>Error</TipIcon>
+  </Alert>
+  <Alert ID="5">
+    <Interface>com.citrix.xenclient.usbdaemon</Interface>
+    <Member>device_rejected</Member>
+    <TipTitle>Périphérique USB bloqué</TipTitle>
+    <TipText>Vous avez inséré un périphérique USB qui a été bloqué par une stratégie administrateur. Périphérique : &quot;{0}&quot;. Motif : &quot;{1}&quot;.</TipText>
+    <TipIcon>Warning</TipIcon>
+  </Alert>
+  <Alert ID="6">
+    <Interface></Interface>
+    <Member></Member>
+    <TipTitle>Redémarrez votre ordinateur pour terminer l&apos;installation des mises à jour importantes</TipTitle>
+    <TipText>Ce bureau virtuel doit être redémarré pour que les mises à jour Synchronizer soient appliquées. Sauvegardez vos fichiers avant de redémarrer.</TipText>
+    <TipIcon>Info</TipIcon>
+  </Alert>
+  <Alert ID="7">
+    <Interface></Interface>
+    <Member></Member>
+    <TipTitle>Redémarrez votre ordinateur pour terminer l&apos;installation des mises à jour importantes</TipTitle>
+    <TipText>Ce bureau virtuel doit être redémarré. Sauvegardez vos fichiers avant de redémarrer.</TipText>
+    <TipIcon>Info</TipIcon>
+  </Alert>
+</ArrayOfAlert>

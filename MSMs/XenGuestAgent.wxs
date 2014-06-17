@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+	<Module Id="XenGuestAgentMSM" Language="1033" Version="$(var.Version)">
+		<Package Id="45b36793-b845-4e8a-8859-8bbb2d94128d" Manufacturer="Citrix Systems, Inc." InstallerVersion="200" />
+
+    <!--Define XCI installation directory-->
+    <Directory Id="TARGETDIR" Name="SourceDir">
+      <Directory Id="ProgramFilesFolder">
+        <Directory Id="INSTALLDIR" Name="Citrix">
+          <Directory Id="XenToolsDir" Name="XenTools">
+            <!--%PROGRAMFILES%\Citrix\XenTools-->
+
+            <Component Id="xenGuestAgent" Guid="{1447FA1E-A8F0-4fbc-AABE-7898D1BB70D3}">
+              <File Id='xenGuestAgentEXE' Name='XenGuestAgent.exe' DiskId='1' Source='..\XenGuestAgent\$(var.Configuration)\XenGuestAgent.exe' KeyPath='yes'/>
+            </Component>
+
+            <Component Id="xcDiag" Guid="{DCDCBB13-5009-416b-A6AB-FCA852BA1C89}">
+              <File Id='xcdiag' Name='xcdiag.exe' DiskId='1' Source='..\XenGuestAgent\$(var.Configuration)\xcdiag.exe' KeyPath='yes'/>
+            </Component>
+
+          </Directory>
+        </Directory>
+      </Directory>
+    </Directory>
+
+    <CustomAction Id="regXenGuestAgent" FileKey="xenGuestAgentEXE" Impersonate="no" Execute="deferred" Return="check" ExeCommand="XenGuestAgent.exe /Service"/>
+    <CustomAction Id="denyRemoteCOM" FileKey="xenGuestAgentEXE" Impersonate="no" Execute="deferred" Return="check" ExeCommand="XenGuestAgent.exe /DenyRemoteAccess"/>
+    <CustomAction Id="unregXenGuestAgent" FileKey="xenGuestAgentEXE" Impersonate="no" Execute="deferred" Return="check" ExeCommand="XenGuestAgent.exe /UnregServer"/>
+
+    <InstallExecuteSequence>
+      <Custom Action="regXenGuestAgent" Before="InstallFinalize">$xenGuestAgent&gt;2</Custom> <!-- XenGuestAgent component is to be installed -->
+      <Custom Action="denyRemoteCOM" After="regXenGuestAgent">$xenGuestAgent&gt;2</Custom> <!-- XenGuestAgent component is to be installed -->
+      <Custom Action="unregXenGuestAgent" Before="RemoveFiles">$xenGuestAgent=2</Custom> <!-- XenGuestAgent component is set to be made absent (removed) -->
+    </InstallExecuteSequence>
+    
+	</Module>
+</Wix>

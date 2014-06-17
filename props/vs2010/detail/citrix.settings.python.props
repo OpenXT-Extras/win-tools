@@ -1,0 +1,33 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <!-- Default locations for Citrix include directories -->
+  <PropertyGroup>
+    <XenPythonSuffix />
+    <XenPythonLibFile />
+    <XenPythonLibDir />
+    <XenPythonIncludeDir />
+  </PropertyGroup>
+  <Choose>
+    <When Condition=" '$(Configuration)' == 'Debug' ">
+      <PropertyGroup>
+        <XenPythonSuffix>_d</XenPythonSuffix>
+      </PropertyGroup>
+    </When>
+  </Choose>
+  <PropertyGroup />
+  <ItemDefinitionGroup />
+  <ItemGroup>
+    <BuildMacro Include="XenPythonSuffix">
+      <Value>$(XenPythonSuffix)</Value>
+    </BuildMacro>
+    <BuildMacro Include="XenPythonLibFile">
+      <Value>$(XenPythonLibFile)</Value>
+    </BuildMacro>
+    <BuildMacro Include="XenPythonLibDir">
+      <Value>$(XenPythonLibDir)</Value>
+    </BuildMacro>
+    <BuildMacro Include="XenPythonIncludeDir">
+      <Value>$(XenPythonIncludeDir)</Value>
+    </BuildMacro>
+  </ItemGroup>
+</Project>

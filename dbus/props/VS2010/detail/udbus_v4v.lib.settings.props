@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Condition=" '$(UdbusDefined)'=='' " Project="udbus.props" />
+  <PropertyGroup>
+    <UdbusV4VStaticLibName>libudbus_v4v$(UdbusLibNameSuffix)</UdbusV4VStaticLibName>
+    <UdbusV4VStaticLibFile>$(UdbusV4VStaticLibName).lib</UdbusV4VStaticLibFile>
+    <UdbusV4VLibName>$(UdbusV4VStaticLibName)</UdbusV4VLibName>
+    <UdbusV4VLibFile>$(UdbusV4VStaticLibFile)</UdbusV4VLibFile>
+  </PropertyGroup>
+  <ItemGroup>
+    <BuildMacro Include="UdbusV4VLibName">
+      <Value>$(UdbusV4VLibName)</Value>
+    </BuildMacro>
+    <BuildMacro Include="UdbusV4VLibFile">
+      <Value>$(UdbusV4VLibFile)</Value>
+    </BuildMacro>
+  </ItemGroup>
+</Project>

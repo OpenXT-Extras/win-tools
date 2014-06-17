@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ArrayOfAlert xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Alert ID="1">
+    <Interface>com.citrix.xenclient.xenmgr.host</Interface>
+    <Member>storage_space_low</Member>
+    <TipTitle>磁盘空间不足</TipTitle>
+    <TipText>您的设备可用的磁盘空间不足。当前可用空间仅占 {0}%。</TipText>
+    <TipIcon>Warning</TipIcon>
+  </Alert>
+  <Alert ID="2">
+    <Interface></Interface>
+    <Member></Member>
+    <TipTitle>租借期限</TipTitle>
+    <TipText>您管理的虚拟机已接近其租借截止日期。有关详细信息，请与管理员联系。</TipText>
+    <TipIcon>Warning</TipIcon>
+  </Alert>
+  <Alert ID="3">
+		<!-- This one doesn't exist -->
+    <Interface></Interface>
+    <Member></Member>
+    <TipTitle>下载已完成</TipTitle>
+    <TipText>虚拟机已完成从 Synchronizer 进行的下载。单击此处可切换到 Citrix Receiver for XenClient。</TipText>
+    <TipIcon>Info</TipIcon>
+  </Alert>
+  <Alert ID="4">
+		<!-- This one may exist -->
+    <Interface></Interface>
+    <Member></Member>
+    <TipTitle>USB 设备不受支持</TipTitle>
+    <TipText>您插入了一个不受支持的 USB 设备。</TipText>
+    <TipIcon>Error</TipIcon>
+  </Alert>
+  <Alert ID="5">
+    <Interface>com.citrix.xenclient.usbdaemon</Interface>
+    <Member>device_rejected</Member>
+    <TipTitle>USB 设备被阻止</TipTitle>
+    <TipText>您插入的 USB 设备已被管理员策略阻止。设备: {0}。原因: {1}。</TipText>
+    <TipIcon>Warning</TipIcon>
+  </Alert>
+  <Alert ID="6">
+    <Interface></Interface>
+    <Member></Member>
+    <TipTitle>需要重新启动您的计算机才能完成安装重要更新</TipTitle>
+    <TipText>需要重新启动此虚拟桌面才能应用 Synchronizer 更新。请确保先保存您的文件，然后再重新启动。</TipText>
+    <TipIcon>Info</TipIcon>
+  </Alert>
+  <Alert ID="7">
+    <Interface></Interface>
+    <Member></Member>
+    <TipTitle>需要重新启动您的计算机才能完成安装重要更新</TipTitle>
+    <TipText>需要重新启动此虚拟桌面，否则 universe 将结束。请确保先保存您的文件，然后再重新启动。</TipText>
+    <TipIcon>Info</TipIcon>
+  </Alert>
+</ArrayOfAlert>

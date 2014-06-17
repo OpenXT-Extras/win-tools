@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi" xmlns:util="http://schemas.microsoft.com/wix/UtilExtension">
+  <Module Id="XenClientGuestServiceInstallerMSM" Language="1033" Version="$(var.Version)">
+    <Package Id="1ee9a397-aeec-4066-90a0-5aad397d8ed1" Manufacturer="XenClientGuestServiceInstallerMSM" InstallerVersion="200" />
+
+    <Directory Id="TARGETDIR" Name="SourceDir">
+      <Directory Id="MergeRedirectFolder" />
+    </Directory>
+
+    <DirectoryRef Id="MergeRedirectFolder">
+      <!-- All of the binaries -->
+      <Component Id="XenClientGuestBindingsInterfaceComponent" Guid="F0336A8D-777C-47E6-BEFA-A89F1984BA02">
+        <File Id="XenClientGuestBindingsInterfaceDll"
+              Name="XenClientGuest.Bindings.Interface.dll"
+              Source="..\XenClientGuestService\Bindings\XenClientGuest.Bindings.Interface\bin\$(var.Configuration)\XenClientGuest.Bindings.Interface.dll"
+              Vital="yes"
+              KeyPath="yes"
+        />
+      </Component>
+      <Component Id="XenClientGuestBindingsClientComponent" Guid="1E55FE6A-CD8F-4EF8-A1E8-C337EC311CE4">
+        <File Id="XenClientGuestBindingsClientDll"
+              Name="XenClientGuest.Bindings.Client.dll"
+              Source="..\XenClientGuestService\Bindings\XenClientGuest.Bindings.Client\bin\$(var.Configuration)\XenClientGuest.Bindings.Client.dll"
+              Vital="yes"
+              KeyPath="yes"
+        />
+      </Component>
+      <Component Id="XenClientGuestServiceClientComponent" Guid="E4E003AF-0912-4117-B969-561640B19144">
+        <File Id="XenClientGuestServiceClientDll"
+              Name="XenClientGuestService.Client.dll"
+              Source="..\XenClientGuestService\XenClientGuestService.Client\bin\$(var.Configuration)\XenClientGuestService.Client.dll"
+              Vital="yes"
+              KeyPath="yes"
+        />
+      </Component>
+    
+      <?if $(var.InstallService) = "yes"?>
+          <Component Id="XenClientGuestServiceComponent" Guid="0508CE50-7E83-44DD-9A5C-A5F37E047F87">
+            <File Id="XenClientGuestServiceExe"
+                  Name="XenClientGuestService.exe"
+                  Source="..\XenClientGuestService\XenClientGuestService\bin\$(var.Configuration)\XenClientGuestService.exe"
+                  Vital="yes"
+                  KeyPath="yes"
+            />
+
+            <ServiceInstall Id="XenClientGuestService_ServiceInstall"
+                  Name="XenClientGuestService"
+                  Start="auto"
+                  Type="ownProcess"
+                  ErrorControl="normal"
+                  Vital="yes"
+                  Description="XenClient Guest Service"
+                  DisplayName="Citrix XenClient Guest Service">
+
+                  <util:ServiceConfig FirstFailureActionType="restart"
+                                      SecondFailureActionType="restart"
+                                      ThirdFailureActionType="restart"
+                                      ResetPeriodInDays="1"
+                                      RestartServiceDelayInSeconds="1"
+                                      />
+                  <ServiceDependency Id="XenGuestAgent" />
+            </ServiceInstall>
+
+            <ServiceControl Id="XenClientGuestService_StartStopConfig"
+                            Name="XenClientGuestService"
+                            Stop="both"
+                            Wait="yes"
+                            Remove="uninstall"
+             />
+          </Component>
+          <Component Id="XenClientGuestBindingsServiceComponent" Guid="A9A4B876-36BB-488C-AB82-7373CABE19F4">
+            <File Id="XenClientGuestBindingsServiceDll"
+                  Name="XenClientGuest.Bindings.Service.dll"
+                  Source="..\XenClientGuestService\Bindings\XenClientGuest.Bindings.Service\bin\$(var.Configuration)\XenClientGuest.Bindings.Service.dll"
+                  Vital="yes"
+                  KeyPath="yes"
+            />
+          </Component>
+      <?endif ?>
+    </DirectoryRef>
+  </Module>
+</Wix>

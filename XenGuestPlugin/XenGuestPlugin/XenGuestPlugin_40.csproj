@@ -1,0 +1,268 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.30729</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{76FF6CFB-4CF3-440F-AA7F-038CD68C423D}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>XenGuestPlugin</RootNamespace>
+    <AssemblyName>XenGuestPlugin</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <ApplicationIcon>xenclient.ico</ApplicationIcon>
+    <ApplicationManifest>XenGuestPlugin.exe.manifest</ApplicationManifest>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
+    <OldToolsVersion>3.5</OldToolsVersion>
+    <TargetFrameworkProfile>
+    </TargetFrameworkProfile>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="log4net, Version=1.2.10.0, Culture=neutral, PublicKeyToken=1b44e1d426115821, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>.\log4net.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.configuration" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Services\XenClientGuest\XenClientGuestHostService.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Services\XenGuestAgent\XenGuestAgentHostService.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Types\Alert.cs" />
+    <Compile Include="Services\XenGuestAgent\ChangeableDictionary.cs" />
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.de.resx" />
+    <EmbeddedResource Include="Properties\Resources.es.resx" />
+    <EmbeddedResource Include="Properties\Resources.fr.resx" />
+    <EmbeddedResource Include="Properties\Resources.ja.resx" />
+    <EmbeddedResource Include="Properties\Resources.zh-CN.resx" />
+    <EmbeddedResource Include="Reboot.resx">
+      <DependentUpon>Reboot.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="VmButton.resx">
+      <DependentUpon>VmButton.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="VMSwitcher.resx">
+      <DependentUpon>VMSwitcher.cs</DependentUpon>
+    </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <Compile Include="Reboot.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Reboot.designer.cs">
+      <DependentUpon>Reboot.cs</DependentUpon>
+    </Compile>
+    <Compile Include="RegistryMonitor.cs" />
+    <Compile Include="Services\Development\DevelopmentHostService.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Services\IHostService.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="TrayIcon.cs" />
+    <Compile Include="TrayIcon.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>TrayIcon.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Types\XenUSB.cs" />
+    <Compile Include="Types\XenVM.cs" />
+    <Compile Include="VmButton.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="VmButton.designer.cs">
+      <DependentUpon>VmButton.cs</DependentUpon>
+    </Compile>
+    <Compile Include="VMSwitcher.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="VMSwitcher.designer.cs">
+      <DependentUpon>VMSwitcher.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Services\XenGuestAgent\XenAlert.cs" />
+    <Compile Include="Services\XenGuestAgent\XenVmsCache.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\000_ToolBar_USB_Icon_dis.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\000_ToolBar_USB_Icon_ovr.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\000_ToolBar_USB_Icon_up.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\000_XenClient_Combo_Vista.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Blue_VM.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Reboot.de.resx">
+      <DependentUpon>Reboot.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reboot.es.resx">
+      <DependentUpon>Reboot.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reboot.fr.resx">
+      <DependentUpon>Reboot.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reboot.ja.resx">
+      <DependentUpon>Reboot.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reboot.zh-CN.resx">
+      <DependentUpon>Reboot.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\en\strings.xml" />
+    <EmbeddedResource Include="Resources\de\strings.xml" />
+    <EmbeddedResource Include="Resources\fr\strings.xml" />
+    <EmbeddedResource Include="Resources\es\strings.xml" />
+    <EmbeddedResource Include="Resources\ja\strings.xml" />
+    <EmbeddedResource Include="Resources\zh-CN\strings.xml" />
+    <EmbeddedResource Include="TrayIcon.de.resx">
+      <DependentUpon>TrayIcon.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="TrayIcon.es.resx">
+      <DependentUpon>TrayIcon.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="TrayIcon.fr.resx">
+      <DependentUpon>TrayIcon.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="TrayIcon.ja.resx">
+      <DependentUpon>TrayIcon.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="TrayIcon.resx">
+      <DependentUpon>TrayIcon.cs</DependentUpon>
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>TrayIcon.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="TrayIcon.zh-CN.resx">
+      <DependentUpon>TrayIcon.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="VMSwitcher.de.resx">
+      <DependentUpon>VMSwitcher.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="VMSwitcher.es.resx">
+      <DependentUpon>VMSwitcher.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="VMSwitcher.fr.resx">
+      <DependentUpon>VMSwitcher.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="VMSwitcher.ja.resx">
+      <DependentUpon>VMSwitcher.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="VMSwitcher.zh-CN.resx">
+      <DependentUpon>VMSwitcher.cs</DependentUpon>
+    </EmbeddedResource>
+    <None Include="App.config" />
+    <None Include="XenGuestPlugin.exe.manifest" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\075_ToolBar90%25_h32bit_1X75.png" />
+    <None Include="Resources\075_ToolBarSplitter90%25_h32bit_1X75.png" />
+    <None Include="Resources\075_ToolbarTab_h32bit_118x11.png" />
+    <None Include="Resources\075_ToolbarTabClosed_h32bit_118x11.png" />
+    <None Include="Resources\000_Preferences_h32bit_49x45.png" />
+    <None Include="Resources\bevel_selector.png" />
+    <Content Include="Resources\xenclient.png" />
+    <Content Include="xenclient.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <COMReference Include="XenGuestAgentLib">
+      <Guid>{13065B69-41D4-453F-9991-BE69BFE678E5}</Guid>
+      <VersionMajor>1</VersionMajor>
+      <VersionMinor>0</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>tlbimp</WrapperTool>
+      <Isolated>False</Isolated>
+    </COMReference>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\dbus\Udbus.Containers\Udbus.Containers.csproj">
+      <Project>{6ca51cba-ce08-4438-8b78-b968bca3a02f}</Project>
+      <Name>Udbus.Containers</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\dbus\Udbus.Types\Udbus.Types.csproj">
+      <Project>{2811c188-d05f-429a-aedf-066fe3cf86ac}</Project>
+      <Name>Udbus.Types</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\dbus\Udbus.WCF.Dbus\Udbus.WCF.Dbus.csproj">
+      <Project>{45a02323-4764-4f4b-a9ea-b5395fe79559}</Project>
+      <Name>Udbus.WCF.Dbus</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\dbus\Udbus.WCF\Udbus.WCF.csproj">
+      <Project>{d8543b20-0b24-465f-8306-f4eea91fce1a}</Project>
+      <Name>Udbus.WCF</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\XenClientGuestService\Bindings\XenClientGuest.Bindings.Client\XenClientGuest.Bindings.Client.csproj">
+      <Project>{1946dc31-1d00-4316-8672-8148ba3fb33f}</Project>
+      <Name>XenClientGuest.Bindings.Client</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\XenClientGuestService\Bindings\XenClientGuest.Bindings.Interface\XenClientGuest.Bindings.Interface.csproj">
+      <Project>{72526766-e80f-451f-b51f-e8662606fb9b}</Project>
+      <Name>XenClientGuest.Bindings.Interface</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\XenClientGuestService\XenClientGuestService.Client\XenClientGuestService.Client.csproj">
+      <Project>{e5186568-ef99-40e1-bf89-215d58e4e0a6}</Project>
+      <Name>XenClientGuestService.Client</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

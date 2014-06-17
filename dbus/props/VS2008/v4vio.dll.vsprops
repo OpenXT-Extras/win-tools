@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="Windows-1252"?>
+<VisualStudioPropertySheet
+	ProjectType="Visual C++"
+	Version="8.00"
+	Name="v4vio.dll"
+	InheritedPropertySheets="detail\udbus.pre.vsprops;.\detail\v4vio.dll.settings.vsprops;$(UdbusLocationsPropFile)"
+	>
+	<Tool
+		Name="VCCLCompilerTool"
+		AdditionalIncludeDirectories="..\v4vio"
+	/>
+	<Tool
+		Name="VCLinkerTool"
+		AdditionalDependencies="$(V4VioLibFile)"
+		AdditionalLibraryDirectories="&quot;$(OutDir)..\..\v4vio\$(ConfigurationName)&quot;;&quot;$(OutDir)&quot;;&quot;$(OutDir)\dbus&quot;"
+	/>
+</VisualStudioPropertySheet>

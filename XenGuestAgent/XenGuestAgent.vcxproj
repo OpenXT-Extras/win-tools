@@ -1,0 +1,245 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{68BD6C4D-B34B-450C-ABD1-EF4D4BAB123A}</ProjectGuid>
+    <RootNamespace>XenGuestAgent</RootNamespace>
+    <Keyword>AtlProj</Keyword>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <PlatformToolset>v110_xp</PlatformToolset>
+    <UseOfAtl>Static</UseOfAtl>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <PlatformToolset>v110_xp</PlatformToolset>
+    <UseOfAtl>Static</UseOfAtl>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="..\props\vs2010\citrix.props" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="..\props\vs2010\citrix.props" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup>
+    <_ProjectFileVersion>11.0.50727.1</_ProjectFileVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <OutDir>$(XenGuestAgentOutputDir)\</OutDir>
+    <IntDir>$(XenGuestAgentIntermediateDir)\</IntDir>
+    <IgnoreImportLibrary>true</IgnoreImportLibrary>
+    <LinkIncremental>true</LinkIncremental>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <OutDir>$(XenGuestAgentOutputDir)\</OutDir>
+    <IntDir>$(XenGuestAgentIntermediateDir)\</IntDir>
+    <IgnoreImportLibrary>true</IgnoreImportLibrary>
+    <LinkIncremental>false</LinkIncremental>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Midl>
+      <PreprocessorDefinitions>_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <MkTypLibCompatible>false</MkTypLibCompatible>
+      <TargetEnvironment>Win32</TargetEnvironment>
+      <GenerateStublessProxies>true</GenerateStublessProxies>
+      <TypeLibraryName>$(IntDir)XenGuestAgent.tlb</TypeLibraryName>
+      <HeaderFileName>XenGuestAgent_i.h</HeaderFileName>
+      <DllDataFileName />
+      <InterfaceIdentifierFileName>XenGuestAgent_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>XenGuestAgent_p.c</ProxyFileName>
+      <ValidateAllParameters>true</ValidateAllParameters>
+    </Midl>
+    <ClCompile>
+      <Optimization>Disabled</Optimization>
+      <AdditionalIncludeDirectories>.;jsoncpp\include;$(XenSourceRoot)/inc;$(XenSourceRoot)/xenhdrs;$(XenSourceRoot)/xenuser/xs2;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <MinimalRebuild>true</MinimalRebuild>
+      <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
+      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
+      <PrecompiledHeader />
+      <WarningLevel>Level3</WarningLevel>
+      <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <Culture>0x0409</Culture>
+      <AdditionalIncludeDirectories>$(IntDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+    <Link>
+      <AdditionalDependencies>user32.lib;uuid.lib;kernel32.lib;powrprof.lib;./wlanapi.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(XenClientLibJSONLibDir);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <SubSystem>Windows</SubSystem>
+      <TargetMachine>MachineX86</TargetMachine>
+    </Link>
+    <PostBuildEvent>
+      <Message>Performing registration</Message>
+      <Command>"$(TargetPath)" /RegServer</Command>
+    </PostBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Midl>
+      <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <MkTypLibCompatible>false</MkTypLibCompatible>
+      <TargetEnvironment>Win32</TargetEnvironment>
+      <GenerateStublessProxies>true</GenerateStublessProxies>
+      <TypeLibraryName>$(IntDir)XenGuestAgent.tlb</TypeLibraryName>
+      <HeaderFileName>XenGuestAgent_i.h</HeaderFileName>
+      <DllDataFileName />
+      <InterfaceIdentifierFileName>XenGuestAgent_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>XenGuestAgent_p.c</ProxyFileName>
+      <ValidateAllParameters>true</ValidateAllParameters>
+    </Midl>
+    <ClCompile>
+      <Optimization>MaxSpeed</Optimization>
+      <AdditionalIncludeDirectories>.;jsoncpp\include;$(XenSourceRoot)/inc;$(XenSourceRoot)/xenhdrs;$(XenSourceRoot)/xenuser/xs2;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <PrecompiledHeader />
+      <WarningLevel>Level3</WarningLevel>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <Culture>0x0409</Culture>
+      <AdditionalIncludeDirectories>$(IntDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+    <Link>
+      <AdditionalDependencies>user32.lib;uuid.lib;kernel32.lib;powrprof.lib;./wlanapi.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(XenClientLibJSONLibDir);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <SubSystem>Windows</SubSystem>
+      <OptimizeReferences>true</OptimizeReferences>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <TargetMachine>MachineX86</TargetMachine>
+    </Link>
+    <PostBuildEvent>
+      <Message>Performing registration</Message>
+      <Command>"$(TargetPath)" /RegServer</Command>
+    </PostBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="HttpSupport.cpp" />
+    <ClCompile Include="poweropts.c" />
+    <ClCompile Include="stdafx.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="wlanprof.c">
+      <CallingConvention Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">StdCall</CallingConvention>
+      <CallingConvention Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">StdCall</CallingConvention>
+    </ClCompile>
+    <ClCompile Include="XenGuestAgent.cpp" />
+    <ClCompile Include="XenGuestServices.cpp" />
+    <ClCompile Include="XenHttp.cpp" />
+    <ClCompile Include="XenSecurityHelper.cpp" />
+    <ClCompile Include="XenStoreWrapper.cpp" />
+    <ClCompile Include="XenVmInfo.cpp" />
+    <ClCompile Include="XenGuestAgent_i.c">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+      </PrecompiledHeader>
+      <CompileAsManaged Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</CompileAsManaged>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+      </PrecompiledHeader>
+      <CompileAsManaged Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</CompileAsManaged>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Midl Include="XenGuestAgent.idl" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="HttpSupport.h" />
+    <ClInclude Include="resource.h" />
+    <ClInclude Include="stdafx.h" />
+    <ClInclude Include="targetver.h" />
+    <ClInclude Include="wlanapi.h" />
+    <ClInclude Include="XenGuestAgent.h" />
+    <ClInclude Include="XenGuestServices.h" />
+    <ClInclude Include="XenHttp.h" />
+    <ClInclude Include="XenSecurityHelper.h" />
+    <ClInclude Include="XenStoreWrapper.h" />
+    <ClInclude Include="XenVmInfo.h" />
+    <ClInclude Include="xgamsg.h" />
+    <ClInclude Include="XenGuestAgent_i.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="xen.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="XenGuestAgent.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="XenGuestAgent.rgs" />
+    <None Include="XenGuestServices.rgs" />
+    <None Include="XenVmInfo.rgs" />
+    <CustomBuild Include="xgamsg.zh-CN.mc">
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">mc -u .\xgamsg.zh-CN.mc</Command>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">xgamsg.zh-CN.rc;xgamsg.zh-CN.h;%(Outputs)</Outputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">mc -u .\xgamsg.zh-CN.mc</Command>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">xgamsg.zh-CN.rc;xgamsg.zh-CN.h;%(Outputs)</Outputs>
+    </CustomBuild>
+    <CustomBuild Include="xgamsg.es.mc">
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">mc .\xgamsg.es.mc</Command>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">xgamsg.es.rc;xgamsg.es.h;%(Outputs)</Outputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">mc .\xgamsg.es.mc</Command>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">xgamsg.es.rc;xgamsg.es.h;%(Outputs)</Outputs>
+    </CustomBuild>
+    <CustomBuild Include="xgamsg.fr.mc">
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">mc .\xgamsg.fr.mc</Command>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">xgamsg.fr.rc;xgamsg.fr.h;%(Outputs)</Outputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">mc .\xgamsg.fr.mc</Command>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">xgamsg.fr.rc;xgamsg.fr.h;%(Outputs)</Outputs>
+    </CustomBuild>
+    <CustomBuild Include="xgamsg.de.mc">
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">mc .\xgamsg.de.mc</Command>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">xgamsg.de.rc;xgamsg.de.h;%(Outputs)</Outputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">mc .\xgamsg.de.mc</Command>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">xgamsg.de.rc;xgamsg.de.h;%(Outputs)</Outputs>
+    </CustomBuild>
+    <CustomBuild Include="xgamsg.ja.mc">
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">mc -u .\xgamsg.ja.mc</Command>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">xgamsg.ja.rc;xgamsg.ja.h;%(Outputs)</Outputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">mc -u .\xgamsg.ja.mc</Command>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">xgamsg.ja.rc;xgamsg.ja.h;%(Outputs)</Outputs>
+    </CustomBuild>
+    <CustomBuild Include="xgamsg.mc">
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">mc .\xgamsg.mc
+</Command>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">xgamsg.rc;xgamsg.h;%(Outputs)</Outputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">mc .\xgamsg.mc
+</Command>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">xgamsg.rc;xgamsg.h;%(Outputs)</Outputs>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="ReadMe.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="jsoncpp\lib_json.vcxproj">
+      <Project>{b84f7231-16ce-41d8-8c08-7b523ff4225b}</Project>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

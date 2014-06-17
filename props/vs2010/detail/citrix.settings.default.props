@@ -1,0 +1,72 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <!-- Default locations for Citrix include directories -->
+  <PropertyGroup>
+    <CitrixConfiguration Condition=" '$(CitrixConfiguration)' == '' ">$(Configuration)</CitrixConfiguration>
+    <CitrixConfiguration Condition=" '$(CitrixConfiguration)' == '' ">$(ConfigurationName)</CitrixConfiguration>
+    <XenSourceRoot>..\..\xc-windows</XenSourceRoot>
+    <CitrixPlatformSubDir></CitrixPlatformSubDir>
+    <CitrixPlatformSubDir Condition=" '$(Platform)' != 'Win32'">$(Platform)\</CitrixPlatformSubDir>
+    <XenClientLibJSONOutputDir>$(CitrixConfiguration)</XenClientLibJSONOutputDir>
+    <XenClientLibJSONIntermediateDir>$(CitrixConfiguration)</XenClientLibJSONIntermediateDir>
+    <XenClientLibJSONLibDir />
+    <XenGuestAgentOutputDir Condition=" '$(SolutionDir)' != '' ">$(SolutionDir)</XenGuestAgentOutputDir>
+    <XenGuestAgentOutputDir>$(XenGuestAgentOutputDir)$(CitrixConfiguration)</XenGuestAgentOutputDir>
+    <XenGuestAgentIntermediateDir>$(CitrixConfiguration)</XenGuestAgentIntermediateDir>
+    <!-- <XenGuestWinHookOutputDir>$(XenGuestAgentOutputDir)</XenGuestWinHookOutputDir> -->
+    <XenPoweroptsOutputDir>$(XenGuestAgentOutputDir)</XenPoweroptsOutputDir>
+    <XenWlanprofOutputDir>$(XenGuestAgentOutputDir)</XenWlanprofOutputDir>
+    <XenXcdiagOutputDir>$(CitrixPlatformSubDir)$(XenGuestAgentOutputDir)</XenXcdiagOutputDir>
+    <XenXcdiagIntermediateDir>$(CitrixPlatformSubDir)$(CitrixConfiguration)</XenXcdiagIntermediateDir>
+
+    <CitrixLibNameSuffix />
+    <CitrixLibNameSuffix Condition=" '$(CitrixConfiguration)' == 'Debug' ">_d</CitrixLibNameSuffix>
+    <CitrixLibNameSuffix Condition=" '$(CitrixConfiguration)' == 'DebugStaticLib' ">_d</CitrixLibNameSuffix>
+    <CitrixLibNameSuffix Condition=" '$(CitrixConfiguration)' == 'DebugDLL' ">_d</CitrixLibNameSuffix>
+  </PropertyGroup>
+  <PropertyGroup />
+  <ItemDefinitionGroup />
+  <ItemGroup>
+    <BuildMacro Include="CitrixConfiguration">
+      <Value>$(CitrixConfiguration)</Value>
+    </BuildMacro>
+    <BuildMacro Include="XenSourceRoot">
+      <Value>$(XenSourceRoot)</Value>
+    </BuildMacro>
+    <BuildMacro Include="XenClientLibJSONOutputDir">
+      <Value>$(XenClientLibJSONOutputDir)</Value>
+    </BuildMacro>
+    <BuildMacro Include="XenClientLibJSONIntermediateDir">
+      <Value>$(XenClientLibJSONIntermediateDir)</Value>
+    </BuildMacro>
+    <BuildMacro Include="XenClientLibJSONLibDir">
+      <Value>$(XenClientLibJSONLibDir)</Value>
+    </BuildMacro>
+    <BuildMacro Include="XenGuestAgentOutputDir">
+      <Value>$(XenGuestAgentOutputDir)</Value>
+    </BuildMacro>
+    <BuildMacro Include="XenGuestAgentIntermediateDir">
+      <Value>$(XenGuestAgentIntermediateDir)</Value>
+    </BuildMacro>
+    <!--
+    <BuildMacro Include="XenGuestWinHookOutputDir">
+      <Value>$(XenGuestWinHookOutputDir)</Value>
+    </BuildMacro>
+    -->
+    <BuildMacro Include="XenPoweroptsOutputDir">
+      <Value>$(XenPoweroptsOutputDir)</Value>
+    </BuildMacro>
+    <BuildMacro Include="XenWlanprofOutputDir">
+      <Value>$(XenWlanprofOutputDir)</Value>
+    </BuildMacro>
+    <BuildMacro Include="XenXcdiagOutputDir">
+      <Value>$(XenXcdiagOutputDir)</Value>
+    </BuildMacro>
+    <BuildMacro Include="XenXcdiagIntermediateDir">
+      <Value>$(XenXcdiagIntermediateDir)</Value>
+    </BuildMacro>
+    <BuildMacro Include="CitrixLibNameSuffix">
+      <Value>$(CitrixLibNameSuffix)</Value>
+    </BuildMacro>
+  </ItemGroup>
+</Project>

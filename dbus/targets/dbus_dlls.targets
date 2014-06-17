@@ -1,0 +1,369 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Create Content items for dbus dlls.
+ -->
+<!-- You might want to put this in your .csproj or .vcxproj just before the </Project> -->
+<!--
+  <PropertyGroup>
+    <BuildDependsOn>
+      CreateDLLContent;
+      $(BuildDependsOn)
+    </BuildDependsOn>
+  </PropertyGroup>
+ -->
+<!-- Or if you just need the properties without creating the <Content> elements: -->
+<!--
+  <PropertyGroup>
+    <BuildDependsOn>
+      GenerateDLLContent;
+      $(BuildDependsOn)
+    </BuildDependsOn>
+  </PropertyGroup>
+-->
+
+<Project ToolsVersion="3.5" DefaultTargets="ProcessOriginal" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <!-- Get udbus properties if haven't already. -->
+<!--                   And '$(ToolsVersion)' == '3.5'  -->
+  <PropertyGroup>
+    <DbusDllsTargetsDefined>1</DbusDllsTargetsDefined>
+  </PropertyGroup>
+
+  <Import Condition=" '$(_CitrixPropsDefined)' == '' 
+                    "
+          Project="..\..\props\VS2010\citrix.props" 
+  />
+  <Import Condition=" '$(UdbusDefineDefined)' == '' " Project="..\props\VS2010\detail\udbus.define.props" />
+
+  <Import Condition=" '$(_UdbusDLLPropsDefined)' == '' And
+                      '$(_UdbusLibPropsDefined)' == ''
+                    "
+          Project="..\..\dbus\props\VS2010\udbus.dll.props"
+  />
+
+  <Target Name="_CreateDLLCommonProperties">
+    <Message Text="UdbusRootDirectory: '$(UdbusRootDirectory)'" />
+    <Message Text="_UdbusRootDirectory: '$(_UdbusRootDirectory)'" />
+    <Message Text="UdbusDefaultNativeOutputRootDirectory: '$(UdbusDefaultNativeOutputRootDirectory)'" />
+    <Message Text="_UdbusDefaultNativeOutputRootDirectory: '$(_UdbusDefaultNativeOutputRootDirectory)'" />
+    <Message Text="UdbusDefaultRootDirectory: '$(UdbusDefaultRootDirectory)'" />
+    <!--<Message Text="UdbusDefaultRootDirectory: '$(UdbusDefaultNativeOutputRootDirectory)'" />-->
+    <PropertyGroup>
+      <!-- Internal UdbusRootDirectory property. -->
+      <!-- UdbusDefaultNativeOutputRootDirectory trumps existing _UdbusRootDirectory (is this a good idea ?) -->
+      <_UdbusRootDirectory Condition=" '$(_UdbusRootDirectory)' == '' And '$(LocalOutputDir)' == '' ">$(UdbusRootDirectory)</_UdbusRootDirectory>
+      <_UdbusRootDirectory Condition=" '$(_UdbusRootDirectory)' != ''
+                                       And !HasTrailingSlash('$(_UdbusRootDirectory)')
+                                     "
+      >$(_UdbusRootDirectory)\</_UdbusRootDirectory>
+    </PropertyGroup>
+    <Message Text="_UdbusRootDirectory at end of day: $(_UdbusRootDirectory)" />
+  </Target>
+
+<!--   <Import Condition=" '$(_CitrixPropsDefined)' == '' " Project="..\..\props\VS2010\citrix.props" /> -->
+<!--   <Import Condition=" '$(_UdbusDLLPropsDefined)' == '' And -->
+<!--                       '$(_UdbusLibPropsDefined)' == '' " Project="..\..\dbus\props\VS2010\udbus.dll.props" /> -->
+  <!-- Global items containing udbus DLL data. -->
+  <ItemGroup>
+    <DLLContent Include="udbus">
+      <Folder>udbus_lib</Folder>
+    </DLLContent>
+    <DLLContent Include="udbus_v4v">
+      <Folder>udbus_v4v_lib</Folder>
+    </DLLContent>
+    <DLLContent Include="v4vio" />
+  </ItemGroup>
+  
+  <!-- Work out the paths to the various DLLContent items in a single directory. -->
+  <Target Name="GenerateSingleDirDLLContentPaths"
+          Outputs="%(DLLContent.Identity)"
+          DependsOnTargets="_CreateDLLCommonProperties"
+  >
+    <!-- Default folders to look for DLLs in. Can be specified by user prior to including this file. -->
+    <PropertyGroup>
+      <!--  For flat directory structure, use same directory as C++ projects (see udbus.assemblylocations.props) if defined. -->
+      <_DllOutputRootDirectory />
+      <!--  _UdbusDefaultNativeOutputRootDirectory should only be defined if it's in use. -->
+      <_DllOutputRootDirectory Condition=" '$(_UdbusDefaultNativeOutputRootDirectory)' != '' ">$(_UdbusDefaultNativeOutputRootDirectory)</_DllOutputRootDirectory>
+      <_DllOutputRootDirectory Condition=" '$(_DLLOutputRootDirectory)' == '' ">$(_UdbusRootDirectory)</_DllOutputRootDirectory>
+      <!--  For flat directory structure, default is to have a dbus sub-directory. -->
+      <_DLLOutputRootDirectory Condition=" '$(_DLLOutputRootDirectory)' == '' And
+                                           '$(LocalOutputDir)' != '' "
+                                          >$(LocalOutputDir)\dbus\</_DLLOutputRootDirectory>
+      <!-- Check for SolutionDir, or in Wix's case very unhelpful trick to tell you there's no SolutionDir (silly Wix) -->
+      <_DLLOutputRootDirectory Condition=" '$(_DLLOutputRootDirectory)' == '' 
+                                       And '$(SolutionDir)' != '' 
+                                       And '$(SolutionDir)' != '*Undefined if not building a solution or within Visual Studio*'
+                                         ">$(SolutionDir)</_DLLOutputRootDirectory>
+      <_DLLOutputRootDirectory Condition=" '$(_DLLOutputRootDirectory)' == '' ">..\<!-- ..\dbus\ --></_DLLOutputRootDirectory>
+      <!-- Add a trailing slash.  -->
+      <_DLLOutputRootDirectory Condition=" '$(_DLLOutputRootDirectory)' != '' 
+                                       And !HasTrailingSlash('$(_DLLOutputRootDirectory)')"
+      >$(_DLLOutputRootDirectory)\</_DLLOutputRootDirectory>
+    </PropertyGroup>
+    <Message Text="_DLLOutputRootDirectory: $(_DLLOutputRootDirectory)" />
+    <!-- Work out the folder the DLL lives in.  -->
+    <PropertyGroup>
+      <_DLLContentFolder>$(_DLLOutputRootDirectory)</_DLLContentFolder>
+    </PropertyGroup>
+    <!-- Work out full path to DLL and PDB if it exists. -->
+    <ItemGroup>
+      <_DLLContentFileName Include="$(_DLLContentFolder)$(UdbusConfiguration)\%(DLLContent.Identity)$(UdbusLibNameSuffix).dll">
+        <DLLContent>%(DLLContent.Identity)</DLLContent>
+      </_DLLContentFileName>
+      <_PDBContentFileName Include="$(_DLLContentFolder)$(UdbusConfiguration)\%(DLLContent.Identity)$(UdbusLibNameSuffix).pdb"
+                           Condition=" '$(Configuration)' != 'Release' And '$(Configuration)' != 'ReleaseStaticLib' And '$(Configuration)' != 'ReleaseDLL' "
+      >
+        <DLLContent>%(DLLContent.Identity)</DLLContent>
+      </_PDBContentFileName>
+    </ItemGroup>
+    <!-- Seem to need separate item groups for separate metadata. -->
+    <!--
+    <ItemGroup>
+      <DLLContent>
+        <DLLPath>%(_DLLContentFileName.Identity)</DLLPath>
+        <DLLFolder>%(_DLLContentFileName.Rootdir)%(_DLLContentFileName.Directory)</DLLFolder>
+        <DLLFileName>%(_DLLContentFileName.FileName)%(_DLLContentFileName.Extension)</DLLFileName>
+      </DLLContent>
+    </ItemGroup>
+
+    <ItemGroup>
+      <DLLContent>
+        <PDBPath />
+        <PDBPath Condition=" '%(_PDBContentFileName.Identity)' != '' ">%(_PDBContentFileName.Identity)</PDBPath>
+        <PDBFolder Condition=" '%(_PDBContentFileName.Identity)' != '' ">%(_PDBContentFileName.Rootdir)%(_PDBContentFileName.Directory)</PDBFolder>
+        <PDBFileName Condition=" '%(_PDBContentFileName.Identity)' != '' ">%(_PDBContentFileName.FileName)%(_PDBContentFileName.Extension)</PDBFileName>
+      </DLLContent>
+    </ItemGroup>
+    <Message Text="DLLPath: %(DLLContent.DLLPath)"/>
+    <Message Text="_DLLContentFileName: %(_DLLContentFileName.Identity) breaks down to %(_DLLContentFileName.FileName) and %(_DLLContentFileName.Extension)" />
+    <Message Text="DLLFileName: %(DLLContent.Identity) => %(DLLContent.DLLFileName)" />
+    <Message Text="PDBFileName: %(DLLContent.Identity) => %(DLLContent.PDBFileName)" />
+     -->
+  </Target>
+
+  <!-- Work out the individual paths to the various DLLContent items -->
+  <Target Name="GenerateIndividualDLLContentPaths"
+          Outputs="%(DLLContent.Identity)"
+          DependsOnTargets="_CreateDLLCommonProperties"
+  >
+    <!-- Default folders to look for DLLs in. Can be specified by user prior to including this file. -->
+    <PropertyGroup>
+      <_DLLOutputRootDirectory Condition=" '$(_DLLOutputRootDirectory)' == '' And
+                                          '$(LocalOutputDir)' != '' "
+                                          >$(LocalOutputDir)</_DLLOutputRootDirectory>
+      <_DllOutputRootDirectory Condition=" '$(_DLLOutputRootDirectory)' == '' ">$(_UdbusRootDirectory)</_DllOutputRootDirectory>
+      <_DLLOutputRootDirectory Condition=" '$(_DLLOutputRootDirectory)' == '' ">..\..\dbus\</_DLLOutputRootDirectory>
+      <!-- Add a trailing slash.  -->
+      <_DLLOutputRootDirectory Condition=" '$(_DLLOutputRootDirectory)' != '' 
+                                      And !HasTrailingSlash('$(_DLLOutputRootDirectory)')"
+      >$(_DLLOutputRootDirectory)\</_DLLOutputRootDirectory>
+    </PropertyGroup>
+    <!-- Work out the folder the DLL lives in.  -->
+    <PropertyGroup>
+      <_DLLContentFolder>%(DLLContent.Identity)</_DLLContentFolder>
+      <_DLLContentFolder Condition=" '%(DLLContent.Folder)' != '' ">%(DLLContent.Folder)</_DLLContentFolder>
+      <_DLLContentFolder Condition=" '$(_DLLContentFolder)' != '' And !HasTrailingSlash('$(_DLLContentFolder)') ">$(_DLLContentFolder)\</_DLLContentFolder>
+    </PropertyGroup>
+    <!-- Work out full path to DLL and PDB if it exists. -->
+    <ItemGroup>
+      <_DLLContentFileName Include="$(_DLLOutputRootDirectory)$(_DLLContentFolder)$(UdbusConfiguration)\%(DLLContent.Identity)$(UdbusLibNameSuffix).dll">
+        <DLLContent>%(DLLContent.Identity)</DLLContent>
+      </_DLLContentFileName>
+      <_PDBContentFileName Include="$(_DLLOutputRootDirectory)$(_DLLContentFolder)$(UdbusConfiguration)\%(DLLContent.Identity)$(UdbusLibNameSuffix).pdb"
+                           Condition=" '$(Configuration)' != 'Release' And '$(Configuration)' != 'ReleaseStaticLib' And '$(Configuration)' != 'ReleaseDLL' "
+      >
+        <DLLContent>%(DLLContent.Identity)</DLLContent>
+      </_PDBContentFileName>
+    </ItemGroup>
+    <!-- Seem to need separate item groups for separate metadata. -->
+    <!--
+    <ItemGroup>
+      <DLLContent>
+        <DLLPath>%(_DLLContentFileName.Identity)</DLLPath>
+        <DLLFolder>%(_DLLContentFileName.Rootdir)%(_DLLContentFileName.Directory)</DLLFolder>
+        <DLLFileName>%(_DLLContentFileName.FileName)%(_DLLContentFileName.Extension)</DLLFileName>
+      </DLLContent>
+    </ItemGroup>
+
+    <ItemGroup>
+      <DLLContent>
+        <PDBPath />
+        <PDBPath Condition=" '%(_PDBContentFileName.Identity)' != '' ">%(_PDBContentFileName.Identity)</PDBPath>
+        <PDBFolder Condition=" '%(_PDBContentFileName.Identity)' != '' ">%(_PDBContentFileName.Rootdir)%(_PDBContentFileName.Directory)</PDBFolder>
+        <PDBFileName Condition=" '%(_PDBContentFileName.Identity)' != '' ">%(_PDBContentFileName.FileName)%(_PDBContentFileName.Extension)</PDBFileName>
+      </DLLContent>
+    </ItemGroup>
+    <Message Text="DLLPath: %(DLLContent.DLLPath)"/>
+    <Message Text="_DLLContentFileName: %(_DLLContentFileName.Identity) breaks down to %(_DLLContentFileName.FileName) and %(_DLLContentFileName.Extension)" />
+    <Message Text="DLLFileName: %(DLLContent.Identity) => %(DLLContent.DLLFileName)" />
+    <Message Text="PDBFileName: %(DLLContent.Identity) => %(DLLContent.PDBFileName)" />
+    -->
+  </Target>
+
+  <Target Name="GenerateDLLContentPaths"
+          DependsOnTargets="$(GenerateDLLContentTarget)"
+          Outputs="%(DLLContent.DLLPath)"
+  >
+  <!-- Bit hacked up with includes... -->
+  <!-- 
+          Inputs="%(_DLLContentFileName.Identity)"
+          Outputs="%(DLLContent.Identity)"
+
+          Outputs="%(_DLLContentFileName.DLLContent)"
+    <Message Text="DLLContent.Identity: '%(DLLContent.Identity)'" />
+    <Message Text="_DLLContentFileName.DLLContent: '%(_DLLContentFileName.DLLContent)'" />
+    <Message Text="Matched _DLLContentFileName.DLLContent '%(_DLLContentFileName.DLLContent)' and DLLContent.Identity '%(DLLContent.Identity)' "
+             Condition=" '%(DLLContent.Identity)' == '%(_DLLContentFileName.DLLContent)' "
+    />
+  -->
+    <ItemGroup>
+      <DLLContent Include="%(_DLLContentFileName.DLLContent)"
+                  Condition=" '%(_DLLContentFileName.FileName)' != '' "
+      >
+        <DLLPath>%(_DLLContentFileName.Identity)</DLLPath>
+        <DLLFolder>%(_DLLContentFileName.Rootdir)%(_DLLContentFileName.Directory)</DLLFolder>
+        <DLLFileName>%(_DLLContentFileName.FileName)%(_DLLContentFileName.Extension)</DLLFileName>
+      </DLLContent>
+    </ItemGroup>
+
+    <ItemGroup>
+      <DLLContent Include="%(_PDBContentFileName.DLLContent)"
+                  Condition=" '%(_PDBContentFileName.FileName)' != '' "
+      >
+        <PDBPath />
+        <PDBPath Condition=" '%(_PDBContentFileName.Identity)' != '' ">%(_PDBContentFileName.Identity)</PDBPath>
+        <PDBFolder Condition=" '%(_PDBContentFileName.Identity)' != '' ">%(_PDBContentFileName.Rootdir)%(_PDBContentFileName.Directory)</PDBFolder>
+        <PDBFileName Condition=" '%(_PDBContentFileName.Identity)' != '' ">%(_PDBContentFileName.FileName)%(_PDBContentFileName.Extension)</PDBFileName>
+      </DLLContent>
+    </ItemGroup>
+    <Message Text="DLLPath: %(DLLContent.DLLPath)"/>
+    <Message Text="_DLLContentFileName: %(_DLLContentFileName.Identity) breaks down to %(_DLLContentFileName.FileName) and %(_DLLContentFileName.Extension)" />
+    <Message Text="DLLFileName: %(DLLContent.Identity) => %(DLLContent.DLLFileName)" />
+    <Message Text="PDBFileName: %(DLLContent.Identity) => %(DLLContent.PDBFileName)" />
+  </Target>
+
+  <!-- Create Properties from the DLLContent Items. -->
+  <Target Name="GenerateDLLContentProperties"
+          Outputs="%(DLLContent.Identity)"
+  >
+    <CreateProperty Value="%(DLLContent.DLLPath)">
+      <Output TaskParameter="Value"
+              PropertyName="%(DLLContent.Identity)DLLPath"
+      />
+    </CreateProperty>
+    <CreateProperty Value="%(DLLContent.DLLFolder)">
+      <Output TaskParameter="Value"
+              PropertyName="%(DLLContent.Identity)DLLFolder"
+      />
+    </CreateProperty>
+    <CreateProperty Value="%(DLLContent.DLLFileName)">
+      <Output TaskParameter="Value"
+              PropertyName="%(DLLContent.Identity)DLLFileName"
+      />
+    </CreateProperty>
+
+    <CreateProperty 
+      Condition=" '%(DLLContent.PDBPath)' != '' "
+      Value="%(DLLContent.PDBPath)"
+    >
+      <Output TaskParameter="Value"
+              PropertyName="%(DLLContent.Identity)PDBPath"
+      />
+    </CreateProperty>
+    <CreateProperty 
+      Condition=" '%(DLLContent.PDBFolder)' != '' "
+      Value="%(DLLContent.PDBFolder)"
+    >
+      <Output TaskParameter="Value"
+              PropertyName="%(DLLContent.Identity)PDBFolder"
+      />
+    </CreateProperty>
+    <CreateProperty 
+      Condition=" '%(DLLContent.PDBFileName)' != '' "
+      Value="%(DLLContent.PDBFileName)"
+    >
+      <Output TaskParameter="Value"
+              PropertyName="%(DLLContent.Identity)PDBFileName"
+      />
+    </CreateProperty>
+  </Target>
+
+  <Target Name="ShowDLLContentProperties"
+          DependsOnTargets="GenerateDLLContent"
+  >
+    <Message Text="===Global===" />
+    <Message Text="GenerateDLLContentTarget: $(GenerateDLLContentTarget)" />
+    <Message Text="_DLLOutputRootDirectory: $(_DLLOutputRootDirectory)" />
+    <Message Text="LocalOutputDir: $(LocalOutputDir)" />
+    <Message Text="UdbusRootDirectory: $(UdbusRootDirectory)" />
+    <Message Text="_UdbusRootDirectory: $(_UdbusRootDirectory)" />
+    <Message Text="UdbusBuildDirectory: $(UdbusBuildDirectory)" />
+
+    <Message Text="===DLL===" />
+    <Message Text="udbusDLLPath: $(udbusDLLPath)" />
+    <Message Text="udbus_v4vDLLPath: $(udbus_v4vDLLPath)" />
+    <Message Text="v4vioDLLPath: $(v4vioDLLPath)" />
+    <Message Text="udbusDLLFolder: $(udbusDLLFolder)" />
+    <Message Text="udbus_v4vDLLFolder: $(udbus_v4vDLLFolder)" />
+    <Message Text="v4vioDLLFolder: $(v4vioDLLFolder)" />
+    <Message Text="udbusDLLFileName: $(udbusDLLFileName)" />
+    <Message Text="udbus_v4vDLLFileName: $(udbus_v4vDLLFileName)" />
+    <Message Text="v4vioDLLFileName: $(v4vioDLLFileName)" />
+
+    <Message Text="" />
+    <Message Text="===PDB===" />
+    <Message Text="udbusPDBPath: $(udbusPDBPath)" />
+    <Message Text="udbus_v4vPDBPath: $(udbus_v4vPDBPath)" />
+    <Message Text="v4vioPDBPath: $(v4vioPDBPath)" />
+    <Message Text="udbusPDBFolder: $(udbusPDBFolder)" />
+    <Message Text="udbus_v4vPDBFolder: $(udbus_v4vPDBFolder)" />
+    <Message Text="v4vioPDBFolder: $(v4vioPDBFolder)" />
+    <Message Text="udbusPDBFileName: $(udbusPDBFileName)" />
+    <Message Text="udbus_v4vPDBFileName: $(udbus_v4vPDBFileName)" />
+    <Message Text="v4vioPDBFileName: $(v4vioPDBFileName)" />
+  </Target>
+
+  <PropertyGroup>
+    <GenerateDLLContentTarget
+      Condition=" '$(GenerateDLLContentDependsOn)' == '' And
+                  '$(LocalOutputDir)' == '' And
+                  '$(_DLLOutputRootDirectory)' == '' 
+                "
+    >GenerateSingleDirDLLContentPaths</GenerateDLLContentTarget>
+    <GenerateDLLContentTarget
+      Condition=" '$(GenerateDLLContentTarget)' == '' "
+    >GenerateSingleDirDLLContentPaths</GenerateDLLContentTarget>
+    <GenerateDLLContentDependsOn>
+<!--       $(GenerateDLLContentTarget) -->
+      GenerateDLLContentPaths
+<!--       GenerateSingleDirDLLContentPaths -->
+      ;GenerateDLLContentProperties
+      <!--;ShowDLLContentProperties-->
+    </GenerateDLLContentDependsOn>
+  </PropertyGroup>
+
+  <Target Name="GenerateDLLContent"
+          DependsOnTargets="$(GenerateDLLContentDependsOn)"
+  />
+
+  <!-- Create DLL Content items. -->
+  <Target Name="CreateDLLContent"
+          Outputs="%(DLLContent.DLLPath)"
+          DependsOnTargets="GenerateDLLContent"
+  >
+    <ItemGroup>
+      <Content Include="%(DLLContent.DLLPath)">
+        <Link>%(DLLContent.DLLFileName)</Link>
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </Content>
+      <Content Include="%(DLLContent.PDBPath)"
+               Condition=" '%(DLLContent.PDBPath)' != '' ">
+        <Link>%(DLLContent.PDBFileName)</Link>
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </Content>
+    </ItemGroup>
+    <Message Text="DLLContent.DLLPath: %(DLLContent.DLLPath)" />
+    <Message Text="DLLContent.PDBPath: %(DLLContent.PDBPath)"
+             Condition=" '%(DLLContent.PDBPath)' != '' "
+    />
+  </Target>
+</Project>

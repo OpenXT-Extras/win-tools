@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003" InitialTargets="_ValidateUdbusAssemblyLocations">
+  <PropertyGroup>
+    <UdbusAssembliesLocationsCommonPropsDefined>1</UdbusAssembliesLocationsCommonPropsDefined>
+  </PropertyGroup>
+
+  <Import Condition=" '$(UdbusDefineDefined)' == '' " Project="..\VS2010\detail\udbus.define.props" />
+
+  <PropertyGroup>
+    <!-- Enumeration of UdbusBuild locations. -->
+    <UdbusBuildDefault>UdbusBuildDefault</UdbusBuildDefault>
+    <UdbusBuildOutside>UdbusBuildOutside</UdbusBuildOutside>
+    <UdbusBuildOneDir>UdbusBuildOneDir</UdbusBuildOneDir>
+    <UdbusBuildLocation Condition=" '$(UdbusBuildLocation)' == '' 
+                                And '$(LocalOutputDir)' != '' ">$(UdbusBuildOutside)</UdbusBuildLocation>
+    <UdbusBuildLocation Condition=" '$(UdbusBuildLocation)' == '' ">$(UdbusBuildDefault)</UdbusBuildLocation>
+    <!-- Configuration. -->
+    <DbusAssemblyConfiguration Condition=" '$(DbusAssemblyConfiguration)' == '' ">$(ConfigurationName)</DbusAssemblyConfiguration>
+    <DbusAssemblyConfiguration Condition=" '$(DbusAssemblyConfiguration)' == '' ">$(Configuration)</DbusAssemblyConfiguration>
+    <DbusAssemblyConfiguration Condition=" '$(DbusAssemblyConfiguration)' == '' ">Debug</DbusAssemblyConfiguration>
+    <AssemblyTargetSuffix></AssemblyTargetSuffix>
+    <AssemblyTargetSuffix Condition=" '$(DbusAssemblyConfiguration)' == 'Debug' ">_d</AssemblyTargetSuffix>
+    <_UdbusDefaultNativeOutputRootDirectory></_UdbusDefaultNativeOutputRootDirectory>
+  </PropertyGroup>
+
+  <Target Name="_ValidateUdbusAssemblyLocations">
+    <Error
+      Condition=" '$(UdbusBuildLocation)' != '$(UdbusBuildDefault)' 
+              And '$(UdbusBuildLocation)' != '$(UdbusBuildOutside)'
+              And '$(UdbusBuildLocation)' != '$(UdbusBuildOneDir)'
+               "
+      Text=" Unknown UdbusBuildLocation: '$(UdbusBuildLocation)'. Use one of: $(UdbusBuildDefault), $(UdbusBuildOutside), $(UdbusBuildOneDir)."
+    />
+  </Target>
+
+  <!-- ===Default=== -->
+  <!-- Building in external directory based on solution/configuration.
+       Standard Visual Studio behaviour. 
+  -->
+  <PropertyGroup Condition=" '$(UdbusBuildLocation)' == '$(UdbusBuildDefault)' ">
+    <_UdbusAssemblyRootDirectory>$(UdbusDefaultRootDirectory)</_UdbusAssemblyRootDirectory>
+    <_UdbusAssemblyRootDirectory Condition=" '$(_UdbusAssemblyRootDirectory)' == '' ">$(UdbusRootDirectory)</_UdbusAssemblyRootDirectory>
+    <!-- Add trailing slash. -->
+    <_UdbusAssemblyRootDirectory Condition=" '$(_UdbusAssemblyRootDirectory)' != '' 
+                                  And !HasTrailingSlash('$(_UdbusAssemblyRootDirectory)')
+                                    "
+    >$(_UdbusAssemblyRootDirectory)\</_UdbusAssemblyRootDirectory>
+    <_UdbusIntermediateDirectory>$(UdbusIntermediateDirectory)</_UdbusIntermediateDirectory>
+    <_UdbusIntermediateDirectory Condition=" '$(_UdbusIntermediateDirectory)' != '' 
+                                 And !HasTrailingSlash('$(_UdbusIntermediateDirectory)')
+                                           "
+    >$(_UdbusIntermediateDirectory)\</_UdbusIntermediateDirectory>
+
+    <UdbusBuildRelativeDirectory>bin\$(DbusAssemblyConfiguration)\</UdbusBuildRelativeDirectory>
+    <UdbusIntermediateRelativeDirectory>obj\$(DbusAssemblyConfiguration)</UdbusIntermediateRelativeDirectory>
+    <_AssemblyParentDir></_AssemblyParentDir>
+    <_AssemblyParentDir Condition=" '$(_UdbusAssemblyRootDirectory)' == '' ">..\</_AssemblyParentDir>
+    <_UdbusDefaultNativeOutputRootDirectory Condition=" '$(UdbusDefaultNativeOutputRootDirectory)' != '' "
+    >$(UdbusDefaultNativeOutputRootDirectory)</_UdbusDefaultNativeOutputRootDirectory>
+  </PropertyGroup>
+
+  <!-- ===OutsideDir=== -->
+  <!-- Building in external directory based on assembly-name/configuration.
+       If using $(LocalOutputDir) uses Udbus directory for everything.
+  -->
+  <PropertyGroup Condition=" '$(UdbusBuildLocation)' == '$(UdbusBuildOutside)' ">
+    <_UdbusAssemblyRootDirectory Condition=" '$(_UdbusAssemblyRootDirectory)' == '' 
+                                  And '$(LocalOutputDir)' != '' "
+    >$(LocalOutputDir)\Udbus\</_UdbusAssemblyRootDirectory>
+    <_UdbusAssemblyRootDirectory Condition=" '$(_UdbusAssemblyRootDirectory)' == ''
+                                  And '$(UdbusRootDirectory)' != '' "
+    >$(UdbusRootDirectory)</_UdbusAssemblyRootDirectory>
+    <_UdbusAssemblyRootDirectory Condition=" '$(_UdbusAssemblyRootDirectory)' == '' ">Udbus\</_UdbusAssemblyRootDirectory>
+    <!-- Add trailing slash. -->
+    <_UdbusAssemblyRootDirectory Condition=" '$(_UdbusAssemblyRootDirectory)' != '' 
+                                  And !HasTrailingSlash('$(_UdbusAssemblyRootDirectory)') "
+    >$(_UdbusAssemblyRootDirectory)\</_UdbusAssemblyRootDirectory>
+    <!-- <UdbusRootDirectory>$(_UdbusAssemblyRootDirectory)</UdbusRootDirectory> -->
+
+    <UdbusBuildRelativeDirectory>$(_UdbusAssemblyRootDirectory)$(MSBuildProjectName)\$(DbusAssemblyConfiguration)\</UdbusBuildRelativeDirectory>
+    <UdbusIntermediateRelativeDirectory>$(_UdbusIntermediateDirectory)$(MSBuildProjectName)\$(DbusAssemblyConfiguration)\</UdbusIntermediateRelativeDirectory>
+
+    <!-- Intermediate directory.  -->
+    <_UdbusIntermediateDirectory Condition=" '$(_UdbusIntermediateDirectory)' == '' 
+                                  And '$(LocalIntermediateDir)' != '' "
+    >$(LocalIntermediateDir)\Udbus\</_UdbusIntermediateDirectory>
+    <_UdbusIntermediateDirectory Condition=" '$(_UdbusIntermediateDirectory)' == ''
+                                  And '$(UdbusIntermediateDirectory)' != '' "
+    >$(UdbusIntermediateDirectory)</_UdbusIntermediateDirectory>
+    <_UdbusIntermediateDirectory Condition=" '$(_UdbusIntermediateDirectory)' == '' ">Udbus\obj\</_UdbusIntermediateDirectory>
+    <!-- Add trailing slash. -->
+    <_UdbusIntermediateDirectory Condition=" '$(_UdbusIntermediateDirectory)' != '' 
+                                  And !HasTrailingSlash('$(_UdbusIntermediateDirectory)') "
+    >$(_UdbusIntermediateDirectory)\</_UdbusIntermediateDirectory>
+    <UdbusIntermediateDirectory>$(_UdbusIntermediateDirectory)</UdbusIntermediateDirectory>
+  </PropertyGroup>
+
+  <!-- ===OneDir=== -->
+  <PropertyGroup Condition=" '$(UdbusBuildLocation)' == '$(UdbusBuildOneDir)' ">
+    <_UdbusAssemblyRootDirectory Condition=" '$(UdbusRootDirectory)' != '' ">$(UdbusRootDirectory)</_UdbusAssemblyRootDirectory>
+    <_UdbusAssemblyRootDirectory Condition=" '$(_UdbusAssemblyRootDirectory)' == '' 
+                                  And '$(LocalOutputDir)' != '' "
+    >$(LocalOutputDir)\Udbus\</_UdbusAssemblyRootDirectory>
+    <_UdbusAssemblyRootDirectory Condition=" '$(_UdbusAssemblyRootDirectory)' == '' ">Udbus\</_UdbusAssemblyRootDirectory>
+    <!-- Add trailing slash. -->
+    <_UdbusAssemblyRootDirectory Condition=" '$(_UdbusAssemblyRootDirectory)' != '' 
+                                  And !HasTrailingSlash('$(_UdbusAssemblyRootDirectory)') "
+    >$(_UdbusAssemblyRootDirectory)\</_UdbusAssemblyRootDirectory>
+    <!-- <UdbusRootDirectory>$(_UdbusAssemblyRootDirectory)</UdbusRootDirectory> -->
+
+    <UdbusBuildRelativeDirectory>$(_UdbusAssemblyRootDirectory)</UdbusBuildRelativeDirectory>
+    <UdbusIntermediateRelativeDirectory>$(_UdbusIntermediateDirectory)$(MSBuildProjectName)\$(DbusAssemblyConfiguration)\</UdbusIntermediateRelativeDirectory>
+
+    <!-- Intermediate directory.  -->
+    <_UdbusIntermediateDirectory Condition=" '$(_UdbusIntermediateDirectory)' == '' 
+                                  And '$(LocalIntermediateDir)' != '' "
+    >$(LocalIntermediateDir)\Udbus\</_UdbusIntermediateDirectory>
+    <_UdbusIntermediateDirectory Condition=" '$(_UdbusIntermediateDirectory)' == ''
+                                  And '$(UdbusIntermediateDirectory)' != '' "
+    >$(UdbusIntermediateDirectory)</_UdbusIntermediateDirectory>
+    <_UdbusIntermediateDirectory Condition=" '$(_UdbusIntermediateDirectory)' == '' ">Udbus\obj\</_UdbusIntermediateDirectory>
+    <!-- Add trailing slash. -->
+    <_UdbusIntermediateDirectory Condition=" '$(_UdbusIntermediateDirectory)' != '' 
+                                  And !HasTrailingSlash('$(_UdbusIntermediateDirectory)') "
+    >$(_UdbusIntermediateDirectory)\</_UdbusIntermediateDirectory>
+    <UdbusIntermediateDirectory>$(_UdbusIntermediateDirectory)</UdbusIntermediateDirectory>
+  </PropertyGroup>
+
+  <!-- Relative directories for project being built. -->
+    <PropertyGroup>
+      <_RelativeSubDir>$(RelativeSubDir)</_RelativeSubDir>
+      <_RelativeSubDir Condition=" '$(_RelativeSubDir)' != '' And !HasTrailingSlash('$(_RelativeSubDir)') ">$(_RelativeSubDir)\</_RelativeSubDir>
+    </PropertyGroup>
+
+    <PropertyGroup Condition=" '$(UdbusBuildLocation)' == '$(UdbusBuildDefault)' Or
+                               '$(UdbusBuildLocation)' == ''
+                             "
+    >
+      <_RelativeAssemblyDir></_RelativeAssemblyDir>
+      <_RelativeAssemblyDir Condition=" '$(_UdbusAssemblyRootDirectory)' != '' ">$(MSBuildProjectName)\</_RelativeAssemblyDir>
+      <_ThisRelativeOutDir>bin\$(DbusAssemblyConfiguration)\</_ThisRelativeOutDir>
+      <_ThisRelativeIntermediateDir>obj\$(DbusAssemblyConfiguration)\</_ThisRelativeIntermediateDir>
+    </PropertyGroup>
+
+    <PropertyGroup Condition=" '$(UdbusBuildLocation)' == '$(UdbusBuildOutside)' ">
+      <_ThisRelativeOutDir>$(_UdbusAssemblyRootDirectory)$(_RelativeSubDir)$(MSBuildProjectName)\$(DbusAssemblyConfiguration)\</_ThisRelativeOutDir>
+      <_ThisRelativeIntermediateDir>$(_UdbusIntermediateDirectory)$(MSBuildProjectName)\$(DbusAssemblyConfiguration)\</_ThisRelativeIntermediateDir>
+    </PropertyGroup>
+    
+    <PropertyGroup Condition=" '$(UdbusBuildLocation)' == '$(UdbusBuildOnedir)' ">
+      <_ThisRelativeOutDir>$(_UdbusAssemblyRootDirectory)$(_RelativeSubDir)</_ThisRelativeOutDir>
+      <_ThisRelativeIntermediateDir>$(_UdbusIntermediateDirectory)$(MSBuildProjectName)\$(DbusAssemblyConfiguration)\</_ThisRelativeIntermediateDir>
+    </PropertyGroup>
+
+    <PropertyGroup>
+      <_ThisRelativeOutDir Condition=" '$(_ThisRelativeOutDir)' != '' And !HasTrailingSlash('$(_ThisRelativeOutDir)') ">$(_ThisRelativeOutDir)\</_ThisRelativeOutDir>
+      <_ThisRelativeIntermediateDir Condition=" '$(_ThisRelativeIntermediateDir)' != '' And !HasTrailingSlash('$(_ThisRelativeIntermediateDir)') ">$(_ThisRelativeIntermediateDir)\</_ThisRelativeIntermediateDir>
+      <ThisRelativeOutDir>$(_ThisRelativeOutDir)</ThisRelativeOutDir>
+      <ThisRelativeIntermediateDir>$(_ThisRelativeIntermediateDir)</ThisRelativeIntermediateDir>
+    </PropertyGroup>
+
+</Project>

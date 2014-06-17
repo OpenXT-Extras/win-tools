@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="Windows-1252"?>
+<VisualStudioPropertySheet
+	ProjectType="Visual C++"
+	Version="8.00"
+	Name="udbus_v4v.dll.settings"
+	>
+	<!--
+	<Tool
+		Name="VCCLCompilerTool"
+		AdditionalIncludeDirectories="&quot;$(UdbusV4VXenSourceRoot)\inc&quot;;&quot;$(UdbusV4VXenSourceRoot)\xenhdrs&quot;"
+	/>
+	-->
+	<UserMacro
+		Name="UdbusV4VLibNameSuffix"
+		Value="$(TargetSuffix)"
+	/>
+	<UserMacro
+		Name="UdbusV4VDllLibName"
+		Value="udbus_v4v$(UdbusV4VLibNameSuffix)"
+	/>
+	<UserMacro
+		Name="UdbusV4VDllLibFile"
+		Value="$(UdbusV4VDllLibName).lib"
+	/>
+	<UserMacro
+		Name="UdbusV4VLibName"
+		Value="$(UdbusV4VDllLibName)"
+	/>
+	<UserMacro
+		Name="UdbusV4VLibFile"
+		Value="$(UdbusV4VDllLibFile)"
+	/>
+	<!--
+	<UserMacro
+		Name="UdbusV4VXenSourceRoot"
+		Value="..\$(XenSourceRoot)"
+	/>
+	-->
+</VisualStudioPropertySheet>

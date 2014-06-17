@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <_UdbusDLLPropsDefined>1</_UdbusDLLPropsDefined>
+  </PropertyGroup>
+
+  <Import Condition=" '$(UdbusDllSettingsPropsDefined)' == '' " Project="detail\udbus.dll.settings.props" />
+
+  <ItemDefinitionGroup>
+    <Link>
+      <AdditionalLibraryDirectories>$(OutDir)..\..\udbus_lib\$(UdbusConfiguration);$(OutDir);$(OutDir)dbus;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>$(UdbusLibFile);%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+    <ClCompile>
+      <AdditionalIncludeDirectories>..\udbus_lib;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+  </ItemDefinitionGroup>
+</Project>

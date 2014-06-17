@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+  <Module Id="Udbus.Bindings.Service.Libraries.InstallerMSM" Language="1033" Version="$(var.Version)">
+    <Package Id="3c2e2174-c401-4395-a798-0117e08112b3" Manufacturer="Udbus.Bindings.Service.Libraries.InstallerMSM" InstallerVersion="200" />
+
+    <Directory Id="TARGETDIR" Name="SourceDir">
+      <Directory Id="MergeRedirectFolder" />
+    </Directory>
+
+    <DirectoryRef Id="MergeRedirectFolder">
+      <Component Id="v4vioDLLComponent" Guid="7C4A755B-56F8-477A-A3B9-52D2E3B65271">
+        <File Id="v4vioDLL"
+              Name="v4vio.dll"
+              DiskId="1"
+              Source="..\XenClientGuestService\ReleaseDLL\v4vio.dll"
+              Vital="yes"
+              KeyPath="yes" />
+      </Component>
+      <Component Id="UdbusWCFServiceAssemblyComponent" Guid="3F356DCD-C07B-421B-8287-F02548B533F3">
+        <File Id="UdbusWCFServiceAssemblyDll"
+              Name="Udbus.WCF.Service.dll"
+              DiskId="1"
+              Source="..\dbus\Udbus.WCF.Service\bin\$(var.Configuration)\Udbus.WCF.Service.dll"
+              Vital="yes"
+              KeyPath="yes" />
+      </Component>
+      <Component Id="UdbusWCFDbusDetailsAssemblyComponent" Guid="47EC9205-65A3-454E-BCC4-23067AE26D0D">
+        <File Id="UdbusWCFDbusDetailsAssemblyDll"
+              Name="Udbus.WCF.Dbus.Details.dll"
+              DiskId="1"
+              Source="..\dbus\Udbus.WCF.Dbus.Details\bin\$(var.Configuration)\Udbus.WCF.Dbus.Details.dll"
+              Vital="yes"
+              KeyPath="yes" />
+      </Component>
+      <Component Id="Udbusv4vAssemblyComponent" Guid="E40E7FDB-2CB6-4BEC-9C57-069F09B820E2">
+        <File Id="Udbusv4vAssemblyDll"
+              Name="Udbus.v4v.dll"
+              DiskId="1"
+              Source="..\dbus\Udbus.v4v\bin\$(var.Configuration)\Udbus.v4v.dll"
+              Vital="yes"
+              KeyPath="yes" />
+      </Component>
+      <Component Id="UdbusWCFDbusCommonAssemblyComponent" Guid="0ACD5625-9903-45E9-88C8-E1279D7D0F4D">
+        <File Id="UdbusWCFDbusCommonAssemblyDll"
+              Name="Udbus.WCF.Dbus.Common.dll"
+              DiskId="1"
+              Source="..\dbus\Udbus.WCF.Dbus.Common\bin\$(var.Configuration)\Udbus.WCF.Dbus.Common.dll"
+              Vital="yes"
+              KeyPath="yes" />
+      </Component>
+      <Component Id="UdbusUtilsAssemblyComponent" Guid="82BC0BED-B437-4FB0-9E9B-777AA457809C">
+        <File Id="UdbusUtilsAssemblyDll"
+              Name="Udbus.Utils.dll"
+              DiskId="1"
+              Source="..\dbus\Udbus.Utils\bin\$(var.Configuration)\Udbus.Utils.dll"
+              Vital="yes"
+              KeyPath="yes" />
+      </Component>
+      <Component Id="UdbusSerializationAssemblyComponent" Guid="B190500A-4BDA-482E-BBB6-5D491D79596C">
+        <File Id="UdbusSerializationAssemblyDll"
+              Name="Udbus.Serialization.dll"
+              DiskId="1"
+              Source="..\dbus\Udbus.Serialization\bin\$(var.Configuration)\Udbus.Serialization.dll"
+              Vital="yes"
+              KeyPath="yes" />
+      </Component>
+      <Component Id="UdbusParsingAssemblyComponent" Guid="6A0C3AFC-9575-404E-B9D2-11296787A4C7">
+        <File Id="UdbusParsingAssemblyDll"
+              Name="Udbus.Parsing.dll"
+              DiskId="1"
+              Source="..\dbus\Udbus.Parsing\bin\$(var.Configuration)\Udbus.Parsing.dll"
+              Vital="yes"
+              KeyPath="yes" />
+      </Component>
+      <Component Id="UdbusCoreAssemblyComponent" Guid="97CED9B1-58FA-42E1-9240-4FFEEA96D895">
+        <File Id="UdbusCoreAssemblyDll"
+              Name="Udbus.Core.dll"
+              DiskId="1"
+              Source="..\dbus\Udbus.Core\bin\$(var.Configuration)\Udbus.Core.dll"
+              Vital="yes"
+              KeyPath="yes" />
+      </Component>
+      <Component Id="udbusDLLComponent" Guid="774175A9-017B-457E-9C2D-3CD9B158C757">
+        <File Id="udbusDLL"
+              Name="udbus.dll"
+              DiskId="1"
+              Source="..\XenClientGuestService\ReleaseDLL\udbus.dll"
+              Vital="yes"
+              KeyPath="yes" />
+      </Component>
+      <Component Id="udbus_v4vDLLComponent" Guid="42B0F248-9DBF-4E9A-B29B-32D0685613A4">
+        <File Id="udbus_v4vDLL"
+              Name="udbus_v4v.dll"
+              DiskId="1"
+              Source="..\XenClientGuestService\ReleaseDLL\udbus_v4v.dll"
+              Vital="yes"
+              KeyPath="yes" />
+      </Component>
+    </DirectoryRef>
+  </Module>
+</Wix>

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Condition=" '$(CitrixIncludeCommonDefined)'=='' " Project="citrix.include.common.props" />
+  <PropertyGroup>
+    <V4VioStaticLibName>libv4vio$(CitrixLibNameSuffix)</V4VioStaticLibName>
+    <V4VioStaticLibFile>$(V4VioStaticLibName).lib</V4VioStaticLibFile>
+    <V4VioLibName>$(V4VioStaticLibName)</V4VioLibName>
+    <V4VioLibFile>$(V4VioStaticLibFile)</V4VioLibFile>
+  </PropertyGroup>
+  <PropertyGroup />
+  <ItemDefinitionGroup />
+  <ItemGroup>
+    <BuildMacro Include="V4VioLibName">
+      <Value>$(V4VioLibName)</Value>
+    </BuildMacro>
+    <BuildMacro Include="V4VioLibFile">
+      <Value>$(V4VioLibFile)</Value>
+    </BuildMacro>
+  </ItemGroup>
+</Project>

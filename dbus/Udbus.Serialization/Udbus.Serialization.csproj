@@ -1,0 +1,89 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Condition=" '$(BuildUdbusAssemblyPropsDefined)' == '' " Project="..\props\detail\build.udbus.assembly.props" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{7DDCAF88-8669-4C4A-BBD0-63A1E532B8EB}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Udbus.Serialization</RootNamespace>
+    <AssemblyName>Udbus.Serialization</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>$(UdbusSerializationDir)</OutputPath>
+    <IntermediateOutputPath>$(UdbusSerializationIntermediateDir)</IntermediateOutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>$(UdbusSerializationDir)</OutputPath>
+    <IntermediateOutputPath>$(UdbusSerializationIntermediateDir)</IntermediateOutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="..\..\props\CommonAssemblyInfo.cs">
+      <Link>CommonAssemblyInfo.cs</Link>
+    </Compile>
+    <Compile Include="IUdbusTransport.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Udbus.Container.MagicSauce.cs" />
+    <Compile Include="UdbusConnector.cs" />
+    <Compile Include="UdbusContainer.cs" />
+    <Compile Include="UdbusExceptions.cs" />
+    <Compile Include="UdbusFunctions.cs" />
+    <Compile Include="UdbusMarshalDelegates.cs" />
+    <Compile Include="UdbusMessage.cs" />
+    <Compile Include="UdbusMessageBuilder.cs" />
+    <Compile Include="UdbusMessageBuilderMagicSauce.cs" />
+    <Compile Include="UdbusMessageReader.cs" />
+    <Compile Include="UdbusMessageReaderMagicSauce.cs" />
+    <Compile Include="UdbusSerializationTypes.cs" />
+    <Compile Include="UdbusVariantBase.cs" />
+    <Compile Include="UdbusVariantIn.cs" />
+    <Compile Include="UdbusVariantOut.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Udbus.Containers\Udbus.Containers.csproj">
+      <Project>{6CA51CBA-CE08-4438-8B78-B968BCA3A02F}</Project>
+      <Name>Udbus.Containers</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Udbus.Types\Udbus.Types.csproj">
+      <Project>{2811C188-D05F-429A-AEDF-066FE3CF86AC}</Project>
+      <Name>Udbus.Types</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Udbus.Parsing\Udbus.Parsing.csproj">
+      <Project>{B361F55A-097F-46AA-B9E1-3B24050FF79A}</Project>
+      <Name>Udbus.Parsing</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Import Condition=" '$(BuildUdbusAssemblyTargetsDefined)' == '' " Project="..\targets\build.udbus.assembly.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

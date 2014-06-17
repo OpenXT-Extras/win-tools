@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ArrayOfAlert xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Alert ID="1">
+    <Interface>com.citrix.xenclient.xenmgr.host</Interface>
+    <Member>storage_space_low</Member>
+    <TipTitle>Low Disk Space</TipTitle>
+    <TipText>Your device is running low on available disk space. There is currently {0}% free.</TipText>
+    <TipIcon>Warning</TipIcon>
+  </Alert>
+  <Alert ID="2">
+    <!-- Old sync signal -->
+    <Interface></Interface>
+    <Member></Member>
+    <TipTitle>Lease Expiration</TipTitle>
+    <TipText>Your managed virtual machine is nearing its lease expiration. Contact your administrator for more information.</TipText>
+    <TipIcon>Warning</TipIcon>
+  </Alert>
+  <Alert ID="3">
+    <!-- Old sync signal -->
+    <Interface></Interface>
+    <Member></Member>
+    <TipTitle>Download Completed</TipTitle>
+    <TipText>A virtual machine has completed downloading from the Synchronizer. Click here to switch to the Citrix Receiver for XenClient.</TipText>
+    <TipIcon>Info</TipIcon>
+  </Alert>
+  <Alert ID="4">
+		<!-- This one may exist -->
+    <Interface></Interface>
+    <Member></Member>
+    <TipTitle>Unsupported USB Device</TipTitle>
+    <TipText>You have inserted an unsupported USB device.</TipText>
+    <TipIcon>Error</TipIcon>
+  </Alert>
+  <Alert ID="5">
+    <Interface>com.citrix.xenclient.usbdaemon</Interface>
+    <Member>device_rejected</Member>
+    <TipTitle>Blocked USB Device</TipTitle>
+    <TipText>You have inserted a USB device that has been blocked by an Administrator policy. Device: "{0}". Reason: "{1}".</TipText>
+    <TipIcon>Warning</TipIcon>
+  </Alert>
+  <Alert ID="6">
+    <!-- Old sync signal -->
+    <Interface></Interface>
+    <Member></Member>
+    <TipTitle>Restart your computer to finish installing important updates</TipTitle>
+    <TipText>This virtual desktop needs to be restarted for Synchronizer updates to be applied. Make sure to save your files before restarting.</TipText>
+    <TipIcon>Info</TipIcon>
+  </Alert>
+  <Alert ID="7">
+    <Interface>com.citrix.xenclient.updatemgr</Interface>
+    <Member>update_state_change:downloaded_files</Member>
+    <TipTitle>XenClient update is ready</TipTitle>
+    <TipText>To apply this update, you must restart your physical computer. Make sure to save your files before restarting.</TipText>
+    <TipIcon>Info</TipIcon>
+  </Alert>
+  <Alert ID="8">
+    <Interface>com.citrix.xenclient.xenmgr.host.guestreq</Interface>
+    <Member>requested_attention:switchable</Member>
+    <TipTitle>Attention Requested</TipTitle>
+    <TipText>VM "{0}" is requesting your attention. To switch focus to VM "{0}", press CTRL+{1}.</TipText>
+    <TipIcon>Info</TipIcon>
+  </Alert>
+  <Alert ID="9">
+    <Interface>com.citrix.xenclient.xenmgr.host.guestreq</Interface>
+    <Member>requested_attention</Member>
+    <TipTitle>Attention Requested</TipTitle>
+    <TipText>VM "{0}" in slot {1} is requesting your attention. To switch focus to VM "{0}", use the UIVM.</TipText>
+    <TipIcon>Info</TipIcon>
+  </Alert>
+</ArrayOfAlert>

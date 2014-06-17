@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <UdbusDefineDefined>1</UdbusDefineDefined>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <!--  Where the code is rooted. -->
+    <!--  If not defined but build IS defined, then use build. -->
+    <UdbusRootDirectory Condition=" '$(UdbusRootDirectory)' == '' ">$(UdbusBuildDirectory)</UdbusRootDirectory>
+  </PropertyGroup>
+</Project>

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <UdbusDllSettingsPropsDefined>1</UdbusDllSettingsPropsDefined>
+  </PropertyGroup>
+
+  <Import Condition=" '$(UdbusDefined)' == '' " Project="udbus.props" />
+
+  <PropertyGroup>
+    <UdbusDllLibName>udbus$(UdbusLibNameSuffix)</UdbusDllLibName>
+    <UdbusDllLibFile>$(UdbusDllLibName).lib</UdbusDllLibFile>
+    <UdbusLibName>$(UdbusDllLibName)</UdbusLibName>
+    <UdbusLibFile>$(UdbusDllLibFile)</UdbusLibFile>
+    <UdbusTargetFile>$(UdbusDllLibName).dll</UdbusTargetFile>
+    <UdbusConfiguration>$(Configuration)</UdbusConfiguration>
+    <UdbusConfiguration Condition=" '$(UdbusConfiguration)' == '' ">$(ConfigurationName)</UdbusConfiguration>
+    <UdbusConfiguration Condition=" '$(UdbusConfiguration)' == 'Release' ">ReleaseDLL</UdbusConfiguration>
+    <UdbusConfiguration Condition=" '$(UdbusConfiguration)' == 'Debug' ">DebugDLL</UdbusConfiguration>
+    <UdbusConfiguration Condition=" '$(UdbusConfiguration)' == '' ">DebugDLL</UdbusConfiguration>
+  </PropertyGroup>
+  <PropertyGroup />
+  <ItemDefinitionGroup />
+  <ItemGroup>
+    <BuildMacro Include="UdbusLibName">
+      <Value>$(UdbusLibName)</Value>
+    </BuildMacro>
+    <BuildMacro Include="UdbusLibFile">
+      <Value>$(UdbusLibFile)</Value>
+    </BuildMacro>
+    <BuildMacro Include="UdbusTargetFile">
+      <Value>$(UdbusTargetFile)</Value>
+    </BuildMacro>
+    <BuildMacro Include="UdbusConfiguration">
+      <Value>$(UdbusConfiguration)</Value>
+    </BuildMacro>
+  </ItemGroup>
+</Project>

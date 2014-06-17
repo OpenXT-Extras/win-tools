@@ -1,0 +1,349 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003"
+         ToolsVersion="4.0"
+>
+
+<!-- For debugging see:
+http://blogs.msdn.com/b/visualstudio/archive/2010/07/06/debugging-msbuild-script-with-visual-studio.aspx
+-->
+
+  <Import Condition=" '$(DbusXMLCommonTargetsDefined)'=='' " Project="DbusXML.common.targets"/>
+
+  <!-- Useful for debugging.  -->
+  <Target Name="ShowDbus"
+          DependsOnTargets="_FilterDbusXML"
+  >
+    <Message Text="DbusGenerated: %(DbusGenerated.Identity)" />
+    <Message Text="DbusGenerated.IDLFile: %(DbusGenerated.Identity) : %(DbusGenerated.IDLFile)" />
+    <Message Text="DbusIDLFile: %(DbusIDLFile.Identity)" />
+    <Message Text="Content: %(Content.Identity)" />
+    <Message Text="Content.Link: %(Content.Link)" />
+    <Message Text="_DbusIDLFilesWithLink: %(_DbusIDLFilesWithLink.Identity)" />
+    <Message Text="_DbusIDLFilesWithLink.OriginalContent: %(_DbusIDLFilesWithLink.OriginalContent)" />
+    <Message Text="Compile: %(Compile.Identity)" />
+  </Target>
+
+  <!-- Converts Content under $(DbusIDLFileRelativeDir) directory into IDLFile Items,
+       skipping Content items which aren't on disk. 
+  -->
+  <Target Name="_FilterDbusContent"
+  >
+    <PropertyGroup>
+      <!--<_FilterDbusXMLMessageImportance>high</_FilterDbusXMLMessageImportance>-->
+      <!--<_FilterDbusXMLMessageImportance>normal</_FilterDbusXMLMessageImportance>-->
+      <!--<_FilterDbusXMLMessageImportance>low</_FilterDbusXMLMessageImportance>-->
+      <_FilterDbusXMLMessageImportance>low</_FilterDbusXMLMessageImportance>
+    </PropertyGroup>
+
+    <!-- Content with links has the link path checked, rather than the content path.
+         This ItemGroup inverts the Content->Link as Link->Content.
+    -->
+    <ItemGroup>
+      <_DbusIDLFilesWithLink Condition=" '%(Content.Link)' != '' 
+                                       "
+                             Include="%(Content.Link)" >
+        <OriginalContent>%(Content.Identity)</OriginalContent>
+      </_DbusIDLFilesWithLink>
+    </ItemGroup>
+
+    <Message Text="Created _DbusIDLFilesWithLink: %(_DbusIDLFilesWithLink.Identity) => %(_DbusIDLFilesWithLink.OriginalContent)"
+             Importance="$(_FilterDbusXMLMessageImportance)"
+    />
+
+    <!-- Find content where there is no Link,
+         and the Content path is under the relevant directory. -->
+    <FindUnderPath Condition=" '%(Content.Link)' == ''
+                           And Exists('%(Content.Identity)')
+                             "
+                   Files="@(Content)"
+                   Path="$(DbusIDLFileRelativeDir)"
+    >
+      <Output TaskParameter="InPath"
+              ItemName="DbusIDLFile"
+      />
+    </FindUnderPath>
+
+    <Message Text="FindUnderPath '$(DbusIDLFileRelativeDir)': @(DbusIDLFile)"
+             Importance="$(_FilterDbusXMLMessageImportance)"
+    />
+    <!-- Warn about content where there is no link,
+         and the Content path is under the relevant directory
+         but the file is missing.
+    -->
+    <FindUnderPath
+                    Condition=" '%(Content.Link)' == ''
+                            And !Exists('%(Content.Identity)')
+                              "
+                    Files="@(Content)"
+                    Path="$(DbusIDLFileRelativeDir)"
+    >
+      <Output
+              TaskParameter="InPath"
+              ItemName="_DbusIDLContentMissingFile"
+      />
+    </FindUnderPath>
+    <FindInList ItemSpecToFind="%(_DbusIDLContentMissingFile.Identity)"
+                List="@(Content)"
+                Condition=" '@(_DbusIDLContentMissingFile)' != '' "
+    >
+      <Output TaskParameter="ItemFound"
+              ItemName="_DbusIDLContentMissingFile"
+      />
+    </FindInList>
+    <Message Text="_DbusIDLContentMissingFile: @(_DbusIDLContentMissingFile)"
+             Importance="$(_FilterDbusXMLMessageImportance)"
+    />
+
+    <Warning Code="MissingFile"
+             Condition=" '%(_DbusIDLContentMissingFile.Identity)' != '' 
+                       "
+             Text="Content file missing: '%(_DbusIDLContentMissingFile.Identity)'"
+    />
+
+    <!-- Find Content where link file exists. -->
+    <FindInList ItemSpecToFind="%(_DbusIDLFilesWithLink.Identity)"
+                List="@(_DbusIDLFilesWithLink)"
+                Condition=" Exists('%(_DbusIDLFilesWithLink.OriginalContent)')"
+    >
+      <Output TaskParameter="ItemFound"
+              ItemName="_DbusIDLFilesWithLinkExisting"
+      />
+    </FindInList>
+    <Message Text="_DbusIDLFilesWithLinkExisting: '@(_DbusIDLFilesWithLinkExisting)" />
+
+    <!-- Find Content where existing link is in appropriate directory. -->
+    <FindUnderPath Files="@(_DbusIDLFilesWithLinkExisting->'%(Identity)')"
+                   Path="$(DbusIDLFileRelativeDir)"
+    >
+      <Output TaskParameter="InPath"
+              ItemName="_DbusIDLFileLinkName"
+      />
+    </FindUnderPath>
+
+    <Message Text="FindUnderPath2 '$(DbusIDLFileRelativeDir)': @(_DbusIDLFileLinkName->'%(Identity)=>%(OriginalContent)')"
+             Importance="$(_FilterDbusXMLMessageImportance)"
+    />
+
+    <!--
+    <FindInList ItemSpecToFind="%(_DbusIDLFilesWithLink.Identity)"
+                List="@(_DbusIDLFileLinkName)"
+                Condition=" '@(_DbusIDLFileLinkName)' != '' "
+    >
+      <Output TaskParameter="ItemFound"
+              ItemName="_DbusIDLContentWithLinkFound"
+      />
+    </FindInList>
+    -->
+
+    <!-- Warn about Content where link is in appropriate directory, 
+         but the linked file is missing.
+    -->
+    <FindUnderPath Condition=" !Exists('%(_DbusIDLFilesWithLink.OriginalContent)')
+                             "
+                   Files="%(_DbusIDLFilesWithLink.Identity)"
+                   Path="$(DbusIDLFileRelativeDir)"
+    >
+      <Output TaskParameter="InPath"
+              ItemName="_DbusIDLContentMissingFileLink"
+      />
+    </FindUnderPath>
+    <FindInList ItemSpecToFind="%(_DbusIDLContentMissingFileLink.Identity)"
+                List="@(_DbusIDLFilesWithLink)"
+                Condition=" '@(_DbusIDLContentMissingFileLink)' != '' "
+    >
+      <Output TaskParameter="ItemFound"
+              ItemName="_DbusIDLContentMissingFileLink"
+      />
+    </FindInList>
+
+    <Message Text="_DbusIDLContentMissingFileLink: @(_DbusIDLContentMissingFileLink)"
+             Importance="$(_FilterDbusXMLMessageImportance)"
+    />
+    <Warning Code="MissingFileLink"
+             Condition=" '%(_DbusIDLContentMissingFileLink.Identity)' != ''
+                     And '%(_DbusIDLContentMissingFileLink.OriginalContent)' != ''
+                       "
+             Text="Content link '%(_DbusIDLContentMissingFileLink.Identity)' missing file '%(_DbusIDLContentMissingFileLink.OriginalContent)'"
+    />
+
+    <!-- Add to the DbusIDLFile Items Content files where the link is in the relevant directory,
+         and where the file exists on disk.
+    -->
+    <ItemGroup>
+      <DbusIDLFile Include="@(_DbusIDLFileLinkName->'%(OriginalContent)')" />
+      <!-- Alternative implementation. -->
+      <!-- <DbusIDLFile Include="@(_DbusIDLContentWithLinkFound->'%(OriginalContent)')" /> -->
+    </ItemGroup>
+
+    <Message Text="DbusIDLFileRelativeDir: $(DbusIDLFileRelativeDir)" Importance="$(_FilterDbusXMLMessageImportance)" />
+    <Message Text="_DbusIDLFileLinkName.OriginalContent: '@(_DbusIDLFileLinkName->'%(OriginalContent)')'" Importance="$(_FilterDbusXMLMessageImportance)" />
+    <Message Text="DbusIDL file: @(DbusIDLFile,'%0a')" Importance="$(_FilterDbusXMLMessageImportance)" />
+    
+  </Target>
+
+  <!-- Turn DbusGenerate Items into DbusGenerated files.
+       Batches on DbusGenerate so called for each DbusGenerate Item,
+       and declares DbusGenerated items batched on IDL files so called for each IDL file.
+   -->
+  <Target Name="_FilterDbusXML"
+          Outputs="%(DbusGenerate.Identity)"
+          DependsOnTargets="_FilterDbusContent"
+  >
+    <PropertyGroup>
+      <!--<_FilterDbusXMLMessageImportance>high</_FilterDbusXMLMessageImportance>-->
+      <!--<_FilterDbusXMLMessageImportance>normal</_FilterDbusXMLMessageImportance>-->
+      <!--<_FilterDbusXMLMessageImportance>low</_FilterDbusXMLMessageImportance>-->
+      <_FilterDbusXMLMessageImportance>low</_FilterDbusXMLMessageImportance>
+    </PropertyGroup>
+
+    <PropertyGroup>
+      <_CurrentDbusGenerate>%(DbusGenerate.Identity)</_CurrentDbusGenerate>
+      <_CurrentDbusGenerateDirectory>%(DbusGenerate.GenDirectory)</_CurrentDbusGenerateDirectory>
+      <_CurrentDbusGenerateFilenameSuffix>%(DbusGenerate.FilenameSuffix)</_CurrentDbusGenerateFilenameSuffix>
+      <_CurrentDbusGenerateCommandLineParam>%(DbusGenerate.CommandLineParam)</_CurrentDbusGenerateCommandLineParam>
+    </PropertyGroup>
+
+    <!-- Build the DbusGenerated Item containing all the useful info. -->
+    <!-- Define XML IDL file items and bindings. -->
+    <ItemGroup>
+      <!-- Generated files, batched on DbusGenerate Items. -->
+      <DbusGenerated Condition=" '%(DbusIDLFile.Filename)' != '' "
+                     Include="$(_CurrentDbusGenerateDirectory)%(DbusIDLFile.Filename)$(_CurrentDbusGenerateFilenameSuffix).cs">
+        <IDLFile>%(DbusIDLFile.Identity)</IDLFile>
+        <GeneratedFrom>$(_CurrentDbusGenerate)</GeneratedFrom>
+        <GenDirectory>$(_CurrentDbusGenerateDirectory)</GenDirectory>
+        <FilenameSuffix>$(_CurrentDbusGenerateFilenameSuffix)</FilenameSuffix>
+        <CommandLineParam>$(_CurrentDbusGenerateCommandLineParam)</CommandLineParam>
+      </DbusGenerated>
+    </ItemGroup>
+
+    <Message Text="Post Content Declaration Content = '%(Content.Identity)'" Importance="$(_FilterDbusXMLMessageImportance)"/>
+    <Message Text="Created DbusIDLFile: '@(DbusIDLFile)'" Importance="$(_FilterDbusXMLMessageImportance)"/>
+  </Target>
+
+  <!-- Check that the dbus generator tool is good to go.-->
+  <Target Name="_ValidateDbusGenerator">
+    <Error Condition="!Exists('$(DbusCodeGenerator)')"
+           Text="Unable to find DbusCodeGenerator at '$(DbusCodeGenerator)'"/>
+  </Target>
+
+  <!-- Run the tool which turns the IDL XML files into the binding files.
+       Batched on DbusGenerated so called for each binding file to be built,
+       Inputs are the IDL files setting up a depdency between the IDL files
+       and each generated file.
+       This makes incremental builds work.
+  -->
+  <Target Name="_GenerateDbusBindings"
+          Inputs="%(DbusGenerated.IDLFile)"
+          Outputs="@(DbusGenerated->'%(Identity)')"
+          DependsOnTargets="_ValidateDbusGenerator;_FilterDbusXML"
+      >
+    <ItemGroup>
+      <_DbusGeneratedCommandLine Include="--%(DbusGenerated.CommandLineParam) &quot;%(DbusGenerated.Identity)&quot;" />
+    </ItemGroup>
+
+    <MakeDir Directories="@(DbusGenerated->'%(GenDirectory)')" />
+    <Exec Command="&quot;$(DbusCodeGenerator)&quot; --path &quot;%(DbusGenerated.IDLFile)&quot; @(_DbusGeneratedCommandLine, ' ')" />
+
+  </Target>
+
+  <!-- Write a list of Dbus generated files. -->
+  <Target Name="_WriteDbusFiles"
+          DependsOnTargets="_FilterDbusXML"
+          Outputs="%(DbusGenerated.GeneratedFrom)">
+    <!--
+    -->
+    <PropertyGroup>
+      <_CurrentDbusGenerateDirectory>%(DbusGenerated.GenDirectory)</_CurrentDbusGenerateDirectory>
+      <_CurrentDbusGenerateFilenameSuffix>%(DbusGenerated.FilenameSuffix)</_CurrentDbusGenerateFilenameSuffix>
+      <_CurrentDbusGenerateCommandLineParam>%(DbusGenerated.CommandLineParam)</_CurrentDbusGenerateCommandLineParam>
+      <_CurrentFileList>$(_CurrentDbusGenerateDirectory)$(_CurrentDbusGenerateFilenameSuffix)$(DbusFileListSuffix)</_CurrentFileList>
+    </PropertyGroup>
+
+    <!--
+    <Message Text="_CurrentDbusGenerateDirectory: $(_CurrentDbusGenerateDirectory)" />
+    <Message Text="_CurrentFileList: $(_CurrentFileList)"/>
+    -->
+    <MakeDir Directories="$(_CurrentDbusGenerateDirectory)" />
+    <WriteLinesToFile
+      File="$(_CurrentFileList)"
+      Lines=""
+      Overwrite="true"
+      />
+    <WriteLinesToFile
+      File="$(_CurrentFileList)"
+      Lines="%(DbusGenerated.Identity)"
+      />
+  </Target>
+
+  <!-- Useful for projects which both generate and consume dbus bindings. -->
+  <Target Name="AddDbusFilesToCompile"
+          DependsOnTargets="_GenerateDbusBindings">
+    <ItemGroup>
+      <Compile Include="%(DbusGenerated.Identity)" />
+    </ItemGroup>
+  </Target>
+
+  <!-- Have to write an actual target to do this, because "FileWrites" ItemGroup will not clean outside of output path. -->
+  <Target Name="CleanDbusFiles"
+          Outputs="%(DbusGenerate.GenDirectory)%(DbusGenerate.FilenameSuffix)$(DbusFileListSuffix)">
+    <PropertyGroup>
+      <_CurrentDbusCleanFileList>%(DbusGenerate.GenDirectory)%(DbusGenerate.FilenameSuffix)$(DbusFileListSuffix)</_CurrentDbusCleanFileList>
+    </PropertyGroup>
+    <Message Text="_CurrentDbusCleanFileList: $(_CurrentDbusCleanFileList)" Importance="low"/>
+    <ReadLinesFromFile
+      File="$(_CurrentDbusCleanFileList)"
+    >
+      <Output ItemName="_DbusBindingsCleanList"
+              TaskParameter="Lines"
+      />
+    </ReadLinesFromFile>
+
+    <Delete Files="@(_DbusBindingsCleanList);$(_CurrentDbusCleanFileList)" />
+  </Target>
+
+  <!-- Target which kicks off all the important behaviour. -->
+  <Target Name="CoreGenerateDbus"
+          DependsOnTargets="_GenerateDbusBindings;_WriteDbusFiles"
+      >
+  </Target>
+
+  <!-- Extensible entry-point targets. -->
+  <PropertyGroup>
+    <GenerateDbusDependsOn>
+      BeforeGenerateDbus;
+      <!-- ShowDbus; -->
+      CoreGenerateDbus;
+      AfterGenerateDbus
+    </GenerateDbusDependsOn>
+  </PropertyGroup>
+
+  <Target Name="BeforeGenerateDbus" />
+  <Target Name="AfterGenerateDbus" />
+
+  <!-- Entry-point target. -->
+  <Target
+      Name="GenerateDbus"
+      Condition=" '$(_InvalidConfigurationWarning)' != 'true' "
+      DependsOnTargets="$(GenerateDbusDependsOn)"
+  />
+  <!-- Useful code chunks to paste into projects. -->
+  <!--
+  <PropertyGroup>
+    <CompileDependsOn>
+      GenerateDbus;
+      $(CompileDependsOn)
+    </CompileDependsOn>
+  </PropertyGroup>
+  -->
+
+  <!--
+  <PropertyGroup>
+    <CleanDependsOn>
+      $(CleanDependsOn);
+      CleanDbusFiles
+    </CleanDependsOn>
+  </PropertyGroup>
+  -->
+
+</Project>

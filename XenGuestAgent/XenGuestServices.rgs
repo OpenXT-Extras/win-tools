@@ -1,0 +1,24 @@
+HKCR
+{
+	XenGuestAgent.XenGuestServices.1 = s 'XenGuestServices Class'
+	{
+		CLSID = s '{DCB6330C-5FD2-4698-8605-55587468415A}'
+	}
+	XenGuestAgent.XenGuestServices = s 'XenGuestServices Class'
+	{
+		CLSID = s '{DCB6330C-5FD2-4698-8605-55587468415A}'
+		CurVer = s 'XenGuestAgent.XenGuestServices.1'
+	}
+	NoRemove CLSID
+	{
+		ForceRemove {DCB6330C-5FD2-4698-8605-55587468415A} = s 'XenGuestServices Class'
+		{
+			ProgID = s 'XenGuestAgent.XenGuestServices.1'
+			VersionIndependentProgID = s 'XenGuestAgent.XenGuestServices'
+			ForceRemove 'Programmable'
+			LocalServer32 = s '%MODULE%'
+			val AppID = s '%APPID%'
+			'TypeLib' = s '{13065B69-41D4-453F-9991-BE69BFE678E5}'
+		}
+	}
+}

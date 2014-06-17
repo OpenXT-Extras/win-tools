@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Build.XenClientGuest.Bindings.targets -->
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" >
+  <PropertyGroup>
+    <BuildXenClientGuestBindingsTargetsDefined>1</BuildXenClientGuestBindingsTargetsDefined>
+  </PropertyGroup>
+
+  <Import Condition=" '$(BuildXenClientGuestBindingsPropsDefined)' == '' " Project="..\props\Build.XenClientGuest.Bindings.props" />
+  <Import Condition=" '$(XenClientGuestBindingsTargetsDefined)' == '' " Project="XenClientGuest.Bindings.targets" />
+  <Import Condition=" '$(DoXenClientSignOutputTargetsDefined)' == '' " Project="..\..\..\targets\do.xenclient.sign.output.targets" />
+
+</Project>

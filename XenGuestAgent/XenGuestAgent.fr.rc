@@ -1,0 +1,160 @@
+STRINGTABLE 
+BEGIN
+    IDS_SERVICENAME         "XenGuestAgent"
+    IDS_XENWIRELESS         "<?xml version=""1.0""?>\n<WLANProfile xmlns=""http://www.microsoft.com/networking/WLAN/profile/v1"">\n\t<name>XenClient Wireless</name>\n\t<SSIDConfig>\n\t\t<SSID>\n\t\t\t<name>XenClient Wireless</name>\n\t\t</SSID>\n\t</SSIDConfig>\n\t<connectionType>ESS</connectionType>\n\t<connectionMode>auto</connectionMode>\n\t<MSM>\n\t\t<security>\n\t\t\t<authEncryption>\n\t\t\t\t<authentication>open</authentication>\n\t\t\t\t<encryption>none</encryption>\n\t\t\t\t<useOneX>false</useOneX>\n\t\t\t</authEncryption>\n\t\t\t</security>\n\t</MSM>\n</WLANProfile>\n"
+    IDS_DISPLAYNAME         "Services d'invité Citrix Xen"
+    IDS_SERVICEDESC         "Fournit des services d'invité pour les domaines utilisateur Xen."
+    IDS_ATLBASE_NO_HANDLER            "Gestionnaire non installé"
+    IDS_ATLBASE_SERVICE_STOPPED       "Service arrêté"
+    IDS_ATLBASE_SERVICE_STARTED       "Service démarré"
+    IDS_ATLBASE_BAD_SERVICE           "Requête de service incorrecte"
+END
+STRINGTABLE DISCARDABLE
+BEGIN
+   IDS_FAILED_TO_CREATE_OBJECT_LOCK___H_XENGUESTSERVICES_24          "Échec lors de la création du verrouillage de l'objet - HRESULT : 0x%x"
+   IDS_FAILED_TO_OPEN_XENSTORE___HRESUL_XENGUESTSERVICES_32          "Échec lors de l'ouverture de XenStore - HRESULT : 0x%x"
+   IDS_FAILED_TO_INITIALIZE_VM_VALUES___XENGUESTSERVICES_53          "Échec lors de l'initialisation des valeurs de la MV - HRESULT : 0x%x"
+   IDS_MAXIMUM_INSTANCE_COUNT_REACHED___XENGUESTSERVICES_61          "Nombre d'instances maximal atteint - HRESULT : 0x%x"
+   IDS_FAILED_TO_CREATE_VMS_EVENT_GUID__XENGUESTSERVICES_474         "Échec de création du GUID d'événement des MV - HRESULT : 0x%x"
+   IDS_FAILED_TO_CREATE_VMS_EVENT___HRE_XENGUESTSERVICES_492         "Échec de création de l'événement des MV - HRESULT: 0x%x"
+   IDS_FAILED_TO_CREATE_ALERTS_EVENT_GU_XENGUESTSERVICES_532         "Échec de création du GUID d'événement des alertes - HRESULT : 0x%x"
+   IDS_FAILED_TO_CREATE_ALERTS_EVENT____XENGUESTSERVICES_550         "Échec de création de l'événement d'alertes - HRESULT : 0x%x"
+END
+STRINGTABLE DISCARDABLE
+BEGIN
+   IDS_PRINCIPAL__zS_PERMISSION__zS_OPE_XENSECURITYHELPER_35         "PRINCIPAL : %s PERMISSION : %s OPÉRATION : %s ERREUR : %d"
+   IDS_DENY_CHECK_FAILURE___PERMISSION__XENSECURITYHELPER_1244       "ÉCHEC DE LA VÉRIFICATION DE REFUS - PERMISSION : %s OPÉRATION : %s ERREUR : %d"
+   IDS_DENY_REMOTE_CHECK_FOR_zS_DETECTE_XENSECURITYHELPER_1279       "Refuser la vérification à distance pour %s - l'accès à distance détecté est autorisé !"
+   IDS_ACCESSPERMISSION_XENSECURITYHELPER_1281                       "AccessPermission"
+   IDS_LAUNCHPERMISSION_LAUNCH_XENSECURITYHELPER_1303                "LaunchPermission-Launch"
+   IDS_LAUNCHPERMISSION_ACTIVATE_XENSECURITYHELPER_1311              "LaunchPermission-Activate"
+   IDS_DENY_CHECK_FOUND_NO_SD_DACL_FOR__XENSECURITYHELPER_1431       "La vérification de refus n'a trouvé aucune liste de contrôle d'accès discrétionnaire de descripteur de sécurité pour %s - L'accès peut être refusé à tout le monde"
+   IDS_LAUNCHPERMISSION_XENSECURITYHELPER_1478                       "LaunchPermission"
+   IDS_FAILED_TO_ALLOCATE_SECURITY_ATTR_XENSECURITYHELPER_1559       "Échec de l'allocation de SECURITY_ATTRIBUTES"
+   IDS_FAILED_TO_CREATE_SECURITY_DESCRI_XENSECURITYHELPER_1569       "Échec de création du descripteur de sécurité - erreur : %d"
+   IDS_FAILED_TO_GET_SIZES_FROM_MAKEABS_XENSECURITYHELPER_1614       "Échec d'obtention des tailles de MakeAbsoluteSD - erreur : %d"
+   IDS_FAILED_TO_ALLOCATE_SECURITY_DESC_XENSECURITYHELPER_1625       "Échec d'allocation de SECURITY_DESCRIPTOR"
+   IDS_FAILED_CREATE_SD_IN_MAKEABSOLUTE_XENSECURITYHELPER_1644       "Échec de création du descripteur de sécurité dans MakeAbsoluteSD - erreur : %d"
+   IDS_FAILED_TO_ALLOCATE_XSH_DESCRIPTO_XENSECURITYHELPER_1689       "Échec d'allocation de XSH_DESCRIPTOR"
+   IDS_FAILED_TO_INITIALIZE_COM_SID___E_XENSECURITYHELPER_1699       "Échec de l'initialisation du SID COM - erreur : %d"
+   IDS_FAILED_TO_ALLOCATE_PINTERACTIVSI_XENSECURITYHELPER_1709       "Échec de l'allocation du SID pInteractivSID"
+END
+STRINGTABLE DISCARDABLE
+BEGIN
+   IDS_FAILED_TO_ALLOCATE_ADMINS_SID_XENSECURITYHELPER_1718          "Échec de l'allocation du SID Admins"
+   IDS_FAILED_CREATEWELLKNOWNSID_PINTER_XENSECURITYHELPER_1727       "Échec de CreateWellKnownSid(pInteractivSID) - erreur : %d"
+   IDS_FAILED_CREATEWELLKNOWNSID_PADMIN_XENSECURITYHELPER_1736       "Échec de CreateWellKnownSid(pAdminsSID) - erreur : %d"
+   IDS_FAILED_SETENTRIESINACL_PINTERACT_XENSECURITYHELPER_1755       "Échec de SetEntriesInAcl(pInteractivSID) - erreur : %d"
+   IDS_FAILED_TO_SET_ADMINS_SID_AS_OWNE_XENSECURITYHELPER_1765       "Échec de définition du SID Admins en tant que propriétaire - erreur : %d"
+   IDS_FAILED_TO_SET_ADMINS_SID_AS_GROU_XENSECURITYHELPER_1773       "Échec de définition du SID Admins en tant que groupe - erreur : %d"
+   IDS_FAILED_TO_SET_DACL_FOR_SD___ERRO_XENSECURITYHELPER_1782       "Échec de définition de la DACL pour le descripteur de sécurité - erreur : %d"
+END
+STRINGTABLE DISCARDABLE
+BEGIN
+   IDS_FAILED_TO_CONNECT_TO_BACKEND___E_XENHTTP_213                  "Échec de connexion au serveur principal - erreur : %d"
+   IDS_ATTEMPTING_TO_REUSE_CXENHTTP_WIT_XENHTTP_292                  "Tentative de réutilisation de CXenHttp sans réinitialisation - c'est un bug !"
+   IDS_FAILED_TO_SEND_zS___ERROR__zD_XENHTTP_327                     "Échec de l'envoi de %s - erreur : %d"
+   IDS_FAILED_TO_SEND_zS___NOT_ALL_DATA_XENHTTP_334                  "Échec de l'envoi de %s - toutes les données n'ont pas été écrites"
+   IDS_FAILED_TO_SEND_zS_DATA___ERROR___XENHTTP_354                  "Échec de l'envoi des données de %s - erreur : %d"
+   IDS_FAILED_TO_SEND_zS_DATA___NOT_ALL_XENHTTP_361                  "Échec de l'envoi des données de %s - toutes les données n'ont pas été écrites"
+   IDS_zS_HEADER_TIMEOUT_AFTER_zD_MS_XENHTTP_385                     "Expiration de l'en-tête %s après %d ms"
+   IDS_FAILURE_DURING_WAITFORMULTIPLEOB_XENHTTP_393                  "Échec durant WaitForMultipleObjects pour l'en-tête %s - erreur : %d"
+   IDS_FAILED_TO_READ_zS_HEADER___ERROR_XENHTTP_408                  "Échec de lecture de l'en-tête %s - erreur : %d"
+   IDS_FAILED_TO_READ_zS_HEADER___NO_DA_XENHTTP_415                  "Échec de lecture de l'en-tête %s - aucune donnée n'a été lue"
+   IDS_FAILED_TO_PROCESS_zS_RESPONSE____XENHTTP_425                  "Échec de traitement de la réponse %s - erreur HTTP : %d"
+   IDS_INVALID_CONTENT_LENGTH_SPECIFIED_XENHTTP_437                  "Longueur du contenu spécifiée non valide"
+   IDS_SAFEARRAYACCESSDATA___FAILED___H_XENHTTP_452                  "Échec de SafeArrayAccessData() - HRESULT : 0x%x"
+   IDS_zS_DATA_TIMEOUT_AFTER_zD_MS_XENHTTP_476                       "Expiration des données %s après %d ms"
+   IDS_FAILURE_DURING_WAITFORMULTIPLEOB_XENHTTP_485                  "Échec durant WaitForMultipleObjects pour les données %s - erreur : %d"
+   IDS_FAILED_TO_READ_zS_DATA___ERROR___XENHTTP_499                  "Échec de lecture des données %s - erreur : %d"
+END
+STRINGTABLE DISCARDABLE
+BEGIN
+   IDS_FAILED_TO_READ_zS_DATA___NO_DATA_XENHTTP_506                  "Échec de lecture des données %s - aucune donnée n'a été lue"
+   IDS_CRITICAL_FAILURE___zS_VALUE_READ_XENHTTP_514                  "Défaillance critique - la valeur lue %s est supérieure à ce qui reste !"
+END
+STRINGTABLE DISCARDABLE
+BEGIN
+   IDS_SETUPPARAMETERKEY_COULD_NOT_CREA_XENGUESTAGENT_106            "SetupParameterKey n'a pas pu créer la clé de paramètres"
+   IDS_SETUPPARAMETERKEY_COULD_NOT_SET__XENGUESTAGENT_115            "SetupParameterKey n'a pas pu définir LogCommunicationErrors"
+   IDS_SETUPPARAMETERKEY_COULD_NOT_SET__XENGUESTAGENT_123            "SetupParameterKey n'a pas pu définir LogOperationErrors"
+   IDS_REGISTEREVENTSOURCE_COULD_NOT_OP_XENGUESTAGENT_145            "RegisterEventSource n'a pas pu ouvrir la clé de journalisation d'événement"
+   IDS_REGISTEREVENTSOURCE_COULD_NOT_CR_XENGUESTAGENT_155            "RegisterEventSource n'a pas pu créer une nouvelle clé de journalisation d'événement"
+   IDS_REGISTEREVENTSOURCE_COULD_NOT_SE_XENGUESTAGENT_165            "RegisterEventSource n'a pas pu définir la source du message de journalisation"
+   IDS_REGISTEREVENTSOURCE_COULD_NOT_SE_XENGUESTAGENT_176            "RegisterEventSource n'a pas pu définir les types d'événements autorisés"
+   IDS_UNREGISTEREVENTSOURCE_COULD_NOT__XENGUESTAGENT_193            "UnregisterEventSource n'a pas pu supprimer la clé de journalisation d'événement"
+   IDS_UPDATESERVICEREGISTRY_COULD_NOT__XENGUESTAGENT_233            "UpdateServiceRegistry n'a pas pu ouvrir SCM - erreur : 0x%x"
+   IDS_UPDATESERVICEREGISTRY_COULD_NOT__XENGUESTAGENT_244            "UpdateServiceRegistry n'a pas pu ouvrir le service - erreur : 0x%x"
+   IDS_UPDATESERVICEREGISTRY_CHANGE_SER_XENGUESTAGENT_264            "UpdateServiceRegistry change service config - error: 0x%x"
+   IDS_UPDATESERVICEREGISTRY_CHANGE_SER_XENGUESTAGENT_275            "UpdateServiceRegistry change service config 2 - error: 0x%x"
+   IDS_FAILED_TO_LOAD_XS2_LIBRARY___ERR_XENGUESTAGENT_413            "Échec de chargement de la bibliothèque xs2 - ERREUR : %d"
+   IDS_FAILED_TO_START__SERVICE_SHOULD__XENGUESTAGENT_439            "Échec du démarrage. Le service doit être démarré à partir du Gestionnaire de contrôle des services ; il ne doit pas être exécuté directement en tant qu'exécutable"
+   IDS_FAILED_TO_START_SERVICE_XENGUESTAGENT_459                     "Échec de démarrage du service"
+   IDS_GETVERSIONEX_FAILED_____ERROR__z_XENGUESTAGENT_537            "Échec de GetVersionEx !! - ERREUR : %d"
+END
+STRINGTABLE DISCARDABLE
+BEGIN
+   IDS_FAILED_TO_CREATE_SHUTDOWN_EVENT__XENGUESTAGENT_545            "Échec de création de l'événement d'arrêt - ERREUR : %d"
+   IDS_FAILED_TO_CREATE_VMS_EVENT___ERR_XENGUESTAGENT_553            "Échec de création de l'événement des MV - ERREUR : %d"
+   IDS_FAILED_TO_CREATE_VMS_VECTOR_LOCK_XENGUESTAGENT_561            "Échec de création du verrou de vecteur des MV - ERREUR : %d"
+   IDS_FAILED_TO_CREATE_ALERTS_VECTOR_L_XENGUESTAGENT_569            "Échec de création du verrou de vecteur d'alertes - ERREUR : %d"
+   IDS_XS2OPEN_FAILED_FOR_START__NOT_RU_XENGUESTAGENT_689            "Échec du démarrage de XS2Open (non exécuté sur Xen ?) - ERREUR : %d"
+   IDS_XS2READ_FAILED_FOR_VM___ERROR__z_XENGUESTAGENT_697            "Échec de XS2Read pour la MV - ERREUR : %d"
+   IDS_FAILED_TO_START_TASK_THREAD___ER_XENGUESTAGENT_730            "Échec de démarrage du thread de tâche - ERREUR NO : %d"
+   IDS_FAILED_TO_START_VMS_WATCH_THREAD_XENGUESTAGENT_739            "Échec de démarrage du thread d'observation des MV - ERREUR NO : %d"
+   IDS_FAILED_TO_START_ALERTS_WATCH_THR_XENGUESTAGENT_748            "Échec de démarrage du thread d'observation des alertes - ERREUR NO : %d"
+   IDS_XS2OPEN_FAILED_FOR_LOADVMS___ERR_XENGUESTAGENT_1090           "Échec de XS2Open pour LoadVms - ERREUR : %d"
+   IDS_XS2DIRECTORY_NO_VMS_RETURNED____XENGUESTAGENT_1101            "XS2Directory no VMs returned???"
+   IDS_FAILED_TO_RETURN_SYSTEM_DIRECTOR_XENGUESTAGENT_1248           "Impossible de renvoyer le répertoire système"
+   IDS_FAILED_TO_LAUNCH_POWERCFG_TOOL___XENGUESTAGENT_1261           "Impossible de lancer l'outil powercfg : Erreur : %d"
+   IDS_FAILURE_RETURNED_FROM_POWEROPTS__XENGUESTAGENT_1282           "Erreur renvoyée par poweropts - ERREUR : %d"
+   IDS_WLANPROF__WLANAPI_DLL_NOT_FOUND_XENGUESTAGENT_1302            "WLANPROF: WLANAPI.DLL introuvable"
+   IDS_WLANPROF__ERROR_LOADING_WIFI_API_XENGUESTAGENT_1306           "WLANPROF: Erreur de chargement des procédures API Wifi"
+END
+STRINGTABLE DISCARDABLE
+BEGIN
+   IDS_WLANPROF__ERROR_GETTING_LIST_OF__XENGUESTAGENT_1310           "WLANPROF: Erreur lors de l'obtention de la liste des interfaces de périphérique : état WLAN = %d"
+   IDS_WLANPROF__ERROR_ADDING_AP__WLAN__XENGUESTAGENT_1314           "WLANPROF: Erreur lors de l'ajout de AP : état WLAN = %d"
+   IDS_WLANPROF__UNKNOWN_FAILURE_ENCOUN_XENGUESTAGENT_1318           "WLANPROF: Erreur inconnue rencontrée : %d"
+   IDS_XS2OPEN_FAILED_FOR_WATCHES___ERR_XENGUESTAGENT_1339           "Échec des observations de XS2Open - ERREUR : %d"
+   IDS_FAILED_TO_OPEN_XENSTORE_VMS_WATC_XENGUESTAGENT_1349           "Échec de l'ouverture de l'observation des MV XenStore - ERREUR : %d"
+   IDS_XS_WATCH_THREAD_SHUTTING_DOWN__XENGUESTAGENT_1359             "Arrêt du thread XS Watch."
+   IDS_WAIT_FAILED_DURING_XS_WATCH_WAIT_XENGUESTAGENT_1370           "WAIT_FAILED during XS watch WaitForMultipleObjects?? - ERROR: %d"
+   IDS_UNKNOWN_FAILURE_DURING_XS_WATCH__XENGUESTAGENT_1378           "Unknown failure during XS watch WaitForMultipleObjects?? - ERROR: %d"
+   IDS_RECEIVED_XCDIAG_REQUEST_XENGUESTAGENT_1414                    "Réception d'une requête xcdiag"
+   IDS_FAILED_TO_LAUNCH_XCDIAG_TOOL___E_XENGUESTAGENT_1430           "Impossible de lancer l'outil xcdiag : Erreur : %d"
+   IDS_FAILED_TO_OPEN_XCDIAG_OUTPUT_FIL_XENGUESTAGENT_1465           "Impossible d'ouvrir le fichier de sortie xcdiag"
+   IDS_XCDIAG_OUTPUT_FILE_APPEARS_EMPTY_XENGUESTAGENT_1476           "Le fichier de sortie xcdiag est vide"
+   IDS_FAILED_TO_ALLOCATE_MEMORY_FOR_XC_XENGUESTAGENT_1486           "Échec d'allocation de mémoire pour la sortie xcdiag"
+   IDS_FAILED_TO_ACCESS_XCDIAG_FILE_XENGUESTAGENT_1502               "Impossible d'accéder au fichier xcdiag"
+   IDS_FAILED_TO_VIEW_XCDIAG_OUTPUT_XENGUESTAGENT_1520               "Impossible d'afficher la sortie xcdiag"
+   IDS_XCDIAG_ZIP_FILE_SENT__XENGUESTAGENT_1591                      "Fichier zip xcdiag envoyé."
+END
+STRINGTABLE DISCARDABLE
+BEGIN
+   IDS_DOPOST___OPERATION_FAILED___ERRO_XENGUESTAGENT_1596           "Échec de l'opération DoPOST() - erreur : %d  code HTTP : %d"
+   IDS_DOGET___FAILED_TO_REGISTER_FOR_A_XENGUESTAGENT_1652           "Échec de l'enregistrement de DoGET() pour le signal d'alertes - erreur : %d  code HTTP : %d. Interface : %s"
+   IDS_FAILED_TO_OPEN_V4V_CHANNEL_ON_FI_XENGUESTAGENT_1721           "Échec d'ouverture du canal V4V lors de la première tentative, nouvelle tentative - HRESULT : 0x%x"
+   IDS_FAILED_TO_PARSE_JSON_SIGNAL___ER_XENGUESTAGENT_1759           "Impossible d'analyser le signal JSON - erreur : %s"
+   IDS_SAFEARRAYACCESSDATA___FAILED___H_XENGUESTAGENT_1800           "Échec de SafeArrayAccessData() - HRESULT : 0x%x"
+   IDS_ALERTS_THREAD_SHUTTING_DOWN__XENGUESTAGENT_1825               "Arrêt du thread d'alertes."
+   IDS_DOGET___FAILED_TO_RECEIVE_SIGNAL_XENGUESTAGENT_1831           "DoGET() n'a pas reçu le signal - erreur : %d  code HTTP : %d"
+   IDS_FAILED_TO_RESET_SIGNAL_REGISTRAT_XENGUESTAGENT_1838           "Échec de réinitialisation de l'enregistrement du signal"
+   IDS_SAFEARRAYCOPY___FAILED___HRESULT_XENGUESTAGENT_1875           "Échec de SafeArrayCopy() - HRESULT : 0x%x"
+   IDS_E_OUTOFMEMORY___HRESULT__0XzX_XENGUESTAGENT_1881              "E_OUTOFMEMORY - HRESULT : 0x%x"
+END
+STRINGTABLE DISCARDABLE
+BEGIN
+   IDS_SAFEARRAYACCESSDATA___FAILED___H_XENGUESTSERVICES_230         "Échec de SafeArrayAccessData() - HRESULT : 0x%x"
+   IDS_SAFEARRAYACCESSDATA___RETRIEVED__XENGUESTSERVICES_237         "SafeArrayAccessData() a récupéré des données NULL"
+   IDS_XS_WATCH_THREAD_SHUTTING_DOWN__XENGUESTSERVICES_301           "Arrêt du thread XS Watch."
+   IDS_DOGET___FAILED___ERROR__zD_HTTP__XENGUESTSERVICES_308         "Échec de DoGET() - erreur : %d  code HTTP : %d"
+   IDS_COCREATEINSTANCE_CLSID_XENVMINFO_XENGUESTSERVICES_378         "Échec de CoCreateInstance(CLSID_XenVmInfo) - HRESULT : 0x%x"
+   IDS_QUERYINTERFACE_IXENVMINITIALIZE__XENGUESTSERVICES_385         "Échec de QueryInterface(IXenVmInitialize) - HRESULT : 0x%x"
+   IDS_QUERYINTERFACE_IXENVMINITIALIZE__XENGUESTSERVICES_391         "QueryInterface(IXenVmInitialize) n'a pas renvoyé de pointeur d'interface - HRESULT : 0x%x"
+   IDS_LOADIMAGEUID_FAILED__IMAGE__zS___XENGUESTSERVICES_406         "Échec de LoadImageUid, image : %s - HRESULT : 0x%x"
+   IDS_DELETING_XCIPLUGIN_RUN_VALUE_FAI_XENGUESTSERVICES_640         "Échec de suppression de la valeur d'exécution XciPlugin - ERREUR : %d"
+   IDS_CREATING_XCIPLUGIN_RUN_VALUE_FAI_XENGUESTSERVICES_652         "Impossible de créer la valeur d'exécution XciPlugin - ERREUR : %d"
+   IDS_FAILED_TO_OPEN_XENINP_FILE_HANDL_XENGUESTSERVICES_674         "Impossible d'ouvrir le handle de fichier XenInp - ERREUR : %d"
+   IDS_FAILED_TO_SEND_XENINP_IOCTL_ACCE_XENGUESTSERVICES_683         "Impossible d'envoyer XENINP_IOCTL_ACCELERATION - ERREUR : %d"
+END

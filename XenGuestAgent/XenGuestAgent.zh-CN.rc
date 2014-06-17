@@ -1,0 +1,160 @@
+STRINGTABLE 
+BEGIN
+    IDS_SERVICENAME         "XenGuestAgent"
+    IDS_XENWIRELESS         "<?xml version=""1.0""?>\n<WLANProfile xmlns=""http://www.microsoft.com/networking/WLAN/profile/v1"">\n\t<name>XenClient Wireless</name>\n\t<SSIDConfig>\n\t\t<SSID>\n\t\t\t<name>XenClient Wireless</name>\n\t\t</SSID>\n\t</SSIDConfig>\n\t<connectionType>ESS</connectionType>\n\t<connectionMode>auto</connectionMode>\n\t<MSM>\n\t\t<security>\n\t\t\t<authEncryption>\n\t\t\t\t<authentication>open</authentication>\n\t\t\t\t<encryption>none</encryption>\n\t\t\t\t<useOneX>false</useOneX>\n\t\t\t</authEncryption>\n\t\t\t</security>\n\t</MSM>\n</WLANProfile>\n"
+    IDS_DISPLAYNAME         "Citrix Xen Guest Services"
+    IDS_SERVICEDESC         "为 Xen 用户域提供在来宾 VM 中运行的服务。"
+    IDS_ATLBASE_NO_HANDLER            "未安装处理程序"
+    IDS_ATLBASE_SERVICE_STOPPED       "服务已停止"
+    IDS_ATLBASE_SERVICE_STARTED       "服务已启动"
+    IDS_ATLBASE_BAD_SERVICE           "服务请求无效"
+END
+STRINGTABLE DISCARDABLE
+BEGIN
+   IDS_FAILED_TO_CREATE_OBJECT_LOCK___H_XENGUESTSERVICES_24          "无法创建对象锁 - HRESULT: 0x%x"
+   IDS_FAILED_TO_OPEN_XENSTORE___HRESUL_XENGUESTSERVICES_32          "无法打开 XenStore - HRESULT: 0x%x"
+   IDS_FAILED_TO_INITIALIZE_VM_VALUES___XENGUESTSERVICES_53          "无法初始化 VM 值 - HRESULT: 0x%x"
+   IDS_MAXIMUM_INSTANCE_COUNT_REACHED___XENGUESTSERVICES_61          "已达到最大实例数 - HRESULT: 0x%x"
+   IDS_FAILED_TO_CREATE_VMS_EVENT_GUID__XENGUESTSERVICES_474         "无法创建 VMS 事件 GUID - HRESULT: 0x%x"
+   IDS_FAILED_TO_CREATE_VMS_EVENT___HRE_XENGUESTSERVICES_492         "无法创建 VMS 事件 - HRESULT: 0x%x"
+   IDS_FAILED_TO_CREATE_ALERTS_EVENT_GU_XENGUESTSERVICES_532         "无法创建警报事件 GUID - HRESULT: 0x%x"
+   IDS_FAILED_TO_CREATE_ALERTS_EVENT____XENGUESTSERVICES_550         "无法创建警报事件 - HRESULT: 0x%x"
+END
+STRINGTABLE DISCARDABLE
+BEGIN
+   IDS_PRINCIPAL__zS_PERMISSION__zS_OPE_XENSECURITYHELPER_35         "PRINCIPAL: %s PERMISSION: %s OPERATION: %s ERROR: %d"
+   IDS_DENY_CHECK_FAILURE___PERMISSION__XENSECURITYHELPER_1244       "DENY CHECK FAILURE - PERMISSION: %s OPERATION: %s ERROR: %d"
+   IDS_DENY_REMOTE_CHECK_FOR_zS_DETECTE_XENSECURITYHELPER_1279       "%s 的拒绝远程检查检测到允许远程访问!"
+   IDS_ACCESSPERMISSION_XENSECURITYHELPER_1281                       "AccessPermission"
+   IDS_LAUNCHPERMISSION_LAUNCH_XENSECURITYHELPER_1303                "LaunchPermission-Launch"
+   IDS_LAUNCHPERMISSION_ACTIVATE_XENSECURITYHELPER_1311              "LaunchPermission-Activate"
+   IDS_DENY_CHECK_FOUND_NO_SD_DACL_FOR__XENSECURITYHELPER_1431       "拒绝检查找不到 %s 的 SD DACL - 可能已拒绝每位用户进行访问"
+   IDS_LAUNCHPERMISSION_XENSECURITYHELPER_1478                       "LaunchPermission"
+   IDS_FAILED_TO_ALLOCATE_SECURITY_ATTR_XENSECURITYHELPER_1559       "无法分配 SECURITY_ATTRIBUTES"
+   IDS_FAILED_TO_CREATE_SECURITY_DESCRI_XENSECURITYHELPER_1569       "无法创建安全描述符 - 错误: %d"
+   IDS_FAILED_TO_GET_SIZES_FROM_MAKEABS_XENSECURITYHELPER_1614       "无法从 MakeAbsoluteSD 获取大小值 - 错误: %d"
+   IDS_FAILED_TO_ALLOCATE_SECURITY_DESC_XENSECURITYHELPER_1625       "无法分配 SECURITY_DESCRIPTOR"
+   IDS_FAILED_CREATE_SD_IN_MAKEABSOLUTE_XENSECURITYHELPER_1644       "无法在 MakeAbsoluteSD 中创建 SD - 错误: %d"
+   IDS_FAILED_TO_ALLOCATE_XSH_DESCRIPTO_XENSECURITYHELPER_1689       "无法分配 XSH_DESCRIPTOR"
+   IDS_FAILED_TO_INITIALIZE_COM_SID___E_XENSECURITYHELPER_1699       "无法初始化 COM SID - 错误: %d"
+   IDS_FAILED_TO_ALLOCATE_PINTERACTIVSI_XENSECURITYHELPER_1709       "无法分配 pInteractivSID SID"
+END
+STRINGTABLE DISCARDABLE
+BEGIN
+   IDS_FAILED_TO_ALLOCATE_ADMINS_SID_XENSECURITYHELPER_1718          "无法分配管理员 SID"
+   IDS_FAILED_CREATEWELLKNOWNSID_PINTER_XENSECURITYHELPER_1727       "CreateWellKnownSid(pInteractivSID) 失败 - 错误: %d"
+   IDS_FAILED_CREATEWELLKNOWNSID_PADMIN_XENSECURITYHELPER_1736       "CreateWellKnownSid(pAdminsSID) 失败 - 错误: %d"
+   IDS_FAILED_SETENTRIESINACL_PINTERACT_XENSECURITYHELPER_1755       "SetEntriesInAcl(pInteractivSID) 失败 - 错误: %d"
+   IDS_FAILED_TO_SET_ADMINS_SID_AS_OWNE_XENSECURITYHELPER_1765       "无法以所有者身份设置管理员 SID - 错误: %d"
+   IDS_FAILED_TO_SET_ADMINS_SID_AS_GROU_XENSECURITYHELPER_1773       "无法设置管理员组的 SID - 错误: %d"
+   IDS_FAILED_TO_SET_DACL_FOR_SD___ERRO_XENSECURITYHELPER_1782       "无法设置 SD DACL - 错误: %d"
+END
+STRINGTABLE DISCARDABLE
+BEGIN
+   IDS_FAILED_TO_CONNECT_TO_BACKEND___E_XENHTTP_213                  "无法连接到后端 - 错误: %d"
+   IDS_ATTEMPTING_TO_REUSE_CXENHTTP_WIT_XENHTTP_292                  "未重置即尝试重复使用 CXenHttp - 这是一个缺陷!"
+   IDS_FAILED_TO_SEND_zS___ERROR__zD_XENHTTP_327                     "无法发送 %s - 错误: %d"
+   IDS_FAILED_TO_SEND_zS___NOT_ALL_DATA_XENHTTP_334                  "无法发送 %s - 并非所有数据均已写入"
+   IDS_FAILED_TO_SEND_zS_DATA___ERROR___XENHTTP_354                  "无法发送 %s 数据 - 错误: %d"
+   IDS_FAILED_TO_SEND_zS_DATA___NOT_ALL_XENHTTP_361                  "无法发送 %s 数据 - 并非所有数据均已写入"
+   IDS_zS_HEADER_TIMEOUT_AFTER_zD_MS_XENHTTP_385                     "%s 标题在 %d 毫秒后超时"
+   IDS_FAILURE_DURING_WAITFORMULTIPLEOB_XENHTTP_393                  "WaitForMultipleObjects %s 标题期间出错 - 错误: %d"
+   IDS_FAILED_TO_READ_zS_HEADER___ERROR_XENHTTP_408                  "无法读取 %s 标题 - 错误: %d"
+   IDS_FAILED_TO_READ_zS_HEADER___NO_DA_XENHTTP_415                  "无法读取 %s 标题 - 未读取数据"
+   IDS_FAILED_TO_PROCESS_zS_RESPONSE____XENHTTP_425                  "无法处理 %s 响应 - HTTP 错误: %d"
+   IDS_INVALID_CONTENT_LENGTH_SPECIFIED_XENHTTP_437                  "指定的内容长度无效"
+   IDS_SAFEARRAYACCESSDATA___FAILED___H_XENHTTP_452                  "SafeArrayAccessData() 失败 - HRESULT: 0x%x"
+   IDS_zS_DATA_TIMEOUT_AFTER_zD_MS_XENHTTP_476                       "%s 数据在 %d 毫秒后超时"
+   IDS_FAILURE_DURING_WAITFORMULTIPLEOB_XENHTTP_485                  "WaitForMultipleObjects %s 数据期间出错 - 错误: %d"
+   IDS_FAILED_TO_READ_zS_DATA___ERROR___XENHTTP_499                  "无法读取 %s 数据 - 错误: %d"
+END
+STRINGTABLE DISCARDABLE
+BEGIN
+   IDS_FAILED_TO_READ_zS_DATA___NO_DATA_XENHTTP_506                  "无法读取 %s 数据 - 未读取数据"
+   IDS_CRITICAL_FAILURE___zS_VALUE_READ_XENHTTP_514                  "严重错误 - 读取的 %s 值大于剩余的值!"
+END
+STRINGTABLE DISCARDABLE
+BEGIN
+   IDS_SETUPPARAMETERKEY_COULD_NOT_CREA_XENGUESTAGENT_106            "SetupParameterKey 无法创建参数键"
+   IDS_SETUPPARAMETERKEY_COULD_NOT_SET__XENGUESTAGENT_115            "SetupParameterKey 无法设置 LogCommunicationErrors"
+   IDS_SETUPPARAMETERKEY_COULD_NOT_SET__XENGUESTAGENT_123            "SetupParameterKey 无法设置 LogOperationErrors"
+   IDS_REGISTEREVENTSOURCE_COULD_NOT_OP_XENGUESTAGENT_145            "RegisterEventSource 无法打开事件日志记录键"
+   IDS_REGISTEREVENTSOURCE_COULD_NOT_CR_XENGUESTAGENT_155            "RegisterEventSource 无法创建新的事件日志记录键"
+   IDS_REGISTEREVENTSOURCE_COULD_NOT_SE_XENGUESTAGENT_165            "RegisterEventSource 无法设置日志记录消息来源"
+   IDS_REGISTEREVENTSOURCE_COULD_NOT_SE_XENGUESTAGENT_176            "RegisterEventSource 无法设置允许使用的事件类型"
+   IDS_UNREGISTEREVENTSOURCE_COULD_NOT__XENGUESTAGENT_193            "UnregisterEventSource 无法删除日志记录事件键"
+   IDS_UPDATESERVICEREGISTRY_COULD_NOT__XENGUESTAGENT_233            "UpdateServiceRegistry 无法打开 SCM - 错误: 0x%x"
+   IDS_UPDATESERVICEREGISTRY_COULD_NOT__XENGUESTAGENT_244            "UpdateServiceRegistry 无法打开服务 - 错误: 0x%x"
+   IDS_UPDATESERVICEREGISTRY_CHANGE_SER_XENGUESTAGENT_264            "UpdateServiceRegistry change service config - error: 0x%x"
+   IDS_UPDATESERVICEREGISTRY_CHANGE_SER_XENGUESTAGENT_275            "UpdateServiceRegistry change service config 2 - error: 0x%x"
+   IDS_FAILED_TO_LOAD_XS2_LIBRARY___ERR_XENGUESTAGENT_413            "无法加载 xs2 库 - 错误: %d"
+   IDS_FAILED_TO_START__SERVICE_SHOULD__XENGUESTAGENT_439            "启动失败。服务应从服务控制管理器启动，且不应直接以可执行文件方式运行"
+   IDS_FAILED_TO_START_SERVICE_XENGUESTAGENT_459                     "无法启动服务"
+   IDS_GETVERSIONEX_FAILED_____ERROR__z_XENGUESTAGENT_537            "GetVersionEx 失败!! - 错误: %d"
+END
+STRINGTABLE DISCARDABLE
+BEGIN
+   IDS_FAILED_TO_CREATE_SHUTDOWN_EVENT__XENGUESTAGENT_545            "无法创建关闭事件 - 错误: %d"
+   IDS_FAILED_TO_CREATE_VMS_EVENT___ERR_XENGUESTAGENT_553            "无法创建 VMS 事件 - 错误: %d"
+   IDS_FAILED_TO_CREATE_VMS_VECTOR_LOCK_XENGUESTAGENT_561            "无法创建 VMS 矢量锁 - 错误: %d"
+   IDS_FAILED_TO_CREATE_ALERTS_VECTOR_L_XENGUESTAGENT_569            "无法创建警报矢量锁 - 错误: %d"
+   IDS_XS2OPEN_FAILED_FOR_START__NOT_RU_XENGUESTAGENT_689            "XS2Open 启动失败(可能未在 Xen 上运行?) - 错误: %d"
+   IDS_XS2READ_FAILED_FOR_VM___ERROR__z_XENGUESTAGENT_697            "XS2Read 因 vm 失败 - 错误: %d"
+   IDS_FAILED_TO_START_TASK_THREAD___ER_XENGUESTAGENT_730            "无法启动任务线程 - ERRORNO: %d"
+   IDS_FAILED_TO_START_VMS_WATCH_THREAD_XENGUESTAGENT_739            "无法启动 VMS 监视线程 - 错误号: %d"
+   IDS_FAILED_TO_START_ALERTS_WATCH_THR_XENGUESTAGENT_748            "无法启动警报监视线程 - 错误号: %d"
+   IDS_XS2OPEN_FAILED_FOR_LOADVMS___ERR_XENGUESTAGENT_1090           "XS2Open 因 LoadVms 失败 - 错误: %d"
+   IDS_XS2DIRECTORY_NO_VMS_RETURNED____XENGUESTAGENT_1101            "XS2Directory no VMs returned???"
+   IDS_FAILED_TO_RETURN_SYSTEM_DIRECTOR_XENGUESTAGENT_1248           "无法返回系统目录"
+   IDS_FAILED_TO_LAUNCH_POWERCFG_TOOL___XENGUESTAGENT_1261           "无法启动 powercfg 工具: 错误: %d"
+   IDS_FAILURE_RETURNED_FROM_POWEROPTS__XENGUESTAGENT_1282           "poweropts 返回错误 - 错误: %d"
+   IDS_WLANPROF__WLANAPI_DLL_NOT_FOUND_XENGUESTAGENT_1302            "WLANPROF: 找不到 WLANAPI.DLL"
+   IDS_WLANPROF__ERROR_LOADING_WIFI_API_XENGUESTAGENT_1306           "WLANPROF: 加载 Wifi API 过程时出错"
+END
+STRINGTABLE DISCARDABLE
+BEGIN
+   IDS_WLANPROF__ERROR_GETTING_LIST_OF__XENGUESTAGENT_1310           "WLANPROF: 获取设备接口列表时出错: WLAN 状态为“%d”"
+   IDS_WLANPROF__ERROR_ADDING_AP__WLAN__XENGUESTAGENT_1314           "WLANPROF: 添加 AP 时出错: WLAN 状态为“%d”"
+   IDS_WLANPROF__UNKNOWN_FAILURE_ENCOUN_XENGUESTAGENT_1318           "WLANPROF: 遇到未知错误: %d"
+   IDS_XS2OPEN_FAILED_FOR_WATCHES___ERR_XENGUESTAGENT_1339           "XS2Open 因监视线程失败 - 错误: %d"
+   IDS_FAILED_TO_OPEN_XENSTORE_VMS_WATC_XENGUESTAGENT_1349           "无法打开 XenStore VMS 监视线程 - 错误: %d"
+   IDS_XS_WATCH_THREAD_SHUTTING_DOWN__XENGUESTAGENT_1359             "XS 监视线程正在关闭。"
+   IDS_WAIT_FAILED_DURING_XS_WATCH_WAIT_XENGUESTAGENT_1370           "WAIT_FAILED during XS watch WaitForMultipleObjects?? - ERROR: %d"
+   IDS_UNKNOWN_FAILURE_DURING_XS_WATCH__XENGUESTAGENT_1378           "Unknown failure during XS watch WaitForMultipleObjects?? - ERROR: %d"
+   IDS_RECEIVED_XCDIAG_REQUEST_XENGUESTAGENT_1414                    "接收到 xcdiag 请求"
+   IDS_FAILED_TO_LAUNCH_XCDIAG_TOOL___E_XENGUESTAGENT_1430           "无法启动 xcdiag 工具: 错误: %d"
+   IDS_FAILED_TO_OPEN_XCDIAG_OUTPUT_FIL_XENGUESTAGENT_1465           "无法打开 xcdiag 输出文件"
+   IDS_XCDIAG_OUTPUT_FILE_APPEARS_EMPTY_XENGUESTAGENT_1476           "xcdiag 输出文件显示为空"
+   IDS_FAILED_TO_ALLOCATE_MEMORY_FOR_XC_XENGUESTAGENT_1486           "无法为 xcdiag 输出分配内存"
+   IDS_FAILED_TO_ACCESS_XCDIAG_FILE_XENGUESTAGENT_1502               "无法访问 xcdiag 文件"
+   IDS_FAILED_TO_VIEW_XCDIAG_OUTPUT_XENGUESTAGENT_1520               "无法查看 xcdiag 输出"
+   IDS_XCDIAG_ZIP_FILE_SENT__XENGUESTAGENT_1591                      "xcdiag zip 文件已发送。"
+END
+STRINGTABLE DISCARDABLE
+BEGIN
+   IDS_DOPOST___OPERATION_FAILED___ERRO_XENGUESTAGENT_1596           "DoPOST() 操作失败 - 错误: %d  HTTP 代码: %d"
+   IDS_DOGET___FAILED_TO_REGISTER_FOR_A_XENGUESTAGENT_1652           "DoGET() 无法注册警报信号 - 错误: %d  HTTP 代码: %d 接口: %s"
+   IDS_FAILED_TO_OPEN_V4V_CHANNEL_ON_FI_XENGUESTAGENT_1721           "第一次尝试时无法打开 V4V 通道，将重试 - HRESULT: 0x%x"
+   IDS_FAILED_TO_PARSE_JSON_SIGNAL___ER_XENGUESTAGENT_1759           "无法解析 JSON 信号 - 错误: %s"
+   IDS_SAFEARRAYACCESSDATA___FAILED___H_XENGUESTAGENT_1800           "SafeArrayAccessData() 失败 - HRESULT: 0x%x"
+   IDS_ALERTS_THREAD_SHUTTING_DOWN__XENGUESTAGENT_1825               "警报线程正在关闭。"
+   IDS_DOGET___FAILED_TO_RECEIVE_SIGNAL_XENGUESTAGENT_1831           "DoGET() 无法接收信号 - 错误: %d  HTTP 代码: %d"
+   IDS_FAILED_TO_RESET_SIGNAL_REGISTRAT_XENGUESTAGENT_1838           "无法重置信号注册"
+   IDS_SAFEARRAYCOPY___FAILED___HRESULT_XENGUESTAGENT_1875           "SafeArrayCopy() 失败 - HRESULT: 0x%x"
+   IDS_E_OUTOFMEMORY___HRESULT__0XzX_XENGUESTAGENT_1881              "E_OUTOFMEMORY - HRESULT: 0x%x"
+END
+STRINGTABLE DISCARDABLE
+BEGIN
+   IDS_SAFEARRAYACCESSDATA___FAILED___H_XENGUESTSERVICES_230         "SafeArrayAccessData() 失败 - HRESULT: 0x%x"
+   IDS_SAFEARRAYACCESSDATA___RETRIEVED__XENGUESTSERVICES_237         "SafeArrayAccessData() 检索到 NULL 数据"
+   IDS_XS_WATCH_THREAD_SHUTTING_DOWN__XENGUESTSERVICES_301           "XS 监视线程正在关闭。"
+   IDS_DOGET___FAILED___ERROR__zD_HTTP__XENGUESTSERVICES_308         "DoGET() 失败 - 错误: %d  HTTP 代码: %d"
+   IDS_COCREATEINSTANCE_CLSID_XENVMINFO_XENGUESTSERVICES_378         "CoCreateInstance(CLSID_XenVmInfo) 失败 - HRESULT: 0x%x"
+   IDS_QUERYINTERFACE_IXENVMINITIALIZE__XENGUESTSERVICES_385         "QueryInterface(IXenVmInitialize) 失败 - HRESULT: 0x%x"
+   IDS_QUERYINTERFACE_IXENVMINITIALIZE__XENGUESTSERVICES_391         "QueryInterface(IXenVmInitialize) 未返回接口指针 - HRESULT: 0x%x"
+   IDS_LOADIMAGEUID_FAILED__IMAGE__zS___XENGUESTSERVICES_406         "LoadImageUid 失败，图像: %s - HRESULT: 0x%x"
+   IDS_DELETING_XCIPLUGIN_RUN_VALUE_FAI_XENGUESTSERVICES_640         "删除 XciPlugin Run 值失败 - 错误: %d"
+   IDS_CREATING_XCIPLUGIN_RUN_VALUE_FAI_XENGUESTSERVICES_652         "创建 XciPlugin Run 值失败 - 错误: %d"
+   IDS_FAILED_TO_OPEN_XENINP_FILE_HANDL_XENGUESTSERVICES_674         "无法打开 XenInp 文件句柄 - 错误: %d"
+   IDS_FAILED_TO_SEND_XENINP_IOCTL_ACCE_XENGUESTSERVICES_683         "无法发送 XENINP_IOCTL_ACCELERATION - 错误: %d"
+END

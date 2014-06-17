@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<!-- Build dbus output in external location. -->
+<VisualStudioPropertySheet 
+  ProjectType="Visual C++" 
+  Version="8.00" 
+  Name="locations.build.dbus.outside"
+  OutputDirectory="$(LocalOutputDir)\dbus\$(ConfigurationName)"
+  IntermediateDirectory="$(LocalIntermediateDir)\$(SolutionName)\$(ProjectName)\$(ConfigurationName)"
+  >
+</VisualStudioPropertySheet>

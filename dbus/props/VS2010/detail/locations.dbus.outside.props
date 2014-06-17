@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Settings to build applications with output rooted in external directory -->
+<!-- LocalOutputDir and LocalIntermediateDir MUST have been defined previously -->
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <LocationsDbusOutsidePropsDefined>1</LocationsDbusOutsidePropsDefined>
+  </PropertyGroup>
+
+  <Import Condition=" '$(LocationsCheckLocalPropsDefined)' == '' "
+          Project="..\..\..\..\props\VS2010\detail\locations.check.local.props" />
+  <PropertyGroup />
+
+  <PropertyGroup>
+    <DbusOutDir>$(LocalOutputDir)\dbus\$(Configuration)\</DbusOutDir>
+    <_SolutionNameDir Condition=" '$(SolutionName)' != '' ">$(SolutionName)\</_SolutionNameDir>
+    <_BuildOutsideTargetName>$(TargetName)</_BuildOutsideTargetName>
+    <_BuildOutsideTargetName Condition=" '$(_BuildOutsideTargetName)' == '' ">$(AssemblyName)</_BuildOutsideTargetName>
+    <_BuildOutsideTargetName Condition=" '$(_BuildOutsideTargetName)' == '' ">$(ProjectName)</_BuildOutsideTargetName>
+    <_BuildOutsideTargetName Condition=" '$(_BuildOutsideTargetName)' == '' ">$(MSBuildProjectName)</_BuildOutsideTargetName>
+    <DbusIntDir>$(LocalIntermediateDir)\$(_SolutionNameDir)$(_BuildOutsideTargetName)\$(Configuration)\</DbusIntDir>
+  </PropertyGroup>
+
+  <ItemDefinitionGroup>
+    <Link>
+      <AdditionalLibraryDirectories>Bananas;$(DbusOutDir);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+    </Link>
+  </ItemDefinitionGroup>
+</Project>

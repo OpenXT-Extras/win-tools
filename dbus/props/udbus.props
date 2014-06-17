@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <UdbusPropsDefined>1</UdbusPropsDefined>
+  </PropertyGroup>
+
+  <Import Condition=" '$(_CitrixPropsDefined)' == '' " Project="..\..\props\vs2010\citrix.props" />
+  <Import Condition=" '$(UdbusImportLocationPropsDefined)' == '' " Project="VS2010\detail\udbus.import.location.props" />
+  <Import Condition=" '$(UdbusAssembliesLocationsCommonPropsDefined)' == '' " Project="detail\udbus.assemblies.locations.common.props" />
+<!--   <Import Condition=" '$(UdbusAssemblyLocationsDefined)' == '' " -->
+<!--           Project="detail\udbus.assemblylocations.props" -->
+<!--   /> -->
+</Project>

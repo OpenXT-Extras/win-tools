@@ -1,0 +1,180 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Condition=" '$(XenClientGuestAssembliesPropsDefined)' == '' " Project="..\props\XenClientGuest.Assemblies.props" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
+    <ProductVersion>9.0.30729</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{0191DF8B-56AC-4E0B-974F-D335E96A4FE6}</ProjectGuid>
+    <OutputType>Exe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>XenClientGuestService</RootNamespace>
+    <AssemblyName>XenClientGuestService</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkProfile>
+    </TargetFrameworkProfile>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
+    <PlatformTarget>x86</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
+    <PlatformTarget>x86</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject />
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Management" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.ServiceProcess" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Runtime.Serialization" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="..\..\props\CommonAssemblyInfo.cs">
+      <Link>CommonAssemblyInfo.cs</Link>
+    </Compile>
+    <Compile Include="DbusHosts.cs" />
+    <Compile Include="DbusUtils.cs" />
+    <Compile Include="Logging\LogCreation.cs" />
+    <Compile Include="Native\NativeFileFunctions.cs" />
+    <Compile Include="Native\NativeIOControlFunctions.cs" />
+    <Compile Include="Native\NativeMappingFunctions.cs" />
+    <Compile Include="WCF\XenClientGuestWCFHost.cs" />
+    <Compile Include="WCF\XenClientGuestWCFService.cs" />
+    <Compile Include="XcDiagRunner.cs" />
+    <Compile Include="XenClientGuestService.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="XenClientGuestService.Designer.cs">
+      <DependentUpon>XenClientGuestService.cs</DependentUpon>
+    </Compile>
+    <Compile Include="XenClientGuestServiceProgram.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="XenStore.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\dbus\Udbus.Core\Udbus.Core.csproj">
+      <Project>{4E7B3CA9-1252-4B1E-BC70-17B702EC1B37}</Project>
+      <Name>Udbus.Core</Name>
+      <Private>True</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\..\dbus\Udbus.Serialization\Udbus.Serialization.csproj">
+      <Project>{7DDCAF88-8669-4C4A-BBD0-63A1E532B8EB}</Project>
+      <Name>Udbus.Serialization</Name>
+      <Private>True</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\..\dbus\Udbus.Types\Udbus.Types.csproj">
+      <Project>{2811C188-D05F-429A-AEDF-066FE3CF86AC}</Project>
+      <Name>Udbus.Types</Name>
+      <Private>True</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\..\dbus\Udbus.v4v\Udbus.v4v.csproj">
+      <Project>{9F6C8BC3-1748-474A-A8E2-249B2A2F01FA}</Project>
+      <Name>Udbus.v4v</Name>
+      <Private>True</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\..\dbus\Udbus.WCF.Dbus.Common\Udbus.WCF.Dbus.Common.csproj">
+      <Project>{4C459F10-BFC6-4678-9AA2-411B5A784D1A}</Project>
+      <Name>Udbus.WCF.Dbus.Common</Name>
+      <Private>True</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\..\dbus\Udbus.WCF.Dbus.Details\Udbus.WCF.Dbus.Details.csproj">
+      <Project>{7849004f-e262-4109-b41b-be230a8d6463}</Project>
+      <Name>Udbus.WCF.Dbus.Details</Name>
+      <Private>True</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\..\dbus\Udbus.WCF.Service\Udbus.WCF.Service.csproj">
+      <Project>{C42619C2-C4D7-4977-99DE-B83872E40AEB}</Project>
+      <Name>Udbus.WCF.Service</Name>
+      <Private>True</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\..\dbus\Udbus.WCF\Udbus.WCF.csproj">
+      <Project>{D8543B20-0B24-465F-8306-F4EEA91FCE1A}</Project>
+      <Name>Udbus.WCF</Name>
+      <Private>True</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\Bindings\XenClientGuest.Bindings.Client\XenClientGuest.Bindings.Client.csproj">
+      <Project>{1946DC31-1D00-4316-8672-8148BA3FB33F}</Project>
+      <Name>XenClientGuest.Bindings.Client</Name>
+      <Private>True</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\Bindings\XenClientGuest.Bindings.Interface\XenClientGuest.Bindings.Interface.csproj">
+      <Project>{72526766-e80f-451f-b51f-e8662606fb9b}</Project>
+      <Name>XenClientGuest.Bindings.Interface</Name>
+      <Private>True</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\Bindings\XenClientGuest.Bindings.Service\XenClientGuest.Bindings.Service.csproj">
+      <Project>{7D82138D-A32C-47C8-8219-7C8D59F0924B}</Project>
+      <Name>XenClientGuest.Bindings.Service</Name>
+      <Private>True</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\XenClientGuestService.Client\XenClientGuestService.Client.csproj">
+      <Project>{e5186568-ef99-40e1-bf89-215d58e4e0a6}</Project>
+      <Name>XenClientGuestService.Client</Name>
+      <Private>True</Private>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+  </ItemGroup>
+  <Import Condition=" '$(BuildXenClientGuestAssembliesPropsDefined)' == '' " Project="..\props\Build.XenClientGuest.Assemblies.props" />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Import Condition=" '$(DbusDllsTargetsDefined)' == '' " Project="..\..\dbus\targets\dbus_dlls.targets" />
+  <Import Condition=" '$(DoXenClientSignOutputTargetsDefined)' == '' " Project="..\..\targets\do.xenclient.sign.output.targets" />
+  <!--   <Import Condition=" '$(BuildXenClientGuestAssembliesTargetsDefined)' == '' " Project="..\targets\Build.XenClientGuest.Assemblies.targets" /> -->
+  <Target Name="SetupMemoryMappedProcessing">
+    <GetAssemblyIdentity AssemblyFiles="%(ReferencePath.Identity)" Condition=" '%(ReferencePath.Filename)' == 'System' ">
+      <Output TaskParameter="Assemblies" ItemName="_SystemAssemblyIdentityItem" />
+    </GetAssemblyIdentity>
+    <PropertyGroup>
+      <_SystemAssemblyIdentity>%(_SystemAssemblyIdentityItem.Identity)</_SystemAssemblyIdentity>
+    </PropertyGroup>
+    <Message Text="_SystemAssemblyIdentity: '$(_SystemAssemblyIdentity)'" />
+    <PropertyGroup Condition=" '$(_SystemAssemblyIdentity)' != 'System, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089'&#xD;&#xA;                             ">
+      <DefineConstants Condition=" '$(DefineConstants)' != '' ">$(DefineConstants);</DefineConstants>
+      <DefineConstants>$(DefineConstants)MEMORYMAPFILE_SUPPORTED</DefineConstants>
+    </PropertyGroup>
+  </Target>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+  <PropertyGroup>
+    <BuildDependsOn>
+      CreateDLLContent;
+      $(BuildDependsOn)
+    </BuildDependsOn>
+  </PropertyGroup>
+  <PropertyGroup>
+    <CompileDependsOn>
+      SetupMemoryMappedProcessing;
+      $(CompileDependsOn)
+    </CompileDependsOn>
+  </PropertyGroup>
+</Project>

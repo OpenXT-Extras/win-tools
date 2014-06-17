@@ -1,0 +1,269 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" >
+  <PropertyGroup>
+    <UdbusAssembliesPathmakerTargetsDefined>1</UdbusAssembliesPathmakerTargetsDefined>
+  </PropertyGroup>
+
+  <Import Condition=" '$(UdbusAssembliesLocationsCommonPropsDefined)' == '' " Project="..\props\detail\udbus.assemblies.locations.common.props" />
+
+  <!-- Pre/Post processing. -->
+  <!-- Create defaults for PathDescription meta-data, including PropertyPrefix. -->
+  <Target Name="_PreProcessPathDescription"
+          Outputs="%(PathDescription.Identity)"
+  >
+    <!-- PropertyPrefix default metadata. -->
+    <ItemGroup>
+      <PathDescription Condition=" '%(PathDescription.PropertyPrefix)' == '' ">
+        <PropertyPrefix>%(PathDescription.Identity)</PropertyPrefix>
+      </PathDescription>
+    </ItemGroup>
+    <ItemGroup>
+      <PathDescription Condition=" '%(PathDescription.Ext)' == '' ">
+        <Ext>.dll</Ext>
+      </PathDescription>
+    </ItemGroup>
+    <ItemGroup>
+      <PathDescription Condition=" '%(PathDescription.SubDir)' != '' And !HasTrailingSlash('%(PathDescription.SubDir)')">
+        <SubDir>%(PathDescription.SubDir)\</SubDir>
+      </PathDescription>
+    </ItemGroup>
+    <!-- Hack. For Default build, this is directory relative to dbus directory. -->
+    <ItemGroup>
+      <PathDescription Condition=" '%(PathDescription.DefaultBuildSubDir)' != '' And !HasTrailingSlash('%(PathDescription.DefaultBuildSubDir)')">
+        <DefaultBuildSubDir>%(PathDescription.DefaultBuildSubDir)\</DefaultBuildSubDir>
+    </PathDescription>
+    </ItemGroup>
+
+    <PropertyGroup>
+      <SeenThisProjectPathDescription Condition=" '%(PathDescription.Identity)' == '$(MSBuildProjectName)' ">1</SeenThisProjectPathDescription>
+    </PropertyGroup>
+    
+<!--     <Message Text="_PreProcessPathDescription: '%(PathDescription.Identity)' where this is '$(MSBuildProjectName)'" /> -->
+<!--     <Message Text="SeenThisProjectPathDescription: '$(SeenThisProjectPathDescription)'" /> -->
+  </Target>
+
+  <!-- Default is no post-processing. -->
+  <Target Name="_PostProcessPathDescription" />
+
+  <PropertyGroup>
+    <PreMakeAssemblyPathsDependsOn Condition=" '$(PreMakeAssemblyPathsDependsOn)' != '' ">$(PreMakeAssemblyPathsDependsOn);</PreMakeAssemblyPathsDependsOn>
+    <PreMakeAssemblyPathsDependsOn>$(PreMakeAssemblyPathsDependsOn)_PreProcessPathDescription</PreMakeAssemblyPathsDependsOn>
+    <PostMakeAssemblyPathsDependsOn>_PostProcessPathDescription</PostMakeAssemblyPathsDependsOn>
+  </PropertyGroup>
+
+  <!-- ===Default=== -->
+  <!-- Building in external directory based on solution/configuration.
+       Standard Visual Studio behaviour. 
+          DependsOnTargets="$(PreMakeAssemblyPathsDependsOn)"
+  -->
+  <Target Name="_MakePathDefault"
+          Outputs="%(PathDescription.Identity)"
+  >
+    <PropertyGroup>
+      <_PathDescriptionAssemblyDir></_PathDescriptionAssemblyDir>
+      <_PathDescriptionAssemblyDir Condition=" '$(_UdbusAssemblyRootDirectory)' != '' ">%(PathDescription.Identity)\</_PathDescriptionAssemblyDir>
+      <_PathDescriptionAssemblyDir Condition=" '$(MSBuildProjectName)' != '%(PathDescription.Identity)' ">$(_AssemblyParentDir)%(PathDescription.Identity)\</_PathDescriptionAssemblyDir>
+      <!-- If we have a root directory, give the assembly a get-out-of-dbus-free card (hack). -->
+      <_PathDescriptionAssemblyDir Condition=" '$(_UdbusAssemblyRootDirectory)' != '' ">%(PathDescription.DefaultBuildSubDir)$(_PathDescriptionAssemblyDir)</_PathDescriptionAssemblyDir>
+    </PropertyGroup>
+
+    <!-- Long relative paths (i.e. full relative path > 256 chars) are too long for Windows,
+         which MSBuild Wix just reports as "LGHT0129: Cannot open the merge module". Awesome.
+         Use a place-holding Item to get at the full, resolved path, which hopefully is shorter.
+         The ConvertToAbsolutePath Task is also surprisingly useless here.
+     -->
+    <PropertyGroup>
+      <_PathDescriptionPathRoot>$(_UdbusAssemblyRootDirectory)$(_PathDescriptionAssemblyDir)</_PathDescriptionPathRoot>
+    </PropertyGroup>
+
+    <!-- Create an item to get at full path, get full path, delete the item, vomit. -->
+    <ItemGroup>
+      <_AbsolutePathDescriptionPathRootItem Include="$(_PathDescriptionPathRoot)" />
+    </ItemGroup>
+    <PropertyGroup>
+      <_PathDescriptionPathRoot>%(_AbsolutePathDescriptionPathRootItem.FullPath)</_PathDescriptionPathRoot>
+    </PropertyGroup>
+    <ItemGroup>
+      <_AbsolutePathDescriptionPathRootItem Remove="$(_PathDescriptionPathRoot)" />
+    </ItemGroup>
+
+    <!-- Add trailing slash. -->
+    <PropertyGroup>
+      <_PathDescriptionPathRoot Condition=" '$(_PathDescriptionPathRoot)' != '' And !HasTrailingSlash('$(_PathDescriptionPathRoot)')">$(_PathDescriptionPathRoot)\</_PathDescriptionPathRoot>
+    </PropertyGroup>
+
+    <PropertyGroup>
+      <_ThisAssemblyRelativeOutDir>bin\$(DbusAssemblyConfiguration)\</_ThisAssemblyRelativeOutDir>
+      <_ThisAssemblyRelativeOutDir Condition=" '$(MSBuildProjectName)' != '%(PathDescription.Identity)' ">$(_AssemblyParentDir)$(_PathDescription)\bin\$(DbusAssemblyConfiguration)\</_ThisAssemblyRelativeOutDir>
+      <_ThisAssemblyRelativeIntermediateDir>obj\$(DbusAssemblyConfiguration)\</_ThisAssemblyRelativeIntermediateDir>
+    </PropertyGroup>
+
+    <CreateProperty Value="$(_PathDescriptionPathRoot)bin\$(DbusAssemblyConfiguration)\">
+      <Output TaskParameter="Value"
+              PropertyName="%(PathDescription.PropertyPrefix)Dir"
+      />
+    </CreateProperty>
+    <CreateProperty Value="$(_PathDescriptionPathRoot)obj\$(DbusAssemblyConfiguration)\">
+      <Output TaskParameter="Value"
+              PropertyName="%(PathDescription.PropertyPrefix)IntermediateDir"
+      />
+    </CreateProperty>
+    <CreateProperty Value="%(PathDescription.Identity)%(PathDescription.Ext)">
+      <Output TaskParameter="Value"
+              PropertyName="%(PathDescription.PropertyPrefix)FileName"
+      />
+    </CreateProperty>
+  </Target>
+
+  <!-- ===OutsideDir=== -->
+  <!-- Building in external directory based on assembly-name/configuration.
+       If using $(LocalOutputDir) uses Udbus directory for everything.
+  -->
+  <Target Name="_MakePathOutside"
+          Outputs="%(PathDescription.Identity)"
+  >
+    <Message Text="SeenThisProjectPathDescription: '$(SeenThisProjectPathDescription)'" />
+    <PropertyGroup>
+      <_ThisAssemblyRelativeOutDir>$(_UdbusAssemblyRootDirectory)%(PathDescription.SubDir)%(PathDescription.Identity)\$(DbusAssemblyConfiguration)\</_ThisAssemblyRelativeOutDir>
+      <_ThisAssemblyRelativeIntermediateDir>$(_UdbusIntermediateDirectory)%(PathDescription.Identity)\$(DbusAssemblyConfiguration)\</_ThisAssemblyRelativeIntermediateDir>
+    </PropertyGroup>
+
+    <Message Text="Creating Property %(PathDescription.PropertyPrefix)Dir: '$(_UdbusAssemblyRootDirectory)%(PathDescription.SubDir)%(PathDescription.Identity)\$(DbusAssemblyConfiguration)\'" />
+    <CreateProperty Value="$(_UdbusAssemblyRootDirectory)%(PathDescription.SubDir)%(PathDescription.Identity)\$(DbusAssemblyConfiguration)\">
+      <Output TaskParameter="Value"
+              PropertyName="%(PathDescription.PropertyPrefix)Dir"
+      />
+    </CreateProperty>
+    <CreateProperty Value="$(_UdbusIntermediateDirectory)%(PathDescription.Identity)\$(DbusAssemblyConfiguration)\">
+      <Output TaskParameter="Value"
+              PropertyName="%(PathDescription.PropertyPrefix)IntermediateDir"
+      />
+    </CreateProperty>
+    <CreateProperty Value="%(PathDescription.Identity)%(PathDescription.Ext)">
+      <Output TaskParameter="Value"
+              PropertyName="%(PathDescription.PropertyPrefix)FileName"
+      />
+    </CreateProperty>
+  </Target>
+
+  <!-- ===OneDir=== -->
+  <Target Name="_MakePathOnedir"
+          Outputs="%(PathDescription.Identity)"
+  >
+    <PropertyGroup>
+      <_ThisAssemblyRelativeOutDir>$(_UdbusAssemblyRootDirectory)%(PathDescription.SubDir)</_ThisAssemblyRelativeOutDir>
+      <_ThisAssemblyRelativeIntermediateDir>$(_UdbusIntermediateDirectory)%(PathDescription.Identity)\$(DbusAssemblyConfiguration)\</_ThisAssemblyRelativeIntermediateDir>
+    </PropertyGroup>
+
+    <CreateProperty Value="$(_UdbusAssemblyRootDirectory)%(PathDescription.SubDir)">
+      <Output TaskParameter="Value"
+              PropertyName="%(PathDescription.PropertyPrefix)Dir"
+      />
+    </CreateProperty>
+    <CreateProperty Value="$(_UdbusIntermediateDirectory)%(PathDescription.Identity)\$(DbusAssemblyConfiguration)\">
+      <Output TaskParameter="Value"
+              PropertyName="%(PathDescription.PropertyPrefix)IntermediateDir"
+      />
+    </CreateProperty>
+    <CreateProperty Value="%(PathDescription.Identity)$(AssemblyTargetSuffix)%(PathDescription.Ext)">
+      <Output TaskParameter="Value"
+              PropertyName="%(PathDescription.PropertyPrefix)FileName"
+      />
+    </CreateProperty>
+  </Target>
+
+  <!--  Finish up. -->
+  <Target Name="_MakePathRemainingProperties"
+          Outputs="%(PathDescription.Identity)"
+  >
+    <!--  Add _ThisAssemblyRelativeOutDir trailing slash. -->
+    <PropertyGroup>
+      <_ThisAssemblyRelativeOutDir Condition=" '$(_ThisAssemblyRelativeOutDir)' != '' And !HasTrailingSlash('$(_ThisAssemblyRelativeOutDir)')">$(_ThisAssemblyRelativeOutDir)\</_ThisAssemblyRelativeOutDir>
+    </PropertyGroup>
+
+    <PropertyGroup >
+      <ThisAssemblyRelativeOutDir Condition=" '$(MSBuildProjectName)' == '%(PathDescription.Identity)' ">$(_ThisAssemblyRelativeOutDir)</ThisAssemblyRelativeOutDir>
+      <ThisAssemblyRelativeIntermediateDir Condition=" '$(MSBuildProjectName)' == '%(PathDescription.Identity)' ">$(_ThisAssemblyRelativeIntermediateDir)</ThisAssemblyRelativeIntermediateDir>
+    </PropertyGroup>
+
+    <CreateProperty Value="$(%(PathDescription.PropertyPrefix)Dir)$(%(PathDescription.PropertyPrefix)FileName)">
+      <Output TaskParameter="Value"
+              PropertyName="%(PathDescription.PropertyPrefix)Path"
+      />
+    </CreateProperty>
+  </Target>
+
+  <!-- Testing -->
+  <Target Name="_PreShowUdbusAssemblyPaths">
+    <ItemGroup Condition=" '@(PathDescription)' == '' ">
+      <PathDescription Include="Test.One">
+        <PropertyPrefix>TestOne</PropertyPrefix>
+        <SubDir>SubOne</SubDir>
+      </PathDescription>
+      <PathDescription Include="Test.Two">
+        <PropertyPrefix>TestTwo</PropertyPrefix>
+        <SubDir>SubTwo</SubDir>
+        <DefaultBuildSubDir>..\TestDefaultBuildSubDir</DefaultBuildSubDir>
+      </PathDescription>
+      <PathDescription Include="Test.Three">
+        <PropertyPrefix>TestThree</PropertyPrefix>
+        <Ext>.msm</Ext>
+      </PathDescription>
+      <!--<PathDescription Include="udbus.assemblies.pathmaker">
+        <PropertyPrefix>UdbusAssembliesPathmaker</PropertyPrefix>
+      </PathDescription>-->
+    </ItemGroup>
+    <!-- Change the Pre behaviour to do magic behaviour for "This" project. -->
+    <PropertyGroup>
+      <PreMakeAssemblyPathsDependsOn>_AdjustThisProjectPathDescription;$(PreMakeAssemblyPathsDependsOn)</PreMakeAssemblyPathsDependsOn>
+    </PropertyGroup>
+  </Target>
+
+  <Target Name="_AdjustThisProjectPathDescription">
+    <ItemGroup Condition=" '$(SeenThisProjectPathDescription)' != '1' ">
+      <PathDescription Include="$(MSBuildProjectName)">
+        <SubDir>MagicFoo</SubDir>
+        <PropertyPrefix>MagicProperty</PropertyPrefix>
+      </PathDescription>
+    </ItemGroup>
+  </Target>
+
+  <Target Name="_ShowUdbusAssemblyPaths"
+  >
+    <Message Text="SeenThisProjectPathDescription: '$(SeenThisProjectPathDescription)'" />
+    <Message Text="MSBuildProjectName: '$(MSBuildProjectName)'" />
+    <Message Text="ThisRelativeOutDir: '$(ThisRelativeOutDir)'" />
+    <Message Text="ThisRelativeIntermediateDir: '$(ThisRelativeIntermediateDir)'" />
+    <Message Text="ThisAssemblyRelativeOutDir: '$(ThisAssemblyRelativeOutDir)'" />
+    <Message Text="ThisAssemblyRelativeIntermediateDir: '$(ThisAssemblyRelativeIntermediateDir)'" />
+    <Message Text="%(PathDescription.Identity) -> $(%(PathDescription.PropertyPrefix)Path)" />
+  </Target>
+
+  <Target Name="ShowUdbusAssemblyPaths"
+          DependsOnTargets="_PreShowUdbusAssemblyPaths;MakeAssemblyPaths;_ShowUdbusAssemblyPaths"
+  />
+
+  <Target Name="BeforeMakeAssemblyPaths" />
+  <Target Name="AfterMakeAssemblyPaths" />
+  <PropertyGroup>
+    <MakeAssemblyPathsDependsOn Condition=" '$(MakeAssemblyPathsDependsOn)' == ''
+                                       And ('$(UdbusBuildLocation)' == '$(UdbusBuildDefault)' Or
+                                            '$(UdbusBuildLocation)' == ''
+                                           )">_MakePathDefault</MakeAssemblyPathsDependsOn>
+    <MakeAssemblyPathsDependsOn Condition=" '$(MakeAssemblyPathsDependsOn)' == '' And '$(UdbusBuildLocation)' == '$(UdbusBuildOutside)' ">_MakePathOutside</MakeAssemblyPathsDependsOn>
+    <MakeAssemblyPathsDependsOn Condition=" '$(MakeAssemblyPathsDependsOn)' == '' And '$(UdbusBuildLocation)' == '$(UdbusBuildOnedir)' ">_MakePathOnedir</MakeAssemblyPathsDependsOn>
+  </PropertyGroup>
+
+  <Target Name="MakeAssemblyPaths"
+          DependsOnTargets="BeforeMakeAssemblyPaths;$(PreMakeAssemblyPathsDependsOn);$(MakeAssemblyPathsDependsOn);_MakePathRemainingProperties;AfterMakeAssemblyPaths"
+  />
+
+<!--
+  <PropertyGroup>
+    <BuildDependsOn>
+      MakeAssemblyPaths;
+      $(BuildDependsOn)
+    </BuildDependsOn>
+  </PropertyGroup>
+ -->  
+</Project>

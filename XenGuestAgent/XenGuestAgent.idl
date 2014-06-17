@@ -1,0 +1,114 @@
+// XenGuestAgent.idl : IDL source for XenGuestAgent
+//
+
+// This file will be processed by the MIDL tool to
+// produce the type library (XenGuestAgent.tlb) and marshalling code.
+
+import "oaidl.idl";
+import "ocidl.idl";
+
+typedef
+[
+	uuid(176B31CD-021E-4E40-B377-D4DE02898F85),
+	helpstring("XenAlertType enum")
+]
+enum XenAlertType {
+	XenAlertError  = 0,
+	XenAlertNotify = 1,
+	XenAlertEmpty = 2
+} XenAlertType;
+
+[
+	object,
+	uuid(E2B0A660-4BBB-4351-992B-2202080B87F3),
+	dual,
+	nonextensible,
+	helpstring("IXenVmInfo Interface"),
+	pointer_default(unique)
+]
+interface IXenVmInfo : IDispatch{
+	[id(1), helpstring("method GetUuid")] HRESULT GetUuid([out,retval] BSTR* pbstrUuid);
+	[id(2), helpstring("method GetDomId")] HRESULT GetDomId([out,retval] USHORT* pusDomId);
+	[id(3), helpstring("method GetName")] HRESULT GetName([out,retval] BSTR* pbstrName);
+	[id(4), helpstring("method GetSlot")] HRESULT GetSlot([out,retval] ULONG* pulSlot);
+	[id(5), helpstring("method IsHidden")] HRESULT IsHidden([out,retval] VARIANT_BOOL* pvbHidden);
+	[id(6), helpstring("method IsUivm")] HRESULT IsUivm([out,retval] VARIANT_BOOL* pvbUivm);
+	[id(7), helpstring("method GetImage")] HRESULT GetImage([out,retval] SAFEARRAY (BYTE)* ppsaImage);
+	[id(8), helpstring("method HasImage")] HRESULT HasImage([out,retval] VARIANT_BOOL* pvbHasImage);
+	[id(9), helpstring("method IsSwitcherShown")] HRESULT IsSwitcherShown([out,retval] VARIANT_BOOL* pvbSwitcherShown);
+};
+
+[
+	object,
+	uuid(B5546A30-A5BD-4D98-8408-24730642466A),
+	oleautomation,
+	nonextensible,
+	hidden,
+	helpstring("IXenVmInitialize Interface"),
+	pointer_default(unique)
+]
+interface IXenVmInitialize : IUnknown{
+	[id(1), helpstring("method InitializeVmInfo"), hidden] 
+	HRESULT InitializeVmInfo([in] BSTR bstrUuid,
+							 [in] USHORT usDomId,
+							 [in] BSTR bstrName,
+							 [in] ULONG ulSlot, 
+							 [in] VARIANT_BOOL vbHidden,
+							 [in] VARIANT_BOOL vbUivm,
+							 [in] VARIANT_BOOL vbSwitcherShown);
+	[id(2), helpstring("method InitializeVmImage"), hidden] 
+	HRESULT InitializeVmImage([in] SAFEARRAY (BYTE) psa);
+};
+
+[
+	object,
+	uuid(F5D722AE-2A9A-45A0-859A-AD6B13072748),
+	dual,
+	nonextensible,
+	helpstring("IXenGuestServices Interface"),
+	pointer_default(unique)
+]
+interface IXenGuestServices : IDispatch{
+	[id(1), helpstring("method GetUuid")] HRESULT GetUuid([out,retval] BSTR* pbstrUuid);
+	[id(2), helpstring("method GetDomId")] HRESULT GetDomId([out,retval] USHORT* pusDomId);
+	[id(3), helpstring("method QueryVms")] HRESULT QueryVms([out,retval] ULONG* pulCount);
+	[id(4), helpstring("method GetVmObject")] HRESULT GetVmObject([in] ULONG ulIndex, [out,retval] IXenVmInfo ** ppiVmInfo);
+	[id(5), helpstring("method SwitchToVm")] HRESULT SwitchToVm([in] ULONG ulSlot);
+	[id(6), helpstring("method VmHasFocus")] HRESULT VmHasFocus([out,retval] VARIANT_BOOL* pvbFocus);
+	[id(7), helpstring("method RegisterVmsEvent")] HRESULT RegisterVmsEvent([out,retval] BSTR* pbstrEventName);
+	[id(8), helpstring("method UnregisterVmsEvent")] HRESULT UnregisterVmsEvent();
+	[id(9), helpstring("method RegisterAlertsEvent")] HRESULT RegisterAlertsEvent([out,retval] BSTR* pbstrEventName);
+	[id(10), helpstring("method UnregisterAlertsEvent")] HRESULT UnregisterAlertsEvent();
+	[id(11), helpstring("method GetNextAlert")] HRESULT GetNextAlert([out] SAFEARRAY (BSTR)* ppsaParams, [out,retval] XenAlertType* penAlertType);
+	[id(12), helpstring("method TogglePluginAutorun")] HRESULT TogglePluginAutorun([in] VARIANT_BOOL vbToggle, [out,retval] VARIANT_BOOL* pvbAutorun);
+	[id(13), helpstring("method SetAcceleration")] HRESULT SetAcceleration([in] ULONG ulAcceleration);
+	[id(14), helpstring("method GetShowSwitcher")] HRESULT GetShowSwitcher([out,retval] VARIANT_BOOL* pbShowSwitcher);
+};
+
+[
+	uuid(13065B69-41D4-453F-9991-BE69BFE678E5),
+	version(1.0),
+	helpstring("XenGuestAgent 1.0 Type Library")
+]
+library XenGuestAgentLib
+{
+	importlib("stdole2.tlb");
+	[
+		uuid(DCB6330C-5FD2-4698-8605-55587468415A),
+		helpstring("XenGuestServices Class")
+	]
+	coclass XenGuestServices
+	{
+		[default] interface IXenGuestServices;
+	};	
+
+	[
+		uuid(28F41D41-38FB-4FC4-8F1C-0D1073CC4541),
+		helpstring("XenVmInfo Class")
+	]
+	coclass XenVmInfo
+	{
+		[default] interface IXenVmInfo;
+		interface IXenVmInitialize;
+	};
+};

@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <XenClientSignTargetsDefined>1</XenClientSignTargetsDefined>
+  </PropertyGroup>
+
+  <!-- Target to support signing project output file for XenClient.
+  -->
+  <Target Name="_XenClientSignOutput"
+          Outputs="$(TargetPath)"
+  >
+    <PropertyGroup>
+      <_XenClientSignVictim Condition=" '$(TargetPath)' != '' ">$(TargetPath)</_XenClientSignVictim>
+    </PropertyGroup>
+
+    <Error Condition=" '$(_XenClientSignVictim)' == '' "
+           Text="Unable to determine output to sign."
+    />
+    <ItemGroup>
+      <XenClientSignItem Condition=" '$(_XenClientSignVictim)' != '' " Include="$(_XenClientSignVictim)"></XenClientSignItem>
+    </ItemGroup>
+
+    <Message Text="_XenClientSignVictim: '$(_XenClientSignVictim)'" />
+  </Target>
+
+  <!-- Target to support signing binaries for XenClient.
+  -->
+  <Target Name="_XenClientSign"
+          Outputs="%(XenClientSignItem.Identity)"
+  >
+    <PropertyGroup>
+      <_XenClientSignCommand Condition=" '%(XenClientSignItem.Identity)' != '' ">signtool.exe sign /v /a /s my /n $(CertName) /t http://timestamp.verisign.com/scripts/timestamp.dll "%(XenClientSignItem.Identity)"</_XenClientSignCommand>
+    </PropertyGroup>
+    <Message Condition=" '$(_XenClientSignCommand)' != '' " Text="$(_XenClientSignCommand)" />
+
+    <Exec Condition=" '$(_XenClientSignCommand)' != '' " Command="$(_XenClientSignCommand)" 
+          ContinueOnError="true">
+      <Output TaskParameter="ExitCode"
+              PropertyName="SignToolExitCode" 
+      />
+    </Exec>
+    <Warning Condition=" '$(SignToolExitCode)' == '2' "
+             Text="Signtool exited with warning exit code."
+    />
+    <Error Condition=" '$(SignToolExitCode)' == '1' "
+             Text="Signtool exited with error exit code."
+    />
+  </Target>
+
+  <Target Name="XenClientSignCore"
+          DependsOnTargets="_XenClientSign"
+  />
+  <PropertyGroup>
+    <XenClientSignDependsOn>XenClientSignCore</XenClientSignDependsOn>
+  </PropertyGroup>
+
+  <Target Name="XenClientSign"
+          DependsOnTargets="$(XenClientSignDependsOn)"
+  />
+
+  <Target Name="XenClientSignOutput"
+          DependsOnTargets="_XenClientSignOutput;$(XenClientSignDependsOn)"
+  />
+</Project>

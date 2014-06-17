@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ArrayOfAlert xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Alert ID="1">
+    <Interface>com.citrix.xenclient.xenmgr.host</Interface>
+    <Member>storage_space_low</Member>
+    <TipTitle>Falta espacio en disco</TipTitle>
+    <TipText>El dispositivo no tiene suficiente espacio disponible en el disco. Existe actualmente {0}% de espacio libre.</TipText>
+    <TipIcon>Warning</TipIcon>
+  </Alert>
+  <Alert ID="2">
+    <Interface></Interface>
+    <Member></Member>
+    <TipTitle>Caducidad de cesión</TipTitle>
+    <TipText>Está por caducar la fecha de cesión de la máquina virtual administrada. Póngase en contacto con el administrador para obtener más información.</TipText>
+    <TipIcon>Warning</TipIcon>
+  </Alert>
+  <Alert ID="3">
+		<!-- This one doesn't exist -->
+    <Interface></Interface>
+    <Member></Member>
+    <TipTitle>Se ha completado la descarga</TipTitle>
+    <TipText>Se ha completado la descarga de la máquina virtual desde el Synchronizer. Haga clic aquí para cambiar a Citrix Receiver para XenClient.</TipText>
+    <TipIcon>Info</TipIcon>
+  </Alert>
+  <Alert ID="4">
+		<!-- This one may exist -->
+    <Interface></Interface>
+    <Member></Member>
+    <TipTitle>Dispositivo USB incompatible</TipTitle>
+    <TipText>Ha introducido un dispositivo USB incompatible.</TipText>
+    <TipIcon>Error</TipIcon>
+  </Alert>
+  <Alert ID="5">
+    <Interface>com.citrix.xenclient.usbdaemon</Interface>
+    <Member>device_rejected</Member>
+    <TipTitle>Dispositivo USB bloqueado</TipTitle>
+    <TipText>Una directiva de administrador ha bloqueado el dispositivo USB que ha introducido. Dispositivo: &quot;{0}&quot;. Razón: &quot;{1}&quot;.</TipText>
+    <TipIcon>Warning</TipIcon>
+  </Alert>
+  <Alert ID="6">
+    <Interface></Interface>
+    <Member></Member>
+    <TipTitle>Reiniciar el equipo para completar la instalación de las actualizaciones importantes</TipTitle>
+    <TipText>Este escritorio virtual debe reiniciarse para poder aplicar las actualizaciones de Synchronizer. Asegúrese de guardar los archivos antes del reinicio.</TipText>
+    <TipIcon>Info</TipIcon>
+  </Alert>
+  <Alert ID="7">
+    <Interface></Interface>
+    <Member></Member>
+    <TipTitle>Reiniciar el equipo para completar la instalación de las actualizaciones importantes</TipTitle>
+    <TipText>Este escritorio virtual debe reiniciarse. Asegúrese de guardar los archivos antes del reinicio.</TipText>
+    <TipIcon>Info</TipIcon>
+  </Alert>
+</ArrayOfAlert>

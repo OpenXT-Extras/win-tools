@@ -1,0 +1,78 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="ProcessDbusXML" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+
+  <Import Condition=" '$(DbusXMLCommonTargetsDefined)'=='' " Project="DbusXML.common.targets"/>
+  <!-- If the project has defined a props file, try to import it. -->
+  <Import Condition=" Exists('$(MSBuildProjectDirectory)\$(MSBuildProjectName).props') " Project="$(MSBuildProjectDirectory)\$(MSBuildProjectName).props" />
+
+  <!-- Create an ItemGroup SelectedDbusGenerate of selected DbusGenerate Items. -->
+  <Target Name="_SelectedDbusGenerate"
+          Outputs="%(ProcessDbus.Identity)"
+          Inputs="@(ProcessDbus)"
+      >
+    <Message Text="@DbusGenerate: @(DbusGenerate)" Importance="low"/>
+    <Message Text="%ProcessDbus.Identity: %(ProcessDbus.Identity)" Importance="low"/>
+    <FindInList List="@(DbusGenerate)" ItemSpecToFind="%(ProcessDbus.Identity)">
+      <Output TaskParameter="ItemFound" ItemName="SelectedDbusGenerate"/>
+    </FindInList>
+  </Target>
+
+  <!-- Read in a list of generated files. -->
+  <Target Name="ReadDbusFiles"
+          DependsOnTargets="_SelectedDbusGenerate"
+          Outputs="%(SelectedDbusGenerate.Identity)"
+          Inputs="@(ProcessDbus)"
+      >
+    <PropertyGroup>
+      <_CurrentDbusReadFileList>%(SelectedDbusGenerate.GenDirectory)%(SelectedDbusGenerate.FilenameSuffix)$(DbusFileListSuffix)</_CurrentDbusReadFileList>
+    </PropertyGroup>
+
+    <Message Text="Inside ReadDbusFiles" Importance="low"/>
+    <ReadLinesFromFile
+      File="$(_CurrentDbusReadFileList)"
+    >
+      <Output ItemName="DbusGenFiles"
+              TaskParameter="Lines"
+      />
+    </ReadLinesFromFile>
+  </Target>
+
+  <Target Name="ShowLines"
+          DependsOnTargets="ReadDbusFiles"
+     >
+    <Message Text ="Lines = %(DbusGenFiles.Identity)" />
+    <Message Text="ProcessDbus: %(ProcessDbus.Identity)" />
+  </Target>
+
+  <!-- Create Compile Items based on generated file list. -->
+  <Target Name="CreateDbusCompile"
+          DependsOnTargets="ReadDbusFiles"
+          Outputs="%(DbusGenFiles.Identity)"
+      >
+    <ItemGroup>
+      <Compile Include="%(DbusGenFiles.Identity)" />
+    </ItemGroup>
+  </Target>
+
+  <Target Name="ShowCompile"
+          DependsOnTargets="CreateDbusCompile"
+          >
+    <Message Text ="Compile = %(Compile.Identity)" />
+  </Target>
+
+  <!-- Entry point target. -->
+  <Target Name="ProcessDbusXML"
+          DependsOnTargets="CreateDbusCompile"
+      >
+  </Target>
+
+  <!-- Useful code to embed in projects. -->
+  <!--
+  <PropertyGroup>
+    <CompileDependsOn>
+      ProcessDbusXML;
+      $(CompileDependsOn)
+    </CompileDependsOn>
+  </PropertyGroup>
+  -->
+</Project>

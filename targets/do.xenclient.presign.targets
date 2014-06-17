@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <!-- do.xenclient.presign.targets -->
+  <PropertyGroup>
+    <DoXenClientPreSignTargetsDefined>1</DoXenClientPreSignTargetsDefined>
+  </PropertyGroup>
+
+  <Import Condition=" '$(XenClientPreSignTargetsDefined)' == '' " Project="xenclient.presign.targets" />
+
+  <PropertyGroup>
+    <BuildDependsOn Condition=" '$(DoXenClientSign)' != '' And '$(DoXenClientSign)' != 'false' ">
+      XenClientPreSign;
+      $(BuildDependsOn)
+    </BuildDependsOn>
+  </PropertyGroup>
+
+</Project>

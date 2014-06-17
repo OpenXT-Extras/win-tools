@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" >
+  <PropertyGroup>
+    <XenClientGuestBindingsPropsDefined>1</XenClientGuestBindingsPropsDefined>
+  </PropertyGroup>
+
+  <Import Condition=" '$(XenClientGuestBindingsCommonPropsDefined)' == '' " Project="XenClientGuest.Bindings.Common.props" />
+
+  <Import Condition=" '$(UdbusPropsDefined)' == '' " 
+          Project="$(UdbusDefaultRootDirectory)props\udbus.props"
+  />
+<!--   <Import Condition=" '$(DbusDllsTargetsDefined)' == '' " -->
+<!--           Project="$(UdbusDefaultRootDirectory)targets\dbus_dlls.targets" -->
+<!--   /> -->
+
+  <PropertyGroup>
+    <_XenClientGuestBindingsDefaultBuildSubDir>..\XenClientGuestService\Bindings</_XenClientGuestBindingsDefaultBuildSubDir>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PathDescription Include="XenClientGuest.Bindings.Interface">
+      <PropertyPrefix>XenClientGuestBindingsInterface</PropertyPrefix>
+      <DefaultBuildSubDir>$(_XenClientGuestBindingsDefaultBuildSubDir)</DefaultBuildSubDir>
+    </PathDescription>
+    <PathDescription Include="XenClientGuest.Bindings.Client">
+      <PropertyPrefix>XenClientGuestBindingsClient</PropertyPrefix>
+      <DefaultBuildSubDir>$(_XenClientGuestBindingsDefaultBuildSubDir)</DefaultBuildSubDir>
+    </PathDescription>
+    <PathDescription Include="XenClientGuest.Bindings.Service">
+      <PropertyPrefix>XenClientGuestBindingsService</PropertyPrefix>
+      <DefaultBuildSubDir>$(_XenClientGuestBindingsDefaultBuildSubDir)</DefaultBuildSubDir>
+    </PathDescription>
+  </ItemGroup>
+</Project>

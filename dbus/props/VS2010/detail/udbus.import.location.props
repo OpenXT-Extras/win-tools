@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <UdbusImportLocationPropsDefined>1</UdbusImportLocationPropsDefined>
+  </PropertyGroup>
+  <!-- If UdbusLocalLocationsPropFile has been defined locally, import it. -->
+  <Import Condition=" '$(UdbusLocalLocationsPropFile)' != '' 
+                    And ($(IgnoreCSharpProjectOutputLocation)==false
+                      Or '$(MSBuildProjectExtension)' != '.csproj'
+                        )
+                    "
+          Project="$(UdbusLocalLocationsPropFile)" />
+  <Import Condition=" '$(UdbusAssemblyLocationsDefined)' == '' " Project="..\..\detail\udbus.assemblylocations.props" />
+</Project>

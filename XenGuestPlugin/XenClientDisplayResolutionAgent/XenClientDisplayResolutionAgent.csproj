@@ -1,0 +1,121 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{22C892B2-4DEE-42A6-A49C-C1910640C265}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>XenClientDisplayResolutionAgent</RootNamespace>
+    <AssemblyName>XenClientDisplayResolutionAgent</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="..\..\props\CommonAssemblyInfo.cs">
+      <Link>CommonAssemblyInfo.cs</Link>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ResolutionAgent.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ResolutionAgent.Designer.cs">
+      <DependentUpon>ResolutionAgent.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Program.cs" />
+    <Compile Include="Services\IHostService.cs" />
+    <Compile Include="Services\XenClientGuest\XenClientGuestHostService.cs" />
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\dbus\Udbus.Containers\Udbus.Containers.csproj">
+      <Project>{6ca51cba-ce08-4438-8b78-b968bca3a02f}</Project>
+      <Name>Udbus.Containers</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\dbus\Udbus.Types\Udbus.Types.csproj">
+      <Project>{2811c188-d05f-429a-aedf-066fe3cf86ac}</Project>
+      <Name>Udbus.Types</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\dbus\Udbus.WCF.Dbus\Udbus.WCF.Dbus.csproj">
+      <Project>{45a02323-4764-4f4b-a9ea-b5395fe79559}</Project>
+      <Name>Udbus.WCF.Dbus</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\dbus\Udbus.WCF\Udbus.WCF.csproj">
+      <Project>{d8543b20-0b24-465f-8306-f4eea91fce1a}</Project>
+      <Name>Udbus.WCF</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\XenClientGuestService\Bindings\XenClientGuest.Bindings.Client\XenClientGuest.Bindings.Client.csproj">
+      <Project>{1946dc31-1d00-4316-8672-8148ba3fb33f}</Project>
+      <Name>XenClientGuest.Bindings.Client</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\XenClientGuestService\Bindings\XenClientGuest.Bindings.Interface\XenClientGuest.Bindings.Interface.csproj">
+      <Project>{72526766-e80f-451f-b51f-e8662606fb9b}</Project>
+      <Name>XenClientGuest.Bindings.Interface</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\XenClientGuestService\XenClientGuestService.Client\XenClientGuestService.Client.csproj">
+      <Project>{e5186568-ef99-40e1-bf89-215d58e4e0a6}</Project>
+      <Name>XenClientGuestService.Client</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

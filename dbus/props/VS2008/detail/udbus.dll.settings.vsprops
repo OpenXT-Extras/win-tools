@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="Windows-1252"?>
+<VisualStudioPropertySheet
+	ProjectType="Visual C++"
+	Version="8.00"
+	Name="udbus.dll.settings"
+	>
+	<Tool
+		Name="VCCLCompilerTool"
+		AdditionalIncludeDirectories="$(UdbusXenSourceRoot)\inc"
+	/>
+	<UserMacro
+		Name="UdbusLibNameSuffix"
+		Value="$(TargetSuffix)"
+	/>
+	<UserMacro
+		Name="UdbusDllLibName"
+		Value="udbus$(UdbusLibNameSuffix)"
+	/>
+	<UserMacro
+		Name="UdbusDllLibFile"
+		Value="$(UdbusDllLibName).lib"
+	/>
+	<UserMacro
+		Name="UdbusLibName"
+		Value="$(UdbusDllLibName)"
+	/>
+	<UserMacro
+		Name="UdbusLibFile"
+		Value="$(UdbusDllLibFile)"
+	/>
+	<UserMacro
+		Name="UdbusXenSourceRoot"
+		Value="..\$(XenSourceRoot)"
+	/>
+</VisualStudioPropertySheet>

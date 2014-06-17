@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003" >
+  <PropertyGroup>
+    <XenClientGuestBindingsCommonPropsDefined>1</XenClientGuestBindingsCommonPropsDefined>
+  </PropertyGroup>
+
+  <!--  Where XenClientGuest bindings look for dbus. -->
+  <PropertyGroup>
+    <UdbusDefaultRootDirectory Condition=" '$(UdbusDefaultRootDirectory)' == '' ">..\..\..\dbus\</UdbusDefaultRootDirectory>
+  </PropertyGroup>
+
+</Project>

@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003" >
+  <!-- XenClientGuest.Assemblies.props -->
+  <PropertyGroup>
+    <XenClientGuestAssembliesPropsDefined>1</XenClientGuestAssembliesPropsDefined>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <XenClientGuestAssembliesDefaultBuildSubDir Condition=" '$(XenClientGuestAssembliesDefaultBuildSubDir)' == '' "
+    >..\XenClientGuestService</XenClientGuestAssembliesDefaultBuildSubDir>
+    <XenClientGuestAssembliesInterfaceBuildSubDir Condition=" '$(XenClientGuestAssembliesInterfaceBuildSubDir)' == '' "
+    >$(XenClientGuestAssembliesDefaultBuildSubDir)<!-- $(XenClientGuestAssembliesDefaultBuildSubDir)\..\XenClientGuestService.Client --></XenClientGuestAssembliesInterfaceBuildSubDir>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PathDescription Include="XenClientGuestService">
+      <Ext>.exe</Ext>
+      <DefaultBuildSubDir>$(XenClientGuestAssembliesDefaultBuildSubDir)</DefaultBuildSubDir>
+    </PathDescription>
+    <PathDescription Include="XenClientGuestService.Client">
+      <DefaultBuildSubDir>$(XenClientGuestAssembliesInterfaceBuildSubDir)</DefaultBuildSubDir>
+      <PropertyPrefix>XenClientGuestServiceClient</PropertyPrefix>
+    </PathDescription>
+  </ItemGroup>
+
+  <PropertyGroup>
+    <!-- Where XenClientGuest Assemblies expect to find the dbus code. -->
+    <UdbusDefaultRootDirectory Condition=" '$(UdbusDefaultRootDirectory)' == '' ">..\..\dbus\</UdbusDefaultRootDirectory>
+  </PropertyGroup>
+
+  <Import Condition=" '$(UdbusAssemblyPropsDefined)' == '' " Project="..\..\dbus\props\detail\udbus.assembly.props" />
+  <!-- This file is the entry-point to the bindings. -->
+  <Import Condition=" '$(XenClientGuestBindingsPropsDefined)' == '' " Project="..\Bindings\props\XenClientGuest.Bindings.props" />
+
+  <ItemGroup>
+  <!--
+    <PathDescription Include="XenClientGuest.Bindings.Interface">
+      <PropertyPrefix>XenClientGuestBindingsInterface</PropertyPrefix>
+    </PathDescription>
+  -->
+  </ItemGroup>
+</Project>

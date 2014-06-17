@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <!-- do.xenclient.sign.targets -->
+  <PropertyGroup>
+    <DoXenClientSignOutputTargetsDefined>1</DoXenClientSignOutputTargetsDefined>
+  </PropertyGroup>
+
+  <Import Condition=" '$(XenClientSignTargetsDefined)' == '' " Project="xenclient.sign.targets" />
+
+  <PropertyGroup>
+    <BuildDependsOn Condition=" '$(DoXenClientSign)' != '' And '$(DoXenClientSign)' != 'false' ">
+      $(BuildDependsOn);
+      XenClientSignOutput
+    </BuildDependsOn>
+  </PropertyGroup>
+
+</Project>

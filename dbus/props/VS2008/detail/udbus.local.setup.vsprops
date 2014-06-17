@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<!-- Setup udbus local settings with something sensible in case local files miss something. -->
+<VisualStudioPropertySheet 
+	ProjectType="Visual C++" 
+	Version="8.00" 
+	Name="udbus.local.setup"
+	>
+	<!-- Specify udbus build location settings - noop. -->
+	<!-- Relative to dbus\props\VS2008 -->
+	<UserMacro
+		Name="UdbusLocationsPropFile"
+		Value="detail\noop.vsprops"
+	/>
+</VisualStudioPropertySheet>

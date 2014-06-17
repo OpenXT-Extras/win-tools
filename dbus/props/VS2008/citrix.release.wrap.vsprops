@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<VisualStudioPropertySheet 
+	ProjectType="Visual C++" 
+	Version="8.00" 
+	Name="citrix.release.wrap"
+	InheritedPropertySheets="detail\udbus.pre.vsprops;..\..\..\props\vs2008\citrix.release.vsprops;$(UdbusLocationsPropFile)"
+	>
+<!-- 
+	InheritedPropertySheets="..\..\..\..\props\vs2008\citrix.release.vsprops"
+	InheritedPropertySheets="detail\udbus.pre.vsprops;..\..\..\props\vs2008\citrix.release.vsprops;$(UdbusLocationsPropFile)"
+	InheritedPropertySheets="detail\udbus.pre.vsprops;..\..\..\props\vs2008\citrix.release.vsprops;detail\udbus.post.vsprops"
+-->
+</VisualStudioPropertySheet>

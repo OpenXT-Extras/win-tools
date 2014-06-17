@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="Windows-1252"?>
+<VisualStudioPropertySheet
+	ProjectType="Visual C++"
+	Version="8.00"
+	Name="v4vio.dll.settings"
+	>
+	<Tool
+		Name="VCCLCompilerTool"
+		AdditionalIncludeDirectories="&quot;$(V4VioXenSourceRoot)\inc&quot;;&quot;$(V4VioXenSourceRoot)\xenhdrs&quot;"
+	/>
+	<UserMacro
+		Name="V4VioLibNameSuffix"
+		Value="$(TargetSuffix)"
+	/>
+	<UserMacro
+		Name="V4VioDllLibName"
+		Value="v4vio$(V4VioLibNameSuffix)"
+	/>
+	<UserMacro
+		Name="V4VioDllLibFile"
+		Value="$(V4VioDllLibName).lib"
+	/>
+	<UserMacro
+		Name="V4VioLibName"
+		Value="$(V4VioDllLibName)"
+	/>
+	<UserMacro
+		Name="V4VioLibFile"
+		Value="$(V4VioDllLibFile)"
+	/>
+	<UserMacro
+		Name="V4VioXenSourceRoot"
+		Value="..\$(XenSourceRoot)"
+	/>
+</VisualStudioPropertySheet>

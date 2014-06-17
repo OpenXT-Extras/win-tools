@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ArrayOfAlert xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Alert ID="1">
+    <Interface>com.citrix.xenclient.xenmgr.host</Interface>
+    <Member>storage_space_low</Member>
+    <TipTitle>ディスク領域不足</TipTitle>
+    <TipText>デバイスで使用できるディスク領域が少なくなってきています。現在、{0}% の空きがあります。</TipText>
+    <TipIcon>Warning</TipIcon>
+  </Alert>
+  <Alert ID="2">
+    <Interface></Interface>
+    <Member></Member>
+    <TipTitle>リースの有効期限</TipTitle>
+    <TipText>管理している仮想マシンのリースの有効期限が近づいています。詳しくは、管理者に問い合わせてください。</TipText>
+    <TipIcon>Warning</TipIcon>
+  </Alert>
+  <Alert ID="3">
+		<!-- This one doesn't exist -->
+    <Interface></Interface>
+    <Member></Member>
+    <TipTitle>ダウンロード完了</TipTitle>
+    <TipText>Synchronizer からの仮想マシンのダウンロードが完了しました。ここをクリックして Citrix Receiver for XenClient に切り替えます。</TipText>
+    <TipIcon>Info</TipIcon>
+  </Alert>
+  <Alert ID="4">
+		<!-- This one may exist -->
+    <Interface></Interface>
+    <Member></Member>
+    <TipTitle>非サポート USB デバイス</TipTitle>
+    <TipText>サポートされない USB デバイスを挿入しました。</TipText>
+    <TipIcon>Error</TipIcon>
+  </Alert>
+  <Alert ID="5">
+    <Interface>com.citrix.xenclient.usbdaemon</Interface>
+    <Member>device_rejected</Member>
+    <TipTitle>ブロック USB デバイス</TipTitle>
+    <TipText>管理者のポリシーによりブロックされている USB デバイスを挿入しました。デバイス: &quot;{0}&quot;。理由: &quot;{1}&quot;。</TipText>
+    <TipIcon>Warning</TipIcon>
+  </Alert>
+  <Alert ID="6">
+    <Interface></Interface>
+    <Member></Member>
+    <TipTitle>重要な更新プログラムのインストールを完了するためにコンピュータ－を再起動してください。</TipTitle>
+    <TipText>Synchronizer の更新を適用するため、この仮想デスクトップを再起動する必要があります。ファイルを保存してから再起動してください。</TipText>
+    <TipIcon>Info</TipIcon>
+  </Alert>
+  <Alert ID="7">
+    <Interface></Interface>
+    <Member></Member>
+    <TipTitle>重要な更新プログラムのインストールを完了するためにコンピュータ－を再起動してください。</TipTitle>
+    <TipText>この仮想デスクトップを再起動する必要があります。ファイルを保存してから再起動してください。</TipText>
+    <TipIcon>Info</TipIcon>
+  </Alert>
+</ArrayOfAlert>

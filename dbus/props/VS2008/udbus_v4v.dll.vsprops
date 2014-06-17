@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="Windows-1252"?>
+<VisualStudioPropertySheet
+	ProjectType="Visual C++"
+	Version="8.00"
+	Name="udbus_v4v.dll"
+	InheritedPropertySheets="detail\udbus.pre.vsprops;.\detail\udbus_v4v.dll.settings.vsprops;$(UdbusLocationsPropFile)"
+	>
+	<Tool
+		Name="VCCLCompilerTool"
+		AdditionalIncludeDirectories="..\udbus_v4v"
+	/>
+	<Tool
+		Name="VCLinkerTool"
+		AdditionalDependencies="$(UdbusV4VLibFile)"
+		AdditionalLibraryDirectories="&quot;$(OutDir)..\..\udbus_v4v\$(ConfigurationName)&quot;;&quot;$(OutDir)&quot;;$(OutDir)\dbus&quot;"
+	/>
+</VisualStudioPropertySheet>

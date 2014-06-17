@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" >
+  <PropertyGroup>
+    <BuildUdbusAssembliesPathmakerTargetsDefined>1</BuildUdbusAssembliesPathmakerTargetsDefined>
+  </PropertyGroup>
+
+  <Import Condition=" '$(UdbusInstallersAssembliesPathmakerTargetsDefined)' == '' " Project="udbus.assemblies.pathmaker.targets" />
+
+  <Target Name="SetUdbusAssembliesBuildPaths"
+          DependsOnTargets="MakeAssemblyPaths"
+  >
+    <PropertyGroup>
+      <OutDir>$(ThisRelativeOutDir)</OutDir>
+      <OutDir Condition=" '$(OutDir)' != '' And !HasTrailingSlash('$(OutDir)') ">$(OutDir)\</OutDir>
+      <TargetDir>$(OutDir)</TargetDir>
+<!--       <TargetPath>$(TargetDir)$(TargetFileName)</TargetPath> -->
+      <OutputPath>$(ThisRelativeOutDir)</OutputPath>
+      <IntermediateOutputPath>$(ThisRelativeIntermediateDir)</IntermediateOutputPath>
+      <IntDir>$(ThisRelativeIntermediateDir)</IntDir>
+<!--       <AssemblySearchPaths>$(AssemblySearchPaths);$(OutDir)</AssemblySearchPaths> -->
+    </PropertyGroup>
+  </Target>
+</Project>

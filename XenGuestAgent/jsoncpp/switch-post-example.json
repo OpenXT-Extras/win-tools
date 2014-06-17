@@ -1,0 +1,13 @@
+{
+	"jsonrpc": "2.0",
+	"id": 125,
+	"method": "dbus",
+	"params":
+	{
+		"destination": "com.citrix.xenclient.xenmgr",
+		"path": "/com/citrix/xenclient/xenmgr/vm/2c875e05_b76c_4f36_802d_2bf77d2a1a0d",
+		"interface": "com.citrix.xenclient.xenmgr.vm",
+		"method": "switch",
+		"args": []
+	}
+}

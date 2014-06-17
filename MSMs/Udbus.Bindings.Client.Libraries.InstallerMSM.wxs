@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+  <Module Id="Udbus.Bindings.Client.Libraries.InstallerMSM" Language="1033" Version="$(var.Version)">
+    <Package Id="54e18337-bf00-48ec-9cab-cba90913a6de"
+             Manufacturer="Udbus.Bindings.Client.Libraries.InstallerMSM"
+             InstallerVersion="200"
+    />
+
+    <!-- This TARGETDIR ( Directory ) pattern allows for merge redirects -->
+    <Directory Id="TARGETDIR" Name="SourceDir">
+      <Directory Id="MergeRedirectFolder" />
+    </Directory>
+
+    <DirectoryRef Id="MergeRedirectFolder">
+      <Component Id="UdbusWCFDbusAssemblyComponent" Guid="D717E6E4-4175-45FD-B99D-3BE6A4D13E9F">
+        <File Id="UdbusWCFDbusAssemblyDll"
+              Name="Udbus.WCF.Dbus.dll"
+              DiskId="1"
+              Source="..\dbus\Udbus.WCF\bin\$(var.Configuration)\Udbus.WCF.dll"
+              Vital="yes"
+              KeyPath="yes"
+        />
+      </Component>
+      <Component Id="UdbusWCFAssemblyComponent" Guid="3BD64C7B-14EE-4157-BAA7-6FF4D4223DD6">
+        <File Id="UdbusWCFAssemblyDll"
+              Name="Udbus.WCF.dll"
+              DiskId="1"
+              Source="..\dbus\Udbus.WCF.Dbus\bin\$(var.Configuration)\Udbus.WCF.Dbus.dll"
+              Vital="yes"
+              KeyPath="yes"
+        />
+      </Component>
+    </DirectoryRef>
+  </Module>
+</Wix>

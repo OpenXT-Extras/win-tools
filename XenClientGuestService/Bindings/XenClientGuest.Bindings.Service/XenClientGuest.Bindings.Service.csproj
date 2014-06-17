@@ -1,0 +1,124 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Condition=" '$(XenClientGuestBindingsPropsDefined)' == '' " Project="..\props\XenClientGuest.Bindings.props" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.30729</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{7D82138D-A32C-47C8-8219-7C8D59F0924B}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>XenClientGuest.Bindings.Service</RootNamespace>
+    <AssemblyName>XenClientGuest.Bindings.Service</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ServiceModel" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\dbus\Udbus.Containers\Udbus.Containers.csproj">
+      <Project>{6CA51CBA-CE08-4438-8B78-B968BCA3A02F}</Project>
+      <Name>Udbus.Containers</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\dbus\Udbus.Core\Udbus.Core.csproj">
+      <Project>{4E7B3CA9-1252-4B1E-BC70-17B702EC1B37}</Project>
+      <Name>Udbus.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\dbus\Udbus.Parsing\Udbus.Parsing.csproj">
+      <Project>{B361F55A-097F-46AA-B9E1-3B24050FF79A}</Project>
+      <Name>Udbus.Parsing</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\dbus\Udbus.Serialization\Udbus.Serialization.csproj">
+      <Project>{7DDCAF88-8669-4C4A-BBD0-63A1E532B8EB}</Project>
+      <Name>Udbus.Serialization</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\dbus\Udbus.Types\Udbus.Types.csproj">
+      <Project>{2811C188-D05F-429A-AEDF-066FE3CF86AC}</Project>
+      <Name>Udbus.Types</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\dbus\Udbus.WCF.Dbus.Common\Udbus.WCF.Dbus.Common.csproj">
+      <Project>{4C459F10-BFC6-4678-9AA2-411B5A784D1A}</Project>
+      <Name>Udbus.WCF.Dbus.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\dbus\Udbus.WCF.Dbus.Details\Udbus.WCF.Dbus.Details.csproj">
+      <Project>{7849004F-E262-4109-B41B-BE230A8D6463}</Project>
+      <Name>Udbus.WCF.Dbus.Details</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\dbus\Udbus.WCF.Dbus\Udbus.WCF.Dbus.csproj">
+      <Project>{45A02323-4764-4F4B-A9EA-B5395FE79559}</Project>
+      <Name>Udbus.WCF.Dbus</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\dbus\Udbus.WCF.Service\Udbus.WCF.Service.csproj">
+      <Project>{C42619C2-C4D7-4977-99DE-B83872E40AEB}</Project>
+      <Name>Udbus.WCF.Service</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\dbus\Udbus.WCF\Udbus.WCF.csproj">
+      <Project>{D8543B20-0B24-465F-8306-F4EEA91FCE1A}</Project>
+      <Name>Udbus.WCF</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\XenClientGuest.Bindings.Interface\XenClientGuest.Bindings.Interface.csproj">
+      <Project>{72526766-E80F-451F-B51F-E8662606FB9B}</Project>
+      <Name>XenClientGuest.Bindings.Interface</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\XenClientGuest.Bindings.Client\XenClientGuest.Bindings.Client.csproj">
+      <Project>{1946DC31-1D00-4316-8672-8148BA3FB33F}</Project>
+      <Name>XenClientGuest.Bindings.Client</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="..\..\..\props\CommonAssemblyInfo.cs">
+      <Link>CommonAssemblyInfo.cs</Link>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="XenClientGuest.Bindings.Service.props" />
+  </ItemGroup>
+  <Import Project="$(MSBuildProjectDirectory)\..\XenClientGuestService.props" />
+  <Import Project="$(UdbusDefaultRootDirectory)\dbusidltocode\targets\ProcessDbusIDLBindings.targets" />
+  <Import Condition=" '$(XenClientGuestAssembliesTargetsDefined)' == '' " Project="..\..\targets\XenClientGuest.Assemblies.targets" />
+  <Import Condition=" '$(BuildXenClientGuestBindingsPropsDefined)' == '' " Project="..\props\Build.XenClientGuest.Bindings.props" />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Import Condition=" '$(BuildXenClientGuestBindingsTargetsDefined)' == '' " Project="..\targets\Build.XenClientGuest.Bindings.targets" />
+  <PropertyGroup>
+    <BuildDependsOn>
+      ProcessDbusXML;
+      $(BuildDependsOn)
+    </BuildDependsOn>
+  </PropertyGroup>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

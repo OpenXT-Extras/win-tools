@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+  <Module Id="Udbus.Bindings.Interfaces.Libraries.InstallerMSM" Language="1033" Version="$(var.Version)">
+    <Package Id="f9822151-db07-405c-96de-407977b1c752"
+             Manufacturer="Citrix Systems, Inc."
+             InstallerVersion="200"
+    />
+
+    <!-- This TARGETDIR ( Directory ) pattern allows for merge redirects -->
+    <Directory Id="TARGETDIR" Name="SourceDir">
+      <Directory Id="MergeRedirectFolder" />
+    </Directory>
+    
+    <DirectoryRef Id="MergeRedirectFolder">
+      <Component Id="UdbusContainersAssemblyComponent" Guid="08263765-DDD3-4DD0-A369-679DE6DD766A">
+        <File Id="UdbusContainersAssemblyDll"
+              Name="Udbus.Containers.dll"
+              DiskId="1"
+              Source="..\dbus\Udbus.Containers\bin\$(var.Configuration)\Udbus.Containers.dll"
+              Vital="yes"
+              KeyPath="yes"
+        />
+      </Component>
+      <Component Id="UdbusTypesAssemblyComponent" Guid="03BF0A0B-8374-4C95-A153-097FAD490053">
+        <File Id="UdbusTypesAssemblyDll"
+              Name="Udbus.Types.dll"
+              DiskId="1"
+              Source="..\dbus\Udbus.Types\bin\$(var.Configuration)\Udbus.Types.dll"
+              Vital="yes"
+              KeyPath="yes"
+        />
+      </Component>
+    </DirectoryRef>
+  </Module>
+</Wix>

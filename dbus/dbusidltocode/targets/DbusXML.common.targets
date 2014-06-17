@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003"
+         InitialTargets="_ValidateDbusXMLPre;_SetDefaultDbusGenerateMetadata"
+    >
+<!-- For debugging see:
+http://blogs.msdn.com/b/visualstudio/archive/2010/07/06/debugging-msbuild-script-with-visual-studio.aspx -->
+
+  <PropertyGroup>
+    <DbusXMLCommonTargetsDefined>1</DbusXMLCommonTargetsDefined>
+  </PropertyGroup>
+
+  <Target Name="_ValidateDbusXMLPre">
+    <Error Condition="'$(DbusCodeGenerator)'==''"
+      Text="DbusCodeGenerator property not defined. Used to specify code generator tool location."/>
+    <Error Condition=" '%(DbusGenerate.Identity)'!='$(DbusInterfaces)'
+                   And '%(DbusGenerate.Identity)'!='$(DbusServices)'
+                   And '%(DbusGenerate.Identity)'!='$(DbusClients)'
+                   And '%(DbusGenerate.Identity)'!='$(DbusWCFContracts)'
+                   And '%(DbusGenerate.Identity)'!='$(DbusWCFServices)'
+                   And '%(DbusGenerate.Identity)'!='$(DbusWCFHosts)'
+                   "
+           Text="Unknown 'DbusGenerate' item '%(DbusGenerate.Identity)'. Must be one of '$(DbusInterfaces)', '$(DbusServices)', '$(DbusClients)', '$(DbusWCFContracts)', '$(DbusWCFServices)', or '$(DbusWCFHosts)'; or use one of the predefined properties %24(DbusInterfaces), %24(DbusServices), %24(DbusClients), %24(DbusWCFContracts), %24(DbusWCFServices), or %24(DbusWCFHosts)." />
+    <Error Condition=" '%(ProcessDbus.Identity)'!='$(DbusInterfaces)'
+                   And '%(ProcessDbus.Identity)'!='$(DbusServices)'
+                   And '%(ProcessDbus.Identity)'!='$(DbusClients)'
+                   And '%(ProcessDbus.Identity)'!='$(DbusWCFContracts)'
+                   And '%(ProcessDbus.Identity)'!='$(DbusWCFServices)'
+                   And '%(ProcessDbus.Identity)'!='$(DbusWCFHosts)'
+                   And '%(ProcessDbus.Identity)'!=''
+                   "
+           Text="Unknown 'ProcessDbus' item '%(ProcessDbus.Identity)'. Must be one of '$(DbusInterfaces)', '$(DbusServices)', '$(DbusClients)', '$(DbusWCFContracts)', '$(DbusWCFServices)', or '$(DbusWCFHosts)'; or use one of the predefined properties %24(DbusInterfaces), %24(DbusServices), %24(DbusClients), %24(DbusWCFContracts), %24(DbusWCFServices), or %24(DbusWCFHosts)." />
+    <Error Condition=" '%(DbusGenerate.GenDirectory)'=='' "
+           Text="DbusGenerate item '%(DbusGenerate.Identity)' has no 'GenDirectory' metadata." />
+    <Error Condition=" '$(DbusConfiguration)'=='' "
+           Text="Unable to determine Configuration for %24(DbusConfiguration)."/>
+  </Target>
+
+  <!-- Default DbusGenerate metadata values if not defined elsewhere. -->
+  <Target Name="_SetDefaultDbusGenerateMetadata">
+    <!-- Ensure that GenDirectory has a trailing slash. -->
+    <ItemGroup>
+      <DbusGenerate>
+        <GenDirectory Condition=" !HasTrailingSlash('%(DbusGenerate.GenDirectory)') ">%(DbusGenerate.GenDirectory)\</GenDirectory>
+      </DbusGenerate>
+    </ItemGroup>
+
+    <!--  Set up default metadata.  -->
+    <ItemGroup>
+      <DbusGenerate Condition=" '%(DbusGenerate.Identity)'=='$(DbusInterfaces)' ">
+        <FilenameSuffix Condition=" '%(DbusGenerate.FilenameSuffix)'=='' ">Interface</FilenameSuffix>
+        <CommandLineParam Condition=" '%(DbusGenerate.CommandLineParam)'=='' ">interface</CommandLineParam>
+      </DbusGenerate>
+      <DbusGenerate Condition=" '%(DbusGenerate.Identity)'=='$(DbusClients)' ">
+        <FilenameSuffix Condition=" '%(DbusGenerate.FilenameSuffix)'=='' ">Client</FilenameSuffix>
+        <CommandLineParam Condition=" '%(DbusGenerate.CommandLineParam)'=='' ">proxy</CommandLineParam>
+      </DbusGenerate>
+      <DbusGenerate Condition=" '%(DbusGenerate.Identity)'=='$(DbusServices)' ">
+        <FilenameSuffix Condition=" '%(DbusGenerate.FilenameSuffix)'=='' ">Service</FilenameSuffix>
+        <CommandLineParam Condition=" '%(DbusGenerate.CommandLineParam)'=='' ">service</CommandLineParam>
+      </DbusGenerate>
+      <DbusGenerate Condition=" '%(DbusGenerate.Identity)'=='$(DbusWCFContracts)' ">
+        <FilenameSuffix Condition=" '%(DbusGenerate.FilenameSuffix)'=='' ">Contract</FilenameSuffix>
+        <CommandLineParam Condition=" '%(DbusGenerate.CommandLineParam)'=='' ">contract</CommandLineParam>
+      </DbusGenerate>
+      <DbusGenerate Condition=" '%(DbusGenerate.Identity)'=='$(DbusWCFServices)' ">
+        <FilenameSuffix Condition=" '%(DbusGenerate.FilenameSuffix)'=='' ">WCFService</FilenameSuffix>
+        <CommandLineParam Condition=" '%(DbusGenerate.CommandLineParam)'=='' ">wcfservice</CommandLineParam>
+      </DbusGenerate>
+      <DbusGenerate Condition=" '%(DbusGenerate.Identity)'=='$(DbusWCFHosts)' ">
+        <FilenameSuffix Condition=" '%(DbusGenerate.FilenameSuffix)'=='' ">Host</FilenameSuffix>
+        <CommandLineParam Condition=" '%(DbusGenerate.CommandLineParam)'=='' ">host</CommandLineParam>
+      </DbusGenerate>
+    </ItemGroup>
+  </Target>
+
+  <!-- Global properties. -->
+  <PropertyGroup>
+    <!-- Try to work out configuration for this build. -->
+    <DbusConfiguration Condition=" '$(DbusConfiguration)'=='' ">$(Configuration)</DbusConfiguration>
+    <DbusConfiguration Condition=" '$(DbusConfiguration)'=='' ">$(ConfigurationName)</DbusConfiguration>
+
+    <!-- Predefined DbusGenerate Include properties. -->
+    <DbusInterfaces>Interfaces</DbusInterfaces>
+    <DbusClients>Clients</DbusClients>
+    <DbusServices>Services</DbusServices>
+    <DbusWCFContracts>WCFContracts</DbusWCFContracts>
+    <DbusWCFServices>WCFServices</DbusWCFServices>
+    <DbusWCFHosts>WCFHosts</DbusWCFHosts>
+
+    <!-- Internal file list suffix name. -->
+    <DbusFileListSuffix>FileList.txt</DbusFileListSuffix>
+    <!-- If not already defined, relative directory containing IDL files.-->
+    <DbusIDLFileRelativeDir
+        Condition=" '$(DbusIDLFileRelativeDir)'=='' "
+      >dbusidl</DbusIDLFileRelativeDir>
+    <!-- If not already defined, executable used to generate code. -->
+    <DbusCodeGeneratedDefined>false</DbusCodeGeneratedDefined>
+    <DbusCodeGeneratorDefined Condition=" '$(DbusCodeGenerator)' != '' ">true</DbusCodeGeneratorDefined>
+    <DbusCodeGenerator
+        Condition=" '$(DbusCodeGenerator)' == '' And '$(MSBuildThisFileDirectory)' != '' "
+      >$(MSBuildThisFileDirectory)\..\..\dbusidltocode\bin\$(DbusConfiguration)\dbusidltocode.exe</DbusCodeGenerator>
+    <DbusCodeGenerator
+        Condition=" '$(DbusCodeGenerator)' == '' "
+      >$(MSBuildProjectDirectory)\..\dbusidltocode\bin\$(DbusConfiguration)\dbusidltocode.exe</DbusCodeGenerator>
+    <!-- Try to find one that exists. -->
+    <DbusCodeGenerator
+        Condition=" '$(DbusCodeGeneratorDefined)' == 'false'
+                And '$(DbusCodeGenerator)' != '' And !Exists('$(DbusCodeGenerator)')"
+      >$(MSBuildProjectDirectory)\..\bin\$(DbusConfiguration)\dbusidltocode.exe</DbusCodeGenerator>
+  </PropertyGroup>
+</Project>
