@@ -173,7 +173,7 @@ namespace XenClientDisplayResolutionAgent
 
             // write virtual screen size
             data = SystemInformation.VirtualScreen.Width + " " + SystemInformation.VirtualScreen.Height;
-            path = "attr/desktopDimension";
+            path = "attr/desktopDimensions";
             hostService.XenStoreWrite(path, data);
         }
 
