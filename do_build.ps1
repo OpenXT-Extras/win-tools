@@ -27,6 +27,10 @@
 # THE SOFTWARE.
 #
 
+$ErrorActionPreference = 'stop'
+$ScriptDir = Split-Path -parent $MyInvocation.MyCommand.Path
+Import-Module $ScriptDir\..\BuildSupport\invoke.psm1
+Import-Module $ScriptDir\..\BuildSupport\checked-copy.psm1
 
 #Get parameters
 $args | Foreach-Object {$argtable = @{}} {if ($_ -Match "(.*)=(.*)") {$argtable[$matches[1]] = $matches[2];}}
@@ -46,11 +50,16 @@ if ($BuildType -eq "Release")
 $mywd = Split-Path -Parent $MyInvocation.MyCommand.Path
 cd $mywd
 
-copy ..\xc-windows\inc\*.h -destination .\XenGuestAgent -Force -V
-copy ..\xc-windows\inc\v4v*.h -destination .\XenGuestAgent -Force -V
-copy ..\xc-windows\xenhdrs\*.h -destination .\XenGuestAgent -Force -V
-copy ..\xc-windows\xenuser\xs2\*.h -destination .\XenGuestAgent -Force -V
+
+Checked-Copy ..\xc-windows\inc\*.h  .\XenGuestAgent
+Checked-Copy ..\xc-windows\inc\v4v*.h  .\XenGuestAgent
+Checked-Copy ..\xc-windows\xenhdrs\*.h .\XenGuestAgent
+Checked-Copy ..\xc-windows\xenuser\xs2\*.h .\XenGuestAgent
 rm .\XenGuestAgent\memory.h -Force -V
+if (-Not ($?)) {
+   throw "unable to delete XenGuestAgent\memory.h"
+}
+
 
 #Prepare for MSM creation
 Push-Location .\MSMs
@@ -78,71 +87,58 @@ Set-Content .\common_properties.h
 Pop-Location
 
 #Build XenClientGuestService
-& $MSBuild XenClientGuestService\XenClientGuestServiceVS2012.sln /p:Configuration=$BuildType /p:DoXenClientSign=$DoXenClientSign /p:CertName='\"'$Certname'\"' /p:TargetFrameworkVersion=v4.0 /m
+Invoke-CommandChecked "Build XenClientGuestService" $MSBuild XenClientGuestService\XenClientGuestServiceVS2012.sln /p:Configuration=$BuildType /p:DoXenClientSign=$DoXenClientSign /p:CertName='\"'$Certname'\"' /p:TargetFrameworkVersion=v4.0 /m
 
 #Have to build XenClientGuestService MSMs before the other bits because it does the signing of DLLs as part of the MSBuild
 #As building XenGuestPlugin rebuilds a few of these DLLs without signing it would break our install
 Push-Location .\MSMs
-#XenClient Guest Service MSM
-Write-Host "Candle - XenClientGuestService"
-& ($env:WIX + "bin\candle.exe") .\XenClientGuestService.wxs ("-dConfiguration=" + $BuildType) ("-dVersion=" + $codeVersion) "-dInstallService=yes" -ext WixUtilExtension -out .\obj\
-Write-Host "Light - XenClientGuestService"
-& ($env:WIX + "bin\light.exe") .\obj\XenClientGuestService.wixobj -out .\bin\XenClientGuestService.msm -pdbout .\obj\XenClientGuestService.wixpdb -ext WixUtilExtension
+Invoke-CommandChecked "XenClient Guest Service MSM Candle" ($env:WIX + "bin\candle.exe") .\XenClientGuestService.wxs ("-dConfiguration=" + $BuildType) ("-dVersion=" + $codeVersion) "-dInstallService=yes" -ext WixUtilExtension -out .\obj\
+Invoke-CommandChecked "XenClient Guest Service MSM Light" ($env:WIX + "bin\light.exe") .\obj\XenClientGuestService.wixobj -out .\bin\XenClientGuestService.msm -pdbout .\obj\XenClientGuestService.wixpdb -ext WixUtilExtension
 
 #XenClient Guest Service SDK MSM
-Write-Host "Candle - XenClientGuestServiceSDK"
-& ($env:WIX + "bin\candle.exe") .\XenClientGuestService.wxs ("-dConfiguration=" + $BuildType) ("-dVersion=" + $codeVersion) "-dInstallService=no" -out .\obj\XenClientGuestServiceSDK.wixobj
-Write-Host "Light - XenClientGuestServiceSDK"
-& ($env:WIX + "bin\light.exe") .\obj\XenClientGuestServiceSDK.wixobj -out .\bin\XenClientGuestServiceSDK.msm -pdbout .\obj\XenClientGuestServiceSDK.wixpdb
+Invoke-CommandChecked "Candle - XenClientGuestServiceSDK" ($env:WIX + "bin\candle.exe") .\XenClientGuestService.wxs ("-dConfiguration=" + $BuildType) ("-dVersion=" + $codeVersion) "-dInstallService=no" -out .\obj\XenClientGuestServiceSDK.wixobj
+Invoke-CommandChecked "Light - XenClientGuestServiceSDK" ($env:WIX + "bin\light.exe") .\obj\XenClientGuestServiceSDK.wixobj -out .\bin\XenClientGuestServiceSDK.msm -pdbout .\obj\XenClientGuestServiceSDK.wixpdb
+
 
 #Build our own Udbus merge modules outside of visual studio
-& ($env:WIX + "bin\candle.exe") Udbus.Bindings.Client.Libraries.InstallerMSM.wxs ("-dConfiguration=" + $BuildType) ("-dVersion=" + $codeVersion) -out .\obj\
-& ($env:WIX + "bin\light.exe") .\obj\Udbus.Bindings.Client.Libraries.InstallerMSM.wixobj -out .\bin\Udbus.Bindings.Client.Libraries.Installer.msm -pdbout .\obj\Udbus.Bindings.Client.Libraries.Installer.wixpdb
-& ($env:WIX + "bin\candle.exe") Udbus.Bindings.Interfaces.Libraries.InstallerMSM.wxs ("-dConfiguration=" + $BuildType) ("-dVersion=" + $codeVersion) -out .\obj\
-& ($env:WIX + "bin\light.exe") .\obj\Udbus.Bindings.Interfaces.Libraries.InstallerMSM.wixobj -out .\bin\Udbus.Bindings.Interfaces.Libraries.Installer.msm -pdbout .\obj\Udbus.Bindings.Interfaces.Libraries.Installer.wixpdb
-& ($env:WIX + "bin\candle.exe") Udbus.Bindings.Service.Libraries.InstallerMSM.wxs ("-dConfiguration=" + $BuildType) ("-dVersion=" + $codeVersion) -out .\obj\
-& ($env:WIX + "bin\light.exe") .\obj\Udbus.Bindings.Service.Libraries.InstallerMSM.wixobj -out .\bin\Udbus.Bindings.Service.Libraries.Installer.msm -pdbout .\obj\Udbus.Bindings.Interfaces.Libraries.Installer.wixpdb
+Invoke-CommandChecked "udbus client candle" ($env:WIX + "bin\candle.exe") Udbus.Bindings.Client.Libraries.InstallerMSM.wxs ("-dConfiguration=" + $BuildType) ("-dVersion=" + $codeVersion) -out .\obj\
+Invoke-CommandChecked "udbus client light" ($env:WIX + "bin\light.exe") .\obj\Udbus.Bindings.Client.Libraries.InstallerMSM.wixobj -out .\bin\Udbus.Bindings.Client.Libraries.Installer.msm -pdbout .\obj\Udbus.Bindings.Client.Libraries.Installer.wixpdb
+Invoke-CommandChecked "udbus candle" ($env:WIX + "bin\candle.exe") Udbus.Bindings.Interfaces.Libraries.InstallerMSM.wxs ("-dConfiguration=" + $BuildType) ("-dVersion=" + $codeVersion) -out .\obj\
+Invoke-CommandChecked "udbus interfaces light" ($env:WIX + "bin\light.exe") .\obj\Udbus.Bindings.Interfaces.Libraries.InstallerMSM.wixobj -out .\bin\Udbus.Bindings.Interfaces.Libraries.Installer.msm -pdbout .\obj\Udbus.Bindings.Interfaces.Libraries.Installer.wixpdb
+Invoke-CommandChecked "udbus service candle" ($env:WIX + "bin\candle.exe") Udbus.Bindings.Service.Libraries.InstallerMSM.wxs ("-dConfiguration=" + $BuildType) ("-dVersion=" + $codeVersion) -out .\obj\
+Invoke-CommandChecked "udbus service light" ($env:WIX + "bin\light.exe") .\obj\Udbus.Bindings.Service.Libraries.InstallerMSM.wixobj -out .\bin\Udbus.Bindings.Service.Libraries.Installer.msm -pdbout .\obj\Udbus.Bindings.Interfaces.Libraries.Installer.wixpdb
 
 Pop-Location
 
-#Build XenGuestAgent
-& $MSBuild .\XenGuestAgent\XenGuestAgent.sln  /p:Configuration=$BuildType /t:Rebuild /m
+Invoke-CommandChecked "XenGuestAgent build" $MSBuild .\XenGuestAgent\XenGuestAgent.sln  /p:Configuration=$BuildType /t:Rebuild /m
 
 #Build XenGuestPlugin. Note, rebuilding the bindings generated by XenClientGuestService fails, so can't rebuild XenGuestPlugin.
-& $MSBuild .\XenGuestPlugin\XenGuestPlugin_40.sln /p:Configuration=$BuildType /p:TargetFrameworkVersion=v4.0
+Invoke-CommandChecked "XenGuestPlugin build" $MSBuild .\XenGuestPlugin\XenGuestPlugin_40.sln /p:Configuration=$BuildType /p:TargetFrameworkVersion=v4.0
 
 #Sign XenGuestPlugin bits
 if ($BuildType -eq "Release")
 {
-	signtool.exe sign /a /s my /n $CertName /t http://timestamp.verisign.com/scripts/timestamp.dll XenGuestAgent\$BuildType\*.exe
-	signtool.exe sign /a /s my /n $CertName /t http://timestamp.verisign.com/scripts/timestamp.dll XenGuestPlugin\XenGuestPlugin\bin\$BuildType\*.dll
-	signtool.exe sign /a /s my /n $CertName /t http://timestamp.verisign.com/scripts/timestamp.dll XenGuestPlugin\XenGuestPlugin\bin\$BuildType\*.exe
+	Invoke-CommandChecked "sign XenGuestAgent EXEs" signtool.exe sign /a /s my /n $CertName /t http://timestamp.verisign.com/scripts/timestamp.dll XenGuestAgent\$BuildType\*.exe
+	Invoke-CommandChecked "sign XenGuestPlugin DLLs" signtool.exe sign /a /s my /n $CertName /t http://timestamp.verisign.com/scripts/timestamp.dll XenGuestPlugin\XenGuestPlugin\bin\$BuildType\*.dll
+	Invoke-CommandChecked "sign XenGuestPlugin EXEs" signtool.exe sign /a /s my /n $CertName /t http://timestamp.verisign.com/scripts/timestamp.dll XenGuestPlugin\XenGuestPlugin\bin\$BuildType\*.exe
 }
 
 #Build remaining MSMs
 Push-Location .\MSMs
 
 #XenGuestPlugin
-Write-Host "Candle - XenGuestPlugin x32"
-& ($env:WIX + "bin\candle.exe") .\XenGuestPlugin.wxs ("-dConfiguration=" + $BuildType) ("-dVersion=" + $codeVersion) ("-dPlatform=x86") -out .\obj\
-Write-Host "Light - XenGuestPlugin x32"
-& ($env:WIX + "bin\light.exe") .\obj\XenGuestPlugin.wixobj -out .\bin\XenGuestPlugin.msm -pdbout .\obj\XenGuestPlugin.wixpdb
-Write-Host "Candle - XenGuestPlugin x64"
-& ($env:WIX + "bin\candle.exe") .\XenGuestPlugin.wxs ("-dConfiguration=" + $BuildType) ("-dVersion=" + $codeVersion) ("-dPlatform=x64") -out .\obj\
-Write-Host "Light - XenGuestPlugin x64"
-& ($env:WIX + "bin\light.exe") .\obj\XenGuestPlugin.wixobj -out .\bin\XenGuestPlugin64.msm -pdbout .\obj\XenGuestPlugin64.wixpdb
+Invoke-CommandChecked "Candle - XenGuestPlugin x32" ($env:WIX + "bin\candle.exe") .\XenGuestPlugin.wxs ("-dConfiguration=" + $BuildType) ("-dVersion=" + $codeVersion) ("-dPlatform=x86") -out .\obj\
+Invoke-CommandChecked "Light - XenGuestPlugin x32" ($env:WIX + "bin\light.exe") .\obj\XenGuestPlugin.wixobj -out .\bin\XenGuestPlugin.msm -pdbout .\obj\XenGuestPlugin.wixpdb
+Invoke-CommandChecked "Candle - XenGuestPlugin x64" ($env:WIX + "bin\candle.exe") .\XenGuestPlugin.wxs ("-dConfiguration=" + $BuildType) ("-dVersion=" + $codeVersion) ("-dPlatform=x64") -out .\obj\
+Invoke-CommandChecked "Light - XenGuestPlugin x64" ($env:WIX + "bin\light.exe") .\obj\XenGuestPlugin.wixobj -out .\bin\XenGuestPlugin64.msm -pdbout .\obj\XenGuestPlugin64.wixpdb
 
 #XenGuestAgent
-Write-Host "Candle - XenGuestAgent"
-& ($env:WIX + "bin\candle.exe") .\XenGuestAgent.wxs ("-dConfiguration=" + $BuildType) ("-dVersion=" + $codeVersion) -out .\obj\
-Write-Host "Light - XenGuestAgent"
-& ($env:WIX + "bin\light.exe") .\obj\XenGuestAgent.wixobj -out .\bin\XenGuestAgent.msm -pdbout .\obj\XenGuestAgent.wixpdb
+Invoke-CommandChecked "Candle - XenGuestAgent" ($env:WIX + "bin\candle.exe") .\XenGuestAgent.wxs ("-dConfiguration=" + $BuildType) ("-dVersion=" + $codeVersion) -out .\obj\
+Invoke-CommandChecked "Light - XenGuestAgent" ($env:WIX + "bin\light.exe") .\obj\XenGuestAgent.wixobj -out .\bin\XenGuestAgent.msm -pdbout .\obj\XenGuestAgent.wixpdb
 
 #SDK Installer
-Write-Host "Candle - XenClientGuestClientConsoleTestInstaller"
-& ($env:WIX + "bin\candle.exe") .\XenClientGuestClientConsoleTestInstaller.wxs ("-dConfiguration=" + $BuildType) ("-dVersion=" + $codeVersion) -out .\obj\
-Write-Host "Light - XenClientGuestClientConsoleTestInstaller"
-& ($env:WIX + "bin\light.exe") .\obj\XenClientGuestClientConsoleTestInstaller.wixobj -out .\bin\XenClientGuestClientConsoleTestInstaller.msi -pdbout .\obj\XenGuestAgent.wixpdb -ext WixUIExtension
+Invoke-CommandChecked "Candle - XenClientGuestClientConsoleTestInstaller" ($env:WIX + "bin\candle.exe") .\XenClientGuestClientConsoleTestInstaller.wxs ("-dConfiguration=" + $BuildType) ("-dVersion=" + $codeVersion) -out .\obj\
+Invoke-CommandChecked "Light - XenClientGuestClientConsoleTestInstaller" ($env:WIX + "bin\light.exe") .\obj\XenClientGuestClientConsoleTestInstaller.wixobj -out .\bin\XenClientGuestClientConsoleTestInstaller.msi -pdbout .\obj\XenGuestAgent.wixpdb -ext WixUIExtension
 
 Pop-Location
 
@@ -162,5 +158,3 @@ $output | Foreach-Object {
 }
 
 
-$host.SetShouldExit(0)
-Exit
