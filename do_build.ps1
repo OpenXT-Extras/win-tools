@@ -46,6 +46,10 @@ if ($BuildType -eq "Release")
     $DoXenClientSign = 'true'
 }
 
+# set a couple of environment variables to propagate to msbuild
+$env:CERTNAME = $CertName
+$env:SIGNTOOLPATH = $signtool+'\signtool.exe'
+
 #Set some important variables
 $mywd = Split-Path -Parent $MyInvocation.MyCommand.Path
 cd $mywd

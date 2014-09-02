@@ -12,7 +12,7 @@
           Outputs="%(XenClientPreSignItem.Identity)"
   >
     <PropertyGroup>
-      <_XenClientPreSignCommand Condition=" '%(XenClientPreSignItem.Identity)' != '' ">signtool.exe sign /v /a /s my /n $(CertName) /t http://timestamp.verisign.com/scripts/timestamp.dll "%(XenClientPreSignItem.Identity)"</_XenClientPreSignCommand>
+      <_XenClientPreSignCommand Condition=" '%(XenClientPreSignItem.Identity)' != '' ">"$(SIGNTOOLPATH)" sign /v /a /s my /n $(CertName) /t http://timestamp.verisign.com/scripts/timestamp.dll "%(XenClientPreSignItem.Identity)"</_XenClientPreSignCommand>
     </PropertyGroup>
     <Message Condition=" '$(_XenClientPreSignCommand)' != '' " Text="$(_XenClientPreSignCommand)" />
 

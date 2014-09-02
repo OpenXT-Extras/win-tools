@@ -29,7 +29,7 @@
           Outputs="%(XenClientSignItem.Identity)"
   >
     <PropertyGroup>
-      <_XenClientSignCommand Condition=" '%(XenClientSignItem.Identity)' != '' ">signtool.exe sign /v /a /s my /n $(CertName) /t http://timestamp.verisign.com/scripts/timestamp.dll "%(XenClientSignItem.Identity)"</_XenClientSignCommand>
+      <_XenClientSignCommand Condition=" '%(XenClientSignItem.Identity)' != '' ">"$(SIGNTOOLPATH)" sign /v /a /s my /n "$(CertName)" /t http://timestamp.verisign.com/scripts/timestamp.dll "%(XenClientSignItem.Identity)"</_XenClientSignCommand>
     </PropertyGroup>
     <Message Condition=" '$(_XenClientSignCommand)' != '' " Text="$(_XenClientSignCommand)" />
 
