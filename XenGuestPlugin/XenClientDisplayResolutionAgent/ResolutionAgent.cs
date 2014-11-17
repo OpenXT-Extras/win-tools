@@ -95,8 +95,19 @@ namespace XenClientDisplayResolutionAgent
             SystemEvents.PaletteChanged += new EventHandler(SystemEvents_PaletteChanged);
             SystemEvents.DisplaySettingsChanged += new EventHandler(SystemEvents_DisplaySettingsChanged);
             SystemEvents.PowerModeChanged += new PowerModeChangedEventHandler(SystemEvents_PowerModeChanged);
-            
-            updateScreen();
+
+            try
+            {
+                updateScreen();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("XenStore is unavailable, reboot needed",
+                                "OpenXT Resolution Agent",
+                                System.Windows.Forms.MessageBoxButtons.OK,
+                                System.Windows.Forms.MessageBoxIcon.Information);
+                Environment.Exit(0);
+            }
 
             InitializeComponent();
             this.WindowState = FormWindowState.Minimized;
