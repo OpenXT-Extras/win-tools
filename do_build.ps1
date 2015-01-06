@@ -35,10 +35,11 @@ Import-Module $ScriptDir\..\BuildSupport\checked-copy.psm1
 #Get parameters
 $args | Foreach-Object {$argtable = @{}} {if ($_ -Match "(.*)=(.*)") {$argtable[$matches[1]] = $matches[2];}}
 $BuildType = $argtable["BuildType"]
-$CertName = $argtable["CertName"]
+$certname = $argtable["CertName"]
 $codeVersion = $argtable["VerString"]
 $CompanyName = $argtable["CompanyName"]
 $MSBuild = $argtable["MSBuild"]
+$signtool = $argtable["SignTool"]
 
 $DoXenClientSign=''
 if ($BuildType -eq "Release")
@@ -47,8 +48,8 @@ if ($BuildType -eq "Release")
 }
 
 # set a couple of environment variables to propagate to msbuild
-$env:CERTNAME = $CertName
-$env:SIGNTOOLPATH = $signtool+'\signtool.exe'
+$env:CERTNAME = $certname
+$env:SIGNTOOLPATH = ($signtool+"\signtool.exe")
 
 #Set some important variables
 $mywd = Split-Path -Parent $MyInvocation.MyCommand.Path
@@ -91,7 +92,7 @@ Set-Content .\common_properties.h
 Pop-Location
 
 #Build XenClientGuestService
-Invoke-CommandChecked "Build XenClientGuestService" $MSBuild XenClientGuestService\XenClientGuestServiceVS2012.sln /p:Configuration=$BuildType /p:DoXenClientSign=$DoXenClientSign /p:CertName='\"'$Certname'\"' /p:TargetFrameworkVersion=v4.0 /m
+Invoke-CommandChecked "Build XenClientGuestService" $MSBuild XenClientGuestService\XenClientGuestServiceVS2012.sln /p:Configuration=$BuildType /p:TargetFrameworkVersion=v4.0 /m
 
 #Have to build XenClientGuestService MSMs before the other bits because it does the signing of DLLs as part of the MSBuild
 #As building XenGuestPlugin rebuilds a few of these DLLs without signing it would break our install
@@ -122,9 +123,9 @@ Invoke-CommandChecked "XenGuestPlugin build" $MSBuild .\XenGuestPlugin\XenGuestP
 #Sign XenGuestPlugin bits
 if ($BuildType -eq "Release")
 {
-	Invoke-CommandChecked "sign XenGuestAgent EXEs" signtool.exe sign /a /s my /n $CertName /t http://timestamp.verisign.com/scripts/timestamp.dll XenGuestAgent\$BuildType\*.exe
-	Invoke-CommandChecked "sign XenGuestPlugin DLLs" signtool.exe sign /a /s my /n $CertName /t http://timestamp.verisign.com/scripts/timestamp.dll XenGuestPlugin\XenGuestPlugin\bin\$BuildType\*.dll
-	Invoke-CommandChecked "sign XenGuestPlugin EXEs" signtool.exe sign /a /s my /n $CertName /t http://timestamp.verisign.com/scripts/timestamp.dll XenGuestPlugin\XenGuestPlugin\bin\$BuildType\*.exe
+	Invoke-CommandChecked "sign XenGuestAgent EXEs" ($signtool+"\signtool.exe") sign /a /s my /n ('"'+$certname+'"') /t http://timestamp.verisign.com/scripts/timestamp.dll XenGuestAgent\$BuildType\*.exe
+	Invoke-CommandChecked "sign XenGuestPlugin DLLs" ($signtool+"\signtool.exe") sign /a /s my /n ('"'+$certname+'"') /t http://timestamp.verisign.com/scripts/timestamp.dll XenGuestPlugin\XenGuestPlugin\bin\$BuildType\*.dll
+	Invoke-CommandChecked "sign XenGuestPlugin EXEs" ($signtool+"\signtool.exe") sign /a /s my /n ('"'+$certname+'"') /t http://timestamp.verisign.com/scripts/timestamp.dll XenGuestPlugin\XenGuestPlugin\bin\$BuildType\*.exe
 }
 
 #Build remaining MSMs
