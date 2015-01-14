@@ -42,6 +42,11 @@ namespace XenClientDisplayResolutionAgent
             base.Dispose(disposing);
         }
 
+        protected override void SetVisibleCore(bool value)
+        {
+            base.SetVisibleCore(false);
+        }
+
         #region Windows Form Designer generated code
 
         /// <summary>
