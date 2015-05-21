@@ -2,7 +2,7 @@ STRINGTABLE
 BEGIN
     IDS_SERVICENAME         "XenGuestAgent"
     IDS_XENWIRELESS         "<?xml version=""1.0""?>\n<WLANProfile xmlns=""http://www.microsoft.com/networking/WLAN/profile/v1"">\n\t<name>XenClient Wireless</name>\n\t<SSIDConfig>\n\t\t<SSID>\n\t\t\t<name>XenClient Wireless</name>\n\t\t</SSID>\n\t</SSIDConfig>\n\t<connectionType>ESS</connectionType>\n\t<connectionMode>auto</connectionMode>\n\t<MSM>\n\t\t<security>\n\t\t\t<authEncryption>\n\t\t\t\t<authentication>open</authentication>\n\t\t\t\t<encryption>none</encryption>\n\t\t\t\t<useOneX>false</useOneX>\n\t\t\t</authEncryption>\n\t\t\t</security>\n\t</MSM>\n</WLANProfile>\n"
-    IDS_DISPLAYNAME         "Citrix Xen Guest Services"
+    IDS_DISPLAYNAME         "OpenXT Xen Guest Services"
     IDS_SERVICEDESC         "为 Xen 用户域提供在来宾 VM 中运行的服务。"
     IDS_ATLBASE_NO_HANDLER            "未安装处理程序"
     IDS_ATLBASE_SERVICE_STOPPED       "服务已停止"

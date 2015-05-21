@@ -217,7 +217,7 @@
     <None Include="Resources\075_ToolbarTabClosed_h32bit_118x11.png" />
     <None Include="Resources\000_Preferences_h32bit_49x45.png" />
     <None Include="Resources\bevel_selector.png" />
-    <Content Include="Resources\xenclient.png" />
+    <Content Include="Resources\openxt-logo.png" />
     <Content Include="xenclient.ico" />
   </ItemGroup>
   <ItemGroup>
