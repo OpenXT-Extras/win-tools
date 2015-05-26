@@ -8,7 +8,7 @@
 
     <Directory Id="TARGETDIR" Name="SourceDir">
       <Directory Id="ProgramMenuFolder" Name="Programs" >
-        <Directory Id="ProgramMenuCitrixDir" Name="Citrix">
+        <Directory Id="ProgramMenuCitrixDir" Name="OpenXT">
           <Component Id ="ProgramMenuCitrixDir" Guid="{02F55B3E-2461-4e07-8A62-DE0B34452095}">
             <RemoveFolder Id="ProgramMenuCitrixDir" On="uninstall"/>
             <RegistryValue Root='HKCU' Key='SOFTWARE\Citrix\XenGuestPlugin'
@@ -18,7 +18,7 @@
       </Directory>
 
       <Directory Id="ProgramFilesFolder">
-        <Directory Id="Citrix" Name="Citrix">
+        <Directory Id="Citrix" Name="OpenXT">
           <Directory Id="INSTALLDIR" Name="XenGuestPlugin">
 
             <Component Id='XenGuestPlugin' Guid='{20010F4E-9D1C-4eba-9C9D-DA99FD4BDA3A}'>
@@ -63,9 +63,9 @@
             </Directory>
 
             <Component Id="xcpShortcut" Guid="{76964C79-9352-4816-A15F-52638EC362EC}">
-              <RegistryValue Root='HKLM' Key='SOFTWARE\Citrix\XenClient'
+              <RegistryValue Root='HKLM' Key='SOFTWARE\OpenXT\OpenXT'
                            Type='string' Value='' KeyPath='yes' />
-              <Shortcut Id="startMenuToolbar" Directory="ProgramMenuCitrixDir" Name="XenClient plug-in"
+              <Shortcut Id="startMenuToolbar" Directory="ProgramMenuCitrixDir" Name="OpenXT plug-in"
                         WorkingDirectory="INSTALLDIR" Target="[INSTALLDIR]\XenGuestPlugin.exe"
                         Icon="XCP.exe" IconIndex="0"/>
             </Component>

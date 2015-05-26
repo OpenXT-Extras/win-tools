@@ -49,8 +49,8 @@
                   Type="ownProcess"
                   ErrorControl="normal"
                   Vital="yes"
-                  Description="XenClient Guest Service"
-                  DisplayName="Citrix XenClient Guest Service">
+                  Description="OpenXT Guest Service"
+                  DisplayName="OpenXT Guest Service">
 
                   <util:ServiceConfig FirstFailureActionType="restart"
                                       SecondFailureActionType="restart"

@@ -91,12 +91,12 @@ BEGIN
         BLOCK "040904e4"
         BEGIN
             VALUE "CompanyName", COMMON_COMPANY
-            VALUE "FileDescription", "Citrix Xen guest services provider"
+            VALUE "FileDescription", "OpenXT Xen guest services provider"
             VALUE "FileVersion", COMMON_VERSION_STR
             VALUE "InternalName", "XenGuestAgent.exe"
             VALUE "LegalCopyright", COMMON_COPYRIGHT
             VALUE "OriginalFilename", "XenGuestAgent.exe"
-            VALUE "ProductName", "Citrix Tools for Virtual Machines"
+            VALUE "ProductName", "OpenXT Tools for Virtual Machines"
             VALUE "ProductVersion", COMMON_VERSION_STR
         END
     END
@@ -138,7 +138,7 @@ END
 
 STRINGTABLE 
 BEGIN
-    IDS_DISPLAYNAME         "Citrix Xen Guest Services"
+    IDS_DISPLAYNAME         "OpenXT Xen Guest Services"
     IDS_SERVICEDESC         "Provides in-guest services for Xen user domains."
 END
 STRINGTABLE 
