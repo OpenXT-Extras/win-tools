@@ -36,6 +36,8 @@ Import-Module $ScriptDir\..\BuildSupport\checked-copy.psm1
 $args | Foreach-Object {$argtable = @{}} {if ($_ -Match "(.*)=(.*)") {$argtable[$matches[1]] = $matches[2];}}
 $BuildType = $argtable["BuildType"]
 $certname = $argtable["CertName"]
+$SHA1Thumb = $argtable["SHA1Thumb"].replace(" ","")
+$SHA256Thumb = $argtable["SHA256Thumb"].replace(" ","")
 $codeVersion = $argtable["VerString"]
 $CompanyName = $argtable["CompanyName"]
 $MSBuild = $argtable["MSBuild"]
@@ -123,9 +125,15 @@ Invoke-CommandChecked "XenGuestPlugin build" $MSBuild .\XenGuestPlugin\XenGuestP
 #Sign XenGuestPlugin bits
 if ($BuildType -eq "Release")
 {
-	Invoke-CommandChecked "sign XenGuestAgent EXEs" ($signtool+"\signtool.exe") sign /a /s my /n ('"'+$certname+'"') /t http://timestamp.verisign.com/scripts/timestamp.dll XenGuestAgent\$BuildType\*.exe
-	Invoke-CommandChecked "sign XenGuestPlugin DLLs" ($signtool+"\signtool.exe") sign /a /s my /n ('"'+$certname+'"') /t http://timestamp.verisign.com/scripts/timestamp.dll XenGuestPlugin\XenGuestPlugin\bin\$BuildType\*.dll
-	Invoke-CommandChecked "sign XenGuestPlugin EXEs" ($signtool+"\signtool.exe") sign /a /s my /n ('"'+$certname+'"') /t http://timestamp.verisign.com/scripts/timestamp.dll XenGuestPlugin\XenGuestPlugin\bin\$BuildType\*.exe
+	Invoke-CommandChecked "sign XenGuestAgent EXEs with SHA1" ($signtool+"\signtool.exe") sign /sha1 $SHA1Thumb /fd sha1 /a /s my /n ('"'+$certname+'"') /t http://timestamp.verisign.com/scripts/timestamp.dll XenGuestAgent\$BuildType\*.exe
+	Invoke-CommandChecked "sign XenGuestPlugin DLLs with SHA1" ($signtool+"\signtool.exe") sign /sha1 $SHA1Thumb /fd sha1 /a /s my /n ('"'+$certname+'"') /t http://timestamp.verisign.com/scripts/timestamp.dll XenGuestPlugin\XenGuestPlugin\bin\$BuildType\*.dll
+	Invoke-CommandChecked "sign XenGuestPlugin EXEs with SHA1" ($signtool+"\signtool.exe") sign /sha1 $SHA1Thumb /fd sha1 /a /s my /n ('"'+$certname+'"') /t http://timestamp.verisign.com/scripts/timestamp.dll XenGuestPlugin\XenGuestPlugin\bin\$BuildType\*.exe
+    if ($SHA256Thumb)
+    {
+        Invoke-CommandChecked "sign XenGuestAgent EXEs with SHA256" ($signtool+"\signtool.exe") sign /sha1 $SHA256Thumb /fd sha256 /as /a /s my /n ('"'+$certname+'"') /tr http://timestamp.geotrust.com/tsa XenGuestAgent\$BuildType\*.exe
+        Invoke-CommandChecked "sign XenGuestPlugin DLLs with SHA256" ($signtool+"\signtool.exe") sign /sha1 $SHA256Thumb /fd sha256 /as /a /s my /n ('"'+$certname+'"') /tr http://timestamp.geotrust.com/tsa XenGuestPlugin\XenGuestPlugin\bin\$BuildType\*.dll
+        Invoke-CommandChecked "sign XenGuestPlugin EXEswith SHA256" ($signtool+"\signtool.exe") sign /sha1 $SHA256Thumb /fd sha256 /as /a /s my /n ('"'+$certname+'"') /tr http://timestamp.geotrust.com/tsa XenGuestPlugin\XenGuestPlugin\bin\$BuildType\*.exe
+    }
 }
 
 #Build remaining MSMs
