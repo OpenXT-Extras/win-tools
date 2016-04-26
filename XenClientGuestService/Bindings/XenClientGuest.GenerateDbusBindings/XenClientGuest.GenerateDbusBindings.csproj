@@ -31,8 +31,8 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Content Include="..\..\..\..\idl\interfaces\ctxusb_daemon.xml">
-      <Link>dbusidl\ctxusb_daemon.xml</Link>
+    <Content Include="..\..\..\..\idl\interfaces\vusb_daemon.xml">
+      <Link>dbusidl\vusb_daemon.xml</Link>
     </Content>
     <Content Include="..\..\..\..\idl\interfaces\input_daemon.xml">
       <Link>dbusidl\input_daemon.xml</Link>
