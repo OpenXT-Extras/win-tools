@@ -2,10 +2,11 @@
 win-tools.git
 -------------------------------------------------------------------------------
 
-This repository is not obsolete and no longer used in OpenXT. It contained a
+This repository is now obsolete and no longer used in OpenXT. It contained a
 number of tools related to features that are no longer required or desired in
 OpenXT. The removal of these tools also removed the OpenXT dependency on .NET
-which greatly simplifies things.
+which greatly simplifies things. This repository will be moved out of the main
+OpenXT organization.
 
 The following is a brief lising in case anyone ever wants to resurrect any of
 this work.
@@ -26,7 +27,7 @@ unused functionality.
 
 XenClientDisplayResolutionAgent:
 
-This was a small .NET Windows application that is used to write the current
+This is a small .NET Windows application that is used to write the current
 guest resolution into XenStore. It is superseded by a new agent called
 the OxtUserAgent that performs the same duties without pulling in .NET. This
 new service uses OxtService mentioned above.
@@ -35,7 +36,7 @@ XenClientGuestService/dbus:
 
 This service and the dbus Windows bindings supported a feature for dbus routing
 to Windows guest that was never a feature of XenClient XT but rather its peer
-project XenClient. It is not used in OpenXT either and is not gone.
+project XenClient. It is not used in OpenXT either and is now gone.
 
 xcdiag:
 
